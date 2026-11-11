@@ -20,5 +20,6 @@
 | DEC-016 | Fichas oficiales del emisor como fuente de identidad; BCRP como candidato FX histórico | Propuesta técnica, pendiente | BF-004/BF-005 |
 | DEC-017 | Wireframes de seis módulos, flujo y estados sin datos/móvil | **Aprobada 2026-11-11** | BF-003: el PO aprobó el prototipo navegable, sin cambios solicitados; no incluye implementación |
 | DEC-018 | Compartir código público no autoriza redistribuir cotizaciones ni abrir datos personales | Restricción de seguridad vigente | Términos proveedores y alcance usuario único |
+| DEC-019 | Contrato financiero BF-004 y políticas P01–P05 (ISIN/listing, fuentes/versiones, rentabilidad, FX USD/PEN, revisión humana de propuestas MCP) | **Aprobada 2026-11-11** | Aprobación explícita del Product Owner; selección de serie BCRP y QA de implementación quedan en BF-014/BF-031 |
 
 **Regla:** no convertir una propuesta técnica en decisión aprobada sin confirmación explícita del PO. Toda modificación añade fecha, motivo e impacto en historias/arquitectura.
