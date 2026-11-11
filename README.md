@@ -36,6 +36,7 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 - [Contrato lógico financiero](docs/DATA_CONTRACT.md) — BF-004
 - [Evaluación de proveedores](docs/PROVIDER_EVALUATION.md) — BF-005
 - [Revisión y gates de S0](docs/SPRINT0_REVIEW.md)
+- [Protocolo de pruebas de proveedores BF-005](docs/BF005_VALIDATION_PLAN.md) — validar con cuentas gratuitas antes de comprar
 
 Los documentos de Sprint 0 son **propuestas para revisión del Product Owner**; la prueba autenticada de cobertura de las APIs y sus derechos de uso permanece pendiente. El repositorio es público, pero los datos personales y de proveedores restringidos son privados.
 
