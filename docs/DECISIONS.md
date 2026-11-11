@@ -18,7 +18,7 @@
 | DEC-014 | Nombre del repositorio: `brujula-financiera-ia` | Aprobada, implementada | Repositorio creado por el propietario |
 | DEC-015 | EODHD como primer candidato de prueba y Twelve Data como alternativa | Propuesta no aprobada | BF-005, falta token y prueba real para 5 ETF |
 | DEC-016 | Fichas oficiales del emisor como fuente de identidad; BCRP como candidato FX histórico | Propuesta técnica, pendiente | BF-004/BF-005 |
-| DEC-017 | Wireframes de seis módulos y estados sin datos/móvil | Pendiente de revisión PO | BF-003 |
+| DEC-017 | Wireframes de seis módulos, flujo y estados sin datos/móvil | **Aprobada 2026-11-11** | BF-003: el PO aprobó el prototipo navegable, sin cambios solicitados; no incluye implementación |
 | DEC-018 | Compartir código público no autoriza redistribuir cotizaciones ni abrir datos personales | Restricción de seguridad vigente | Términos proveedores y alcance usuario único |
 
 **Regla:** no convertir una propuesta técnica en decisión aprobada sin confirmación explícita del PO. Toda modificación añade fecha, motivo e impacto en historias/arquitectura.
