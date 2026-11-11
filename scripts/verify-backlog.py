@@ -13,7 +13,7 @@ assert all((r / x['issue_file']).is_file() for x in S)
 backlog = (r / 'docs/PRODUCT_BACKLOG.md').read_text(encoding='utf-8')
 for x in S:
     assert x['id'] in backlog
-    deps = set(re.findall(r'BF-\\d{3}', x['depends']))
+    deps = set(re.findall(r'BF-\d{3}', x['depends']))
     assert deps <= ids and x['id'] not in deps
     content = (r / x['issue_file']).read_text(encoding='utf-8')
     assert x['goal'] in content and all(ac in content for ac in x['acceptance'])
