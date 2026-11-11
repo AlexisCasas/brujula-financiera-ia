@@ -1,6 +1,6 @@
 # BF-003 · Wireframes y experiencia de usuario — versión de revisión
 
-**Estado:** borrador para revisión visual del PO · **Alcance:** escritorio y móvil, sin programación.  
+**Estado:** diseño funcional/visual **aprobado por Product Owner el 2026-11-11** · **Alcance:** escritorio y móvil, sin programación.  
 **Historia:** [BF-003](https://github.com/AlexisCasas/brujula-financiera-ia/issues/3)
 
 ## 1. Arquitectura de información
@@ -159,4 +159,4 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 5. Revisar una propuesta IA sin aplicarla automáticamente y guardar tesis personal.
 6. Repetir con pantalla estrecha; comprobar cinco estados de cada módulo en la matriz.
 
-**Pendiente BF-003 AC3:** revisión visual y aceptación explícita del PO. Estos wireframes son esquemas de baja fidelidad, no pantallas implementadas ni QA responsive ejecutado.
+**BF-003 AC3 — APROBADO:** el Product Owner confirmó en conversación el 2026-11-11 la aprobación del prototipo navegable de seis pantallas, sin cambios solicitados. La aprobación cubre el flujo y la propuesta visual, **no** el funcionamiento de la futura aplicación en Next.js. Quedan pendientes la revisión/merge del PR y la posterior implementación y QA responsive real.
