@@ -20,7 +20,7 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 
 ## 2. Wireframe A — Panel
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Brújula IA      Panel | Explorar | Comparar | Simular | Investigar | Decidir│
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -35,13 +35,13 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ └─────────────────────────────────────────┘ └───────────────────────────┘ │
 │ Actividad reciente [fecha | asunto | estado | abrir]                        │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Acciones:** buscar, continuar comparación, revisar fuentes y abrir una decisión. **Prohibido:** mostrar portafolio real o rentabilidad personal si no existe registro explícito.
 
 ## 3. Wireframe B — Explorar ETF / ficha
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Explorar ETF       [Buscar por ticker, nombre o ISIN .................. 🔎 ] │
 │ Filtros: [Región] [Domicilio] [Distribución/Acumulación] [Estado datos]    │
@@ -54,13 +54,13 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ [Ver histórico] [Agregar a comparación] [Investigar con IA] [Favorito]     │
 │ Fuentes: [Emisor]  Datos faltantes: [campo + motivo]                        │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Regla crítica:** si ticker coincidente en varias bolsas, exigir selección explícita de bolsa y moneda antes de graficar o simular.
 
 ## 4. Wireframe C — Comparador
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Comparador                 [USD / PEN] [Fecha inicial] → [Fecha final]     │
 │ [VWRA · LSE USD ×] [FWRA · LSE USD ×] [+ Añadir ETF (máx. 5)]             │
@@ -76,13 +76,13 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ [Ver evidencias] [Guardar comparación] [Llevar al simulador]               │
 │ Advertencia: «No comparable» si falta serie homogénea.                    │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Regla:** no pintar líder/ganador con datos incompletos. Si fechas disponibles difieren, usar intersección explícita o marcar «no comparable».
 
 ## 5. Wireframe D — Simulador
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Simulador [Histórico ▼ | Escenarios hipotéticos]                           │
 │ ETF/listing [VWRA LSE USD ▼]   Moneda salida [USD ▼] [PEN]                 │
@@ -97,13 +97,13 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ Fuentes: precios / dividendos / FX; método usado; datos ausentes; límites  │
 │ [Guardar escenario] [Comparar 2 alternativas]                              │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Regla:** selector de modo visible; histórico no equivale a pronóstico; escenarios muestran supuestos editables y resultados de pérdidas, no probabilidades inventadas.
 
 ## 6. Wireframe E — Investigaciones / propuestas IA
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Investigaciones           [Todas] [GPT] [Claude] [Pendientes de aprobar]    │
 │ [Nueva investigación] → instrucciones para abrir chat externo con contexto │
@@ -116,13 +116,13 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ Cola de revisión: campo/cambio propuesto → evidencia → [Aceptar] [Rechazar]│
 │ Ninguna propuesta se activa sin autorización explícita.                    │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Regla:** no simular que existe un chat en Vercel. «Nueva investigación» proporciona contexto exportable y conexión externa futura; si MCP no está configurado, mostrar **pendiente de integración**.
 
 ## 7. Wireframe F — Mis decisiones
 
-\`\`\`text
+```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │ Mis decisiones        [+ Registrar tesis] [Abiertas ▼] [Revisar por fecha]│
 │                                                                             │
@@ -133,7 +133,7 @@ Flujo principal: **Panel → Explorar → Ficha ETF → Comparador → Simulador
 │ Supuestos que invalidarían la tesis: [campo]                               │
 │ [Editar borrador] [Marcar revisada] [Ver comparación origen]                │
 └─────────────────────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 **Regla:** la decisión es propiedad del usuario, no de una respuesta de IA; mantener historial y fecha de revisión.
 
