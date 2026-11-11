@@ -1,0 +1,610 @@
+[
+  {
+    "id": "BF-001",
+    "epic": "E0",
+    "sprint": "S0",
+    "priority": "P0",
+    "points": 3,
+    "title": "Definir visión, audiencia y límites del MVP",
+    "goal": "Como Product Owner quiero establecer el problema, resultados y exclusiones para evitar cambios de alcance sin decisión.",
+    "acceptance": [
+      "Existe visión con usuario único, ETF, USD/PEN, ChatGPT y Claude por MCP, Next.js, Supabase, GitHub y Vercel.",
+      "Quedan fuera de MVP órdenes de compraventa, asesoramiento personalizado automático, conexión a bróker y chat LLM embebido.",
+      "Se fijan criterios de éxito verificables y se documentan los supuestos y riesgos pendientes."
+    ],
+    "depends": "—",
+    "issue_file": "backlog/issues/BF-001.md"
+  },
+  {
+    "id": "BF-002",
+    "epic": "E0",
+    "sprint": "S0",
+    "priority": "P0",
+    "points": 3,
+    "title": "Instalar gobierno Scrum y trazabilidad",
+    "goal": "Como Product Owner quiero historias identificables y cambios rastreables para revisar entregas sin perder decisiones.",
+    "acceptance": [
+      "Backlog priorizado incluye ID, historia, aceptación, dependencias, puntos, épica y propuesta de sprint.",
+      "Existen DoR, DoD, acuerdos de revisión, criterio de cambio de alcance y plantilla de issue/PR.",
+      "Cada PR futuro referencia BF-ID, evidencia QA, riesgos y aprobación antes de merge."
+    ],
+    "depends": "BF-001",
+    "issue_file": "backlog/issues/BF-002.md"
+  },
+  {
+    "id": "BF-003",
+    "epic": "E0",
+    "sprint": "S0",
+    "priority": "P0",
+    "points": 5,
+    "title": "Diseñar navegación y wireframes del MVP",
+    "goal": "Como inversor principiante quiero pantallas claras para analizar sin conocer jerga técnica.",
+    "acceptance": [
+      "Hay wireframes verificables para Panel, Explorar ETF, Comparador, Simulador, Investigaciones y Decisiones.",
+      "Cada pantalla describe estados vacío, cargando, error, datos incompletos y móvil.",
+      "Product Owner valida flujo de búsqueda a decisión antes de programar interfaz."
+    ],
+    "depends": "BF-001",
+    "issue_file": "backlog/issues/BF-003.md"
+  },
+  {
+    "id": "BF-004",
+    "epic": "E0",
+    "sprint": "S0",
+    "priority": "P0",
+    "points": 5,
+    "title": "Definir contrato de datos y fuentes financieras",
+    "goal": "Como inversor quiero entender la procedencia y vigencia de cada cifra para confiar en los resultados.",
+    "acceptance": [
+      "El diccionario distingue fondo por ISIN, cotización por símbolo+bolsa+moneda, y proveedor/licencia.",
+      "Cada dato susceptible de cambio tiene fuente, URL/documento, fecha efectiva, fecha de captura y estado de validación.",
+      "Se documentan la política de datos ausentes, ajuste por dividendos, rentabilidades y tipos de cambio."
+    ],
+    "depends": "BF-001",
+    "issue_file": "backlog/issues/BF-004.md"
+  },
+  {
+    "id": "BF-005",
+    "epic": "E0",
+    "sprint": "S0",
+    "priority": "P0",
+    "points": 3,
+    "title": "Evaluar cobertura y restricciones de proveedores",
+    "goal": "Como Product Owner quiero comprobar fuentes reales para no construir sobre datos inaccesibles.",
+    "acceptance": [
+      "Se prueba cobertura y permisos de VWRA, FWRA, VOO, VUG y SPYG por ISIN/listing con al menos dos opciones de fuente.",
+      "Se registra disponibilidad de series históricas, retrasos, límites, coste y licencia de visualización/almacenamiento.",
+      "Se documenta una decisión de proveedor y un plan alternativo sin afirmar cobertura no comprobada."
+    ],
+    "depends": "BF-004",
+    "issue_file": "backlog/issues/BF-005.md"
+  },
+  {
+    "id": "BF-006",
+    "epic": "E1",
+    "sprint": "S1",
+    "priority": "P0",
+    "points": 5,
+    "title": "Inicializar aplicación, tipado y pipeline QA",
+    "goal": "Como desarrollador quiero un esqueleto desplegable para integrar módulos sin regresiones.",
+    "acceptance": [
+      "Next.js/React/TypeScript se ejecuta localmente con dependencias fijadas y lockfile.",
+      "Hay scripts documentados de lint, TypeScript, tests y build; CI falla si alguno falla.",
+      "No se publican claves ni se requiere OpenAI/Claude API en runtime."
+    ],
+    "depends": "BF-002",
+    "issue_file": "backlog/issues/BF-006.md"
+  },
+  {
+    "id": "BF-007",
+    "epic": "E1",
+    "sprint": "S1",
+    "priority": "P0",
+    "points": 5,
+    "title": "Autenticación privada de usuario único",
+    "goal": "Como propietario quiero acceder únicamente yo para proteger mis decisiones.",
+    "acceptance": [
+      "Acceso no autenticado redirige a login y no expone datos privados.",
+      "Sesión válida permite entrar; cierre de sesión invalida la sesión local y bloquea rutas privadas.",
+      "Creación pública de cuentas se mantiene deshabilitada en el MVP."
+    ],
+    "depends": "BF-006",
+    "issue_file": "backlog/issues/BF-007.md"
+  },
+  {
+    "id": "BF-008",
+    "epic": "E1",
+    "sprint": "S1",
+    "priority": "P0",
+    "points": 8,
+    "title": "Políticas RLS, secretos y aislamientos",
+    "goal": "Como propietario quiero que clientes y herramientas solo operen sobre datos autorizados.",
+    "acceptance": [
+      "Todas las tablas expuestas aplican RLS y los permisos se restringen por user_id cuando proceda.",
+      "Pruebas anónimas y de identidad ajena no pueden leer/escribir registros privados.",
+      "No hay service_role en navegador ni logs; migraciones y escritura MCP usan credenciales separadas y acceso mínimo."
+    ],
+    "depends": "BF-007",
+    "issue_file": "backlog/issues/BF-008.md"
+  },
+  {
+    "id": "BF-009",
+    "epic": "E1",
+    "sprint": "S1",
+    "priority": "P1",
+    "points": 3,
+    "title": "Shell responsive y navegación accesible",
+    "goal": "Como inversor quiero navegar desde computadora o móvil con continuidad.",
+    "acceptance": [
+      "Menú incluye las seis pantallas acordadas, con estado activo y rutas funcionales.",
+      "Navegación por teclado, etiquetas y contrastes básicos probados.",
+      "En móvil no aparecen tablas truncadas sin alternativa de desplazamiento o vista adaptada."
+    ],
+    "depends": "BF-003, BF-006",
+    "issue_file": "backlog/issues/BF-009.md"
+  },
+  {
+    "id": "BF-010",
+    "epic": "E2",
+    "sprint": "S1",
+    "priority": "P0",
+    "points": 5,
+    "title": "Modelo de instrumentos y cotizaciones",
+    "goal": "Como analista quiero identificar correctamente un ETF para no confundir mercados.",
+    "acceptance": [
+      "Instrumento tiene identificador único ISIN; cada listing tiene bolsa, ticker, divisa y estado.",
+      "Ingresar el mismo ISIN y listing por segunda vez es idempotente, no duplica registros.",
+      "La búsqueda por ticker ambiguo exige seleccionar listing; no se mezcla valor liquidativo con cotización."
+    ],
+    "depends": "BF-004, BF-008",
+    "issue_file": "backlog/issues/BF-010.md"
+  },
+  {
+    "id": "BF-011",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 3,
+    "title": "Carga piloto de cinco ETF con evidencia",
+    "goal": "Como inversor quiero comenzar con alternativas conocidas para validar el sistema.",
+    "acceptance": [
+      "El catálogo contiene VWRA, FWRA, VOO, VUG y SPYG con identificadores verificados.",
+      "Cada ficha identifica fuente oficial y fecha; un campo sin evidencia aparece sin verificar.",
+      "Se puede revisar y corregir un registro sin perder el valor previo ni la fuente."
+    ],
+    "depends": "BF-005, BF-010",
+    "issue_file": "backlog/issues/BF-011.md"
+  },
+  {
+    "id": "BF-012",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 5,
+    "title": "Persistir propiedades y snapshots de ETF",
+    "goal": "Como inversor quiero comparar costos y exposición según una fecha específica.",
+    "acceptance": [
+      "Se guardan nombre, gestora, índice, política de dividendos, domicilio, TER, tamaño y fecha, cuando exista fuente.",
+      "Una nueva medición crea snapshot versionado y no sobrescribe registros históricos.",
+      "Un dato faltante se representa como no disponible y no como cero."
+    ],
+    "depends": "BF-011",
+    "issue_file": "backlog/issues/BF-012.md"
+  },
+  {
+    "id": "BF-013",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 8,
+    "title": "Importar precios históricos con control de calidad",
+    "goal": "Como inversor quiero series consistentes para hacer backtests verificables.",
+    "acceptance": [
+      "La importación identifica proveedor, listing, fecha, moneda y tipo de precio: cierre, ajustado o total return.",
+      "Fechas/valores duplicados se manejan idempotentemente y se detectan huecos, negativos y cambios bruscos.",
+      "No se construye rentabilidad total usando precio sin ajustar como si incluyera dividendos; se muestra limitación."
+    ],
+    "depends": "BF-005, BF-010",
+    "issue_file": "backlog/issues/BF-013.md"
+  },
+  {
+    "id": "BF-014",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 5,
+    "title": "Almacenar FX USD/PEN por fecha",
+    "goal": "Como inversor peruano quiero comparar mi posición en USD y soles.",
+    "acceptance": [
+      "Cada tipo de cambio tiene fecha, fuente, par, sentido y valor positivo.",
+      "La conversión histórica usa el FX correspondiente a cada fecha y una regla documentada para no hábiles.",
+      "Cuando falta FX requerido, el resultado se declara incompleto en lugar de inventar un valor."
+    ],
+    "depends": "BF-004",
+    "issue_file": "backlog/issues/BF-014.md"
+  },
+  {
+    "id": "BF-015",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P1",
+    "points": 3,
+    "title": "Noticias y documentos con citación",
+    "goal": "Como inversor quiero registrar noticias pertinentes sin confundirlas con datos oficiales.",
+    "acceptance": [
+      "Se guarda título, medio/emisor, URL, fecha de publicación, fecha de captura y ETFs vinculados.",
+      "Noticias duplicadas por URL canónica se detectan y pueden vincularse a varios ETF.",
+      "El sistema separa noticia, opinión de IA y hecho comprobado."
+    ],
+    "depends": "BF-011",
+    "issue_file": "backlog/issues/BF-015.md"
+  },
+  {
+    "id": "BF-016",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 3,
+    "title": "Vigencia y fallas de información",
+    "goal": "Como inversor quiero reconocer cuándo una cifra no está actualizada.",
+    "acceptance": [
+      "Ficha y matriz muestran fecha efectiva, fecha de captura y fuente en datos de mercado.",
+      "Se aplican reglas configurables de dato obsoleto por categoría; un error de proveedor no se reemplaza por cero.",
+      "Los indicadores incompletos o desactualizados no producen conclusiones categóricas."
+    ],
+    "depends": "BF-012, BF-013, BF-014",
+    "issue_file": "backlog/issues/BF-016.md"
+  },
+  {
+    "id": "BF-017",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P0",
+    "points": 5,
+    "title": "Diseñar contrato MCP con mínimo privilegio",
+    "goal": "Como propietario quiero que ChatGPT y Claude lean/escriban solamente funciones autorizadas.",
+    "acceptance": [
+      "Existe listado versionado de herramientas de consulta y propuestas de escritura con esquemas validados.",
+      "El contrato no ofrece SQL arbitrario ni acceso administrativo a producción.",
+      "Se definen identidad, autorización, límites, errores, logs y mecanismo de aprobación humana."
+    ],
+    "depends": "BF-008, BF-010",
+    "issue_file": "backlog/issues/BF-017.md"
+  },
+  {
+    "id": "BF-018",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P0",
+    "points": 8,
+    "title": "Consulta MCP desde ChatGPT",
+    "goal": "Como usuario quiero preguntar por mis ETF desde ChatGPT y recibir datos vigentes del sistema.",
+    "acceptance": [
+      "Cliente ChatGPT consulta instrumentos, fuentes y comparaciones usando identidad permitida.",
+      "La respuesta contiene información consistente con la base y distingue dato ausente o desactualizado.",
+      "Se demuestra rechazo de acceso no autorizado y no se exponen secretos."
+    ],
+    "depends": "BF-017",
+    "issue_file": "backlog/issues/BF-018.md"
+  },
+  {
+    "id": "BF-019",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P0",
+    "points": 8,
+    "title": "Proponer y aprobar cambios investigados por MCP",
+    "goal": "Como usuario quiero enviar hallazgos de IA a Supabase sin aceptar datos erróneos automáticamente.",
+    "acceptance": [
+      "Un asistente envía propuesta con campos tipados, fuentes, fecha y su identidad; no modifica snapshots aprobados directamente.",
+      "El propietario puede aprobar, rechazar o corregir; solo una aprobación crea snapshot definitivo y auditoría.",
+      "Repetir una misma propuesta no genera duplicados; entradas malformadas o sin fuente se rechazan."
+    ],
+    "depends": "BF-017, BF-012",
+    "issue_file": "backlog/issues/BF-019.md"
+  },
+  {
+    "id": "BF-020",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P0",
+    "points": 5,
+    "title": "Compatibilidad MCP con Claude",
+    "goal": "Como usuario quiero investigar desde Claude sobre el mismo catálogo de datos.",
+    "acceptance": [
+      "Claude puede consultar el mismo ETF y ver el mismo snapshot que ChatGPT.",
+      "Claude puede preparar propuesta controlada y se distingue la identidad del origen.",
+      "Las pruebas de autorización, lectura y errores se ejecutan en ambos clientes."
+    ],
+    "depends": "BF-018, BF-019",
+    "issue_file": "backlog/issues/BF-020.md"
+  },
+  {
+    "id": "BF-021",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P1",
+    "points": 3,
+    "title": "Trazabilidad de análisis y cambios",
+    "goal": "Como inversor quiero conocer quién investigó y qué fuente justificó cada modificación.",
+    "acceptance": [
+      "Auditoría registra usuario, asistente, acción, objeto, resultado y marca temporal sin almacenar secretos.",
+      "Desde ficha se puede ver fuente y versión de cambios aprobados.",
+      "El historial es solo lectura para el usuario ordinario y no puede borrarse desde frontend."
+    ],
+    "depends": "BF-019",
+    "issue_file": "backlog/issues/BF-021.md"
+  },
+  {
+    "id": "BF-022",
+    "epic": "E3",
+    "sprint": "S3",
+    "priority": "P1",
+    "points": 3,
+    "title": "Puente contextual entre web y conversaciones externas",
+    "goal": "Como inversor quiero pasar del panel al chat sin volver a escribir todo.",
+    "acceptance": [
+      "La app genera una solicitud contextual copiable con ticker, listing, hipótesis y objetivo; sin claves privadas.",
+      "La interfaz explica que el chat se realiza fuera de la web y que el MCP sincroniza datos, no conversaciones.",
+      "Al regresar, puedo consultar la investigación aprobada y la fecha de última actualización."
+    ],
+    "depends": "BF-018, BF-020",
+    "issue_file": "backlog/issues/BF-022.md"
+  },
+  {
+    "id": "BF-023",
+    "epic": "E4",
+    "sprint": "S4",
+    "priority": "P0",
+    "points": 5,
+    "title": "Seleccionar hasta cinco ETF y persistir comparaciones",
+    "goal": "Como inversor quiero armar comparaciones para evaluar alternativas.",
+    "acceptance": [
+      "Se pueden agregar entre dos y cinco ETF válidos y retirar cualquiera sin duplicados.",
+      "La comparación guarda los listings y la fecha de datos usados.",
+      "Se muestran estados específicos ante ticker ambiguo, fondos faltantes y datos incompletos."
+    ],
+    "depends": "BF-010, BF-012",
+    "issue_file": "backlog/issues/BF-023.md"
+  },
+  {
+    "id": "BF-024",
+    "epic": "E4",
+    "sprint": "S4",
+    "priority": "P0",
+    "points": 8,
+    "title": "Matriz objetiva con periodos homogéneos",
+    "goal": "Como inversor quiero evaluar a todos sobre una misma base de comparación.",
+    "acceptance": [
+      "Se muestran TER, índice, política, región, moneda y rentabilidad en ventanas comparables donde haya cobertura.",
+      "Si series no comparten un periodo utilizable, se marca indicador no comparable; no se interpolan rendimientos faltantes.",
+      "El usuario puede inspeccionar periodo, fórmula, fuente y fecha de cada métrica."
+    ],
+    "depends": "BF-023, BF-013, BF-014",
+    "issue_file": "backlog/issues/BF-024.md"
+  },
+  {
+    "id": "BF-025",
+    "epic": "E4",
+    "sprint": "S4",
+    "priority": "P1",
+    "points": 5,
+    "title": "Exposición regional y solapamiento con cautelas",
+    "goal": "Como inversor quiero comprender cuánto se parecen los fondos.",
+    "acceptance": [
+      "Cuando existan holdings o exposición verificada se calculan porcentajes con fecha y cobertura.",
+      "La interfaz no infiere solapamiento preciso sin holdings comparables ni confunde compartir índice con identidad exacta.",
+      "Se señala concentración geográfica y sectorial y la fecha de cada composición."
+    ],
+    "depends": "BF-012, BF-023",
+    "issue_file": "backlog/issues/BF-025.md"
+  },
+  {
+    "id": "BF-026",
+    "epic": "E4",
+    "sprint": "S4",
+    "priority": "P1",
+    "points": 5,
+    "title": "Costos de tenencia y ejecución",
+    "goal": "Como inversor quiero separar comisión del ETF de costos de comprarlo.",
+    "acceptance": [
+      "Se muestra TER anual y, cuando exista evidencia, spread, comisión de bróker, cambio de divisa y costes fiscales como supuestos.",
+      "Los costos no verificados quedan editables como hipótesis explícitas; no se afirma comisión cero de ningún bróker.",
+      "La comparación distingue costo recurrente de costo de transacción."
+    ],
+    "depends": "BF-023",
+    "issue_file": "backlog/issues/BF-026.md"
+  },
+  {
+    "id": "BF-027",
+    "epic": "E4",
+    "sprint": "S4",
+    "priority": "P1",
+    "points": 3,
+    "title": "Resumen comparativo explicable, no recomendación automática",
+    "goal": "Como inversor novato quiero identificar compensaciones entre opciones.",
+    "acceptance": [
+      "Un resumen determinista destaca menor costo, mayor diversificación y carencias de datos sin prometer ganancias.",
+      "No asigna puntuación final ni recomendación de compra sin metodología aceptada por el PO.",
+      "Puede guardarse como hipótesis y se enlaza a la matriz y sus fuentes."
+    ],
+    "depends": "BF-024, BF-025, BF-026",
+    "issue_file": "backlog/issues/BF-027.md"
+  },
+  {
+    "id": "BF-028",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P0",
+    "points": 8,
+    "title": "Backtest de inversión única",
+    "goal": "Como inversor quiero conocer el resultado histórico de invertir un monto en una fecha concreta.",
+    "acceptance": [
+      "Elijo ETF, inversión inicial, fecha inicio y fin, y la aplicación calcula unidades, valor y retorno con series aptas.",
+      "El cálculo usa moneda, ajustes de precio y FX documentados; sin datos suficientes muestra error explicativo.",
+      "Pruebas numéricas reproducibles contrastan resultados con fixtures calculados a mano."
+    ],
+    "depends": "BF-013, BF-014",
+    "issue_file": "backlog/issues/BF-028.md"
+  },
+  {
+    "id": "BF-029",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P0",
+    "points": 5,
+    "title": "Aportes periódicos y capital aportado",
+    "goal": "Como inversor quiero simular compras mensuales para distinguir aporte de rentabilidad.",
+    "acceptance": [
+      "Configuro importe, periodicidad mensual, fecha inicial y reglas para fechas no hábiles.",
+      "El resultado separa capital aportado, valor final, rentabilidad y cronología de compras.",
+      "Un mes sin cotización suficiente activa regla explícita o advertencia; nunca inventa precio."
+    ],
+    "depends": "BF-028",
+    "issue_file": "backlog/issues/BF-029.md"
+  },
+  {
+    "id": "BF-030",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P0",
+    "points": 5,
+    "title": "Escenarios futuros por supuestos explícitos",
+    "goal": "Como inversor quiero estimar resultados posibles sin confundir pronóstico con garantía.",
+    "acceptance": [
+      "El usuario fija retorno nominal anual pesimista, base y optimista, plazo y aportes.",
+      "Las proyecciones se calculan con fórmulas deterministas y diferencian aportes de resultado.",
+      "Cada pantalla explica que escenarios hipotéticos no son predicciones ni promesas de rendimiento."
+    ],
+    "depends": "BF-029",
+    "issue_file": "backlog/issues/BF-030.md"
+  },
+  {
+    "id": "BF-031",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P0",
+    "points": 5,
+    "title": "Conversión USD/PEN y costes en simulaciones",
+    "goal": "Como inversor peruano quiero ver efecto de tipo de cambio y gastos.",
+    "acceptance": [
+      "En backtest se distinguen rentabilidad del activo y efecto FX; se usa el histórico por fecha.",
+      "Costos y comisiones son editables, con valor inicial cero solo si se declara como hipótesis y no como costo real.",
+      "Cambiar moneda de vista no reinterpreta aportes históricos ni cambia la cantidad de títulos adquiridos."
+    ],
+    "depends": "BF-014, BF-028",
+    "issue_file": "backlog/issues/BF-031.md"
+  },
+  {
+    "id": "BF-032",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P1",
+    "points": 5,
+    "title": "Riesgo histórico y comparación de caídas",
+    "goal": "Como inversor quiero observar pérdidas posibles además de ganancias.",
+    "acceptance": [
+      "Se calcula máxima caída (drawdown) para una serie comparable y se exhiben periodos y fórmula.",
+      "Se grafica evolución y se distinguen histórico, escenarios futuros y volatilidad si la fuente la permite.",
+      "Una serie insuficiente no muestra indicador de riesgo ficticio."
+    ],
+    "depends": "BF-028",
+    "issue_file": "backlog/issues/BF-032.md"
+  },
+  {
+    "id": "BF-033",
+    "epic": "E5",
+    "sprint": "S5",
+    "priority": "P1",
+    "points": 3,
+    "title": "Guardar escenarios reproducibles",
+    "goal": "Como inversor quiero revisar después los supuestos de una simulación.",
+    "acceptance": [
+      "Se almacena identificador, parámetros, versión de fórmulas, series o corte y resultado.",
+      "Una simulación abierta posteriormente permite reproducir el resultado congelado.",
+      "Se avisa si los precios actuales han cambiado desde la ejecución sin alterar la instantánea."
+    ],
+    "depends": "BF-028, BF-030",
+    "issue_file": "backlog/issues/BF-033.md"
+  },
+  {
+    "id": "BF-034",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P0",
+    "points": 5,
+    "title": "Registro estructurado de decisiones",
+    "goal": "Como inversor quiero documentar por qué observé, descarté o elegí un ETF.",
+    "acceptance": [
+      "Registro almacena estado (observando/descartado/considerando), tesis, riesgos, fecha y ETF referenciado.",
+      "Cambiar opinión conserva historial y no constituye orden de compraventa.",
+      "Puedo consultar por ETF y fecha los motivos y análisis relacionados."
+    ],
+    "depends": "BF-011, BF-027",
+    "issue_file": "backlog/issues/BF-034.md"
+  },
+  {
+    "id": "BF-035",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P1",
+    "points": 3,
+    "title": "Favoritos y biblioteca de investigaciones",
+    "goal": "Como inversor quiero recuperar mis exploraciones con facilidad.",
+    "acceptance": [
+      "Puedo marcar/desmarcar ETF favorito sin duplicados.",
+      "Las investigaciones aprobadas se filtran por instrumento, fuente, fecha y autor GPT/Claude/humano.",
+      "Eliminar un favorito no borra información financiera de catálogo ni auditoría."
+    ],
+    "depends": "BF-011, BF-021",
+    "issue_file": "backlog/issues/BF-035.md"
+  },
+  {
+    "id": "BF-036",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P1",
+    "points": 5,
+    "title": "Exportar comparaciones y decisiones con referencias",
+    "goal": "Como inversor quiero guardar un resumen portable para revisar luego.",
+    "acceptance": [
+      "Se genera exportación CSV o Markdown UTF-8 con métricas, fecha de corte y fuentes.",
+      "Los datos faltantes aparecen explícitos y no cambian al exportar.",
+      "El export no incluye claves privadas, identificadores sensibles ni mensajes internos."
+    ],
+    "depends": "BF-024, BF-034",
+    "issue_file": "backlog/issues/BF-036.md"
+  },
+  {
+    "id": "BF-037",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P0",
+    "points": 8,
+    "title": "QA integral financiero y de seguridad",
+    "goal": "Como Product Owner quiero evidencia de que los cálculos y permisos cumplen los requisitos.",
+    "acceptance": [
+      "Existe matriz de pruebas con positivos, negativos, permisos, FX, periodos, duplicados, datos viejos y redondeos.",
+      "Pruebas automatizadas de cálculos y RLS pasan y la evidencia manual de los 5 ETF queda adjunta.",
+      "No quedan defectos críticos o altos sin resolver ni aceptados explícitamente por el PO."
+    ],
+    "depends": "BF-008, BF-020, BF-024, BF-028, BF-031",
+    "issue_file": "backlog/issues/BF-037.md"
+  },
+  {
+    "id": "BF-038",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P0",
+    "points": 5,
+    "title": "Preparación de release, smoke test y recuperación",
+    "goal": "Como propietario quiero desplegar sin perder datos ni investigaciones.",
+    "acceptance": [
+      "Existe procedimiento reproducible de Vercel con variables por entorno y control de autorizaciones.",
+      "Antes de producción se verifican migraciones, respaldos, rutas privadas, consulta y simulación de punta a punta.",
+      "Rollback, versionado y smoke test post-release están documentados y cuentan con aprobación de PO."
+    ],
+    "depends": "BF-037",
+    "issue_file": "backlog/issues/BF-038.md"
+  }
+]
