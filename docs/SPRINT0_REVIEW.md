@@ -1,7 +1,7 @@
 # Preparación S0 · Informe de revisión y criterios de salida
 
 **Fecha:** 2026-11-11 · **Estado global:** documentación presentada para revisión, **no Done**.  
-**Rama:** \`docs/BF-001-005-sprint0-discovery\` · **Base:** \`main\`  
+**Rama:** `docs/BF-001-005-sprint0-discovery` · **Base:** `main`  
 **Alcance:** [BF-001](../backlog/issues/BF-001.md) a [BF-005](../backlog/issues/BF-005.md). Sin migraciones, APIs de IA ni despliegue.
 
 ## Entregables vinculados
@@ -34,7 +34,7 @@
 | Cobertura documental AC | Contenido trazado en cada documento | Preparado |
 | Criterios negativos financieros | Nulos, divisas, ISIN/listing, div/ajustes, licencias | Preparado como casos para desarrollo futuro |
 | Seguridad documental | Sin credenciales ni datasets propietarios en docs | Revisión necesaria antes de merge |
-| GitHub Actions | \`scripts/verify-backlog.py\` | Estado remoto aún por verificar |
+| GitHub Actions | `scripts/verify-backlog.py` | Estado remoto aún por verificar |
 | Lint, typecheck, unit tests, build Next.js | No hay código de aplicación | **N/A** |
 | RLS/MCP funcional | No hay proyecto Supabase/MCP configurado | **N/A** |
 | QA responsive real | Wireframes estáticos, no UI implementada | **N/A** |
