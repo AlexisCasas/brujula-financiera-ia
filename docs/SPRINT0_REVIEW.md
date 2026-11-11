@@ -20,7 +20,7 @@
 |---|---|---|---|---|
 | BF-001 | DOCUMENTADO | DOCUMENTADO | DOCUMENTADO | **En revisión PO** |
 | BF-002 | DOCUMENTADO | DOCUMENTADO | ESTÁNDAR ESTABLECIDO, por verificar en PR futuro | **En revisión PO** |
-| BF-003 | DOCUMENTADO | DOCUMENTADO | **PENDIENTE validación visual PO** | **En revisión PO** |
+| BF-003 | DOCUMENTADO | DOCUMENTADO | **APROBADO por PO 2026-11-11** | **Diseño validado; pendiente merge y cierre formal** |
 | BF-004 | DOCUMENTADO | DOCUMENTADO | DOCUMENTADO | **En revisión PO** |
 | BF-005 | **PARCIAL: identidad sí, APIs no** | **PARCIAL: límites generales, derechos exactos no** | PROPUESTA, plan B documentado | **Bloqueado para cierre** |
 
@@ -55,7 +55,7 @@ Sin estas evidencias se puede construir estructura de app con fixtures y diagram
 
 - [ ] Aprobar Product Goal y exclusiones BF-001.
 - [ ] Aprobar convenios GitHub/Scrum y si desean releases solamente tras aprobación explícita.
-- [ ] Validar recorrido de seis pantallas, móvil y los cinco estados BF-003.
+- [x] Validar recorrido de seis pantallas, móvil y los cinco estados BF-003. Aprobación visual expresa del PO (2026-11-11); no equivale a QA funcional de Next.js.
 - [ ] Aprobar el contrato lógico BF-004 y decidir cómo tratar nulos/FX en el simulador.
 - [ ] Autorizar prueba gratuita/plan EODHD y Twelve Data y un presupuesto máximo; BF-005 queda abierto hasta prueba.
 - [ ] Fijar timebox constante y Sprint Goal al preparar Sprint 1.
@@ -69,9 +69,9 @@ Sin estas evidencias se puede construir estructura de app con fixtures y diagram
 
 ## Definition of Done aplicada a esta etapa
 
-DOD-01/02/03/07/11: documentación y trazabilidad preparadas, **aceptación aún pendiente**.  
+DOD-01/02/03/07/11: documentación y trazabilidad preparadas; BF-003 con aprobación visual del PO, las demás revisiones todavía pendientes.  
 DOD-04/05/08/09/10/13: **N/A para ejecución funcional**, porque no existe aplicación, migración ni MCP.  
 DOD-12: revisión del PR y autorización **pendientes**.  
 DOD-14: bloqueante BF-005 registrado y sin ocultarlo.
 
-**Resultado esperado de la revisión:** aceptar documentos BF-001/002/004, ajustar/aprobar BF-003 y decidir siguiente experimento de BF-005; no cerrar ninguna historia sin decisión explícita.
+**Resultado esperado de la revisión:** aceptar documentos BF-001/002/004, considerar BF-003 aprobada en diseño y decidir siguiente experimento de BF-005; no cerrar ninguna historia sin decisión explícita.
