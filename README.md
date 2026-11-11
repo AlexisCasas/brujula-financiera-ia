@@ -28,6 +28,18 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 | [`backlog/PRODUCT_BACKLOG.csv`](backlog/PRODUCT_BACKLOG.csv) | Exportación tabular de historias |
 | [`backlog/issues/`](backlog/issues/) | 38 cuerpos de Issue listos para publicar |
 
+## Sprint 0 — refinamiento BF-001 a BF-005 (rama de revisión)
+
+- [Visión y criterios de éxito](docs/PRODUCT_VISION.md) — BF-001
+- [Acuerdos Scrum y trazabilidad](docs/WORKING_AGREEMENT.md) — BF-002
+- [Wireframes de seis módulos](docs/UX_WIREFRAMES.md) — BF-003
+- [Contrato lógico financiero](docs/DATA_CONTRACT.md) — BF-004
+- [Evaluación de proveedores](docs/PROVIDER_EVALUATION.md) — BF-005
+- [Revisión y gates de S0](docs/SPRINT0_REVIEW.md)
+- [Protocolo de pruebas de proveedores BF-005](docs/BF005_VALIDATION_PLAN.md) — validar con cuentas gratuitas antes de comprar
+
+Los documentos de Sprint 0 son **propuestas para revisión del Product Owner**; la prueba autenticada de cobertura de las APIs y sus derechos de uso permanece pendiente. El repositorio es público, pero los datos personales y de proveedores restringidos son privados.
+
 ## QA documental inicial
 
 `python scripts/verify-backlog.py` valida consistencia de 38 historias, criterios, dependencias y documentos; `.github/workflows/docs-validation.yml` lo ejecutará en GitHub Actions al publicarse. Esto no certifica el QA de una aplicación todavía inexistente.
