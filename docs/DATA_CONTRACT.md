@@ -63,7 +63,7 @@ Cada valor mutable debe tener: `field_key`, `value` (decimal o texto tipado), `u
 - Guardar serie, fuente oficial, compra/venta/interbancario/medio, fecha de cotización, vigencia, fecha de consulta. No mezclar compra y venta sin avisar.
 - **Candidato:** BCRPData series diarias `PD04637PD` (interbancario compra), `PD04638PD` (venta); `PD04639PD/PD04640PD` SBS. La elección de una única tasa para el simulador se aprobará en BF-014. URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/daily/tipo-de-cambio-nominal
 - Si el mercado o FX no cotiza una fecha solicitada: **no** crear observación sintética. Para simulación se propone usar último cierre anterior **con máximo de días acotado y visible** (pendiente de aprobar) y registrar `requested_date` y `effective_date`. Si no hay tasa apropiada, devolver error explicativo.
-- Pen al mercado: tasa de cambio observada ≠ tipo de cambio real del bróker (spread/comisiones), ambos se mostrarán por separado cuando proceda.
+- Para la valoración a mercado: tasa de cambio observada ≠ tipo de cambio real del bróker (spread/comisiones), ambos se mostrarán por separado cuando proceda.
 
 ## 6. Precisión, idempotencia y procedencia
 
@@ -98,3 +98,25 @@ AC1: claves y entidades distinguen ISIN/share class y listing (ticker+MIC+moneda
 AC2: `observations` + fuente/fecha/estado de validación, sin sobrescritura silenciosa.  
 AC3: política explícita para nulos, dividendos, ajustes, FX, calendario y métodos.  
 **Estado:** contrato documental preparado; aprobación del PO y QA de implementación pendientes.
+
+## 9. Propuesta de políticas para aprobación BF-004 (2026-11-11)
+
+**Estas son opciones de diseño recomendadas, NO decisiones aún aprobadas por el PO.** No se crean tablas ni se importan datos al aceptarlas.
+
+| Código | Política propuesta | Criterio de prueba futura |
+|---|---|---|
+| P01 — Identidad | Fondo/share class por ISIN; listing por MIC + ticker + divisa, con ID interno. El mismo ISIN puede tener varios listings. | VWRA y otro listing de la misma share class no generan dos fondos; tickers ambiguos requieren selección. |
+| P02 — Calidad | Cada campo financiero lleva fuente, fecha efectiva, captura, plan/licencia y estado. Las revisiones no borran valores anteriores. | Un campo sin evidencia aparece «No disponible»; una corrección conserva historial. |
+| P03 — Rentabilidad | Diferenciar cierre, cierre ajustado, NAV y retorno total. Comparar solo ventanas y moneda homogéneas; dividendos y splits según metodología documentada. | Si falta serie comparativa o dividendos requeridos, no declarar retorno total ni ganador. |
+| P04 — USD/PEN | Para valoración informativa, proponer **tasa de referencia histórica BCRP**, especificando serie y dirección en BF-014; no equipararla con tipo efectivo del bróker. En fecha sin tasa, evaluar último dato anterior con **límite propuesto de 5 días calendario**, mostrando fecha real y aviso; pasado ese límite, no calcular. | El resultado muestra tasa, día real y fuente; no inventa FX. Para retorno en PEN se convierte **cada flujo** a la fecha que corresponde, no solo el saldo final. |
+| P05 — Investigación MCP | GPT/Claude solo proponen datos con fuente y fecha. La aprobación del usuario precede cualquier publicación en registros verificados; propuestas repetidas son idempotentes. | Dos propuestas iguales no crean dos hechos; un texto web no puede convertirse en instrucción de base de datos. |
+
+### Reglas de comparación y simulación que se desprenden
+
+1. Precio histórico y riesgo calculados usando el **mismo listing**, intervalo y ajuste. Si un ETF tiene menor antigüedad, el sistema informa período común disponible en lugar de completar años inexistentes.
+2. Los rendimientos históricos incluyen impacto de moneda solo si la política FX se aplica de forma consistente al **capital inicial, aportes y valor final**; los costos de conversión y de bróker se muestran aparte si están disponibles.
+3. Costos corrientes TER/OCF pertenecen a la ficha del ETF y no se restan automáticamente de una serie neta de comisiones del propio fondo; distinguir costos internos del fondo de comisiones de bróker para evitar doble conteo.
+4. Uso de fecha anterior para valoración no significa crear un precio o FX nuevo: se conserva la observación original, la fecha solicitada y la regla aplicada.
+5. Cualquier retorno o escenario muestra método, moneda, fecha, fuente y limitación de cobertura.
+
+**Decisiones pendientes:** aprobación de P01–P05 por PO; identificación y prueba de serie FX BCRP (BF-014); proveedor y permiso histórico (BF-005); modelo físico y RLS (BF-008/BF-010).
