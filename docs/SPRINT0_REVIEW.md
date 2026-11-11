@@ -42,14 +42,16 @@
 
 ## Gate BF-005 que falta para el siguiente desarrollo con datos reales
 
-- [ ] Obtener un plan o trial de **EODHD** que permita buscar los cinco tickers y solicitar histórico por ISIN/listing.
-- [ ] Obtener acceso o trial de **Twelve Data** y repetir idéntica prueba de cinco instrumentos.
+- [ ] Probar el nivel **EODHD Free Starter** con cuenta propia y registrar las limitaciones; la documentación oficial confirma que **no hay prueba gratis del plan de pago**, de modo que la cobertura de un plan superior debe evaluarse antes de cualquier contratación.
+- [ ] Probar nivel **Twelve Data Basic** y separar resultados del catálogo de los históricos autorizados por el plan.
 - [ ] Registrar HTTP status, identidad, moneda, primer/último dato, intervalo, dividendos/ajustes y límite de cuota por cada prueba **sin subir datos sensibles**.
 - [ ] Validar derecho de **uso personal, almacenamiento/caché y visualización privada** con el proveedor seleccionado.
 - [ ] Registrar respuesta oficial si se piensa permitir que otras personas utilicen la app (uso multiusuario/redistribución).
 - [ ] PO aprueba proveedor, costo máximo y contingencia.
 
 Sin estas evidencias se puede construir estructura de app con fixtures y diagramas, pero **no** ingestión histórica real para backtesting de los cinco ETF.
+
+Protocolo operativo: [BF005_VALIDATION_PLAN.md](BF005_VALIDATION_PLAN.md). No cargar secretos en GitHub ni realizar compras sin autorización.
 
 ## Checklist del Product Owner para esta review
 
