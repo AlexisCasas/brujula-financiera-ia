@@ -1,6 +1,6 @@
 # BF-005 — Protocolo de pruebas de proveedores (sin pagos)
 
-**Fecha:** 2026-11-11 · **Estado:** preparación; ejecución autenticada pendiente.  
+**Fecha:** 2026-11-11 · **Estado:** cuentas gratuitas creadas por el PO (2026-11-11); ejecución autenticada pendiente. El script local ya está preparado y pasó revisión de sintaxis en CI.  
 **Historia:** [BF-005](https://github.com/AlexisCasas/brujula-financiera-ia/issues/5)  
 **Proveedor primario de prueba:** EODHD Free Starter; **alternativo:** Twelve Data Basic. **No se ha contratado ningún plan.**
 
@@ -63,3 +63,7 @@ Observaciones y soporte:
 - [ ] Si ningún proveedor sirve, el MVP continúa con **fixtures o cargas manuales con derechos permitidos**, nunca datos inventados presentados como reales.
 
 **Resultado actual:** documentación pública contrastada; pruebas de cobertura real y licencia específica **pendientes**.
+
+## 6. Ejecución local disponible
+
+El PO confirmó la creación de cuentas gratuitas EODHD y Twelve Data. Se publicó [`scripts/bf005-test-providers.ps1`](../scripts/bf005-test-providers.ps1), acompañado por la guía [`BF005_RUNBOOK_WINDOWS.md`](BF005_RUNBOOK_WINDOWS.md). Este script realiza consultas **solo en el Windows del PO** (no desde GitHub Actions), solicita las claves con entrada oculta y genera una salida de **metadatos sin precios completos** en Documentos. GitHub Actions solo analiza sintaxis y documentación; **no se afirma cobertura real sin ejecutar el script**. 
