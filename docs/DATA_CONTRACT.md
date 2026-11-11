@@ -1,6 +1,6 @@
 # BF-004 · Contrato lógico de datos financieros y procedencia v1
 
-**Estado:** especificación para aprobación, NO migración SQL · **Fecha:** 2026-11-11.  
+**Estado:** políticas P01–P05 aprobadas por Product Owner el 2026-11-11; NO es migración SQL · **Fecha:** 2026-11-11.  
 **Historia:** [BF-004](https://github.com/AlexisCasas/brujula-financiera-ia/issues/4)
 
 ## 1. Reglas de identidad
@@ -97,11 +97,11 @@ Cada valor mutable debe tener: `field_key`, `value` (decimal o texto tipado), `u
 AC1: claves y entidades distinguen ISIN/share class y listing (ticker+MIC+moneda).  
 AC2: `observations` + fuente/fecha/estado de validación, sin sobrescritura silenciosa.  
 AC3: política explícita para nulos, dividendos, ajustes, FX, calendario y métodos.  
-**Estado:** contrato documental preparado; aprobación del PO y QA de implementación pendientes.
+**Estado:** contrato documental y políticas P01–P05 aprobados por el PO el 2026-11-11. La futura implementación, pruebas financieras, fuente FX y migraciones permanecen pendientes.
 
-## 9. Propuesta de políticas para aprobación BF-004 (2026-11-11)
+## 9. Políticas P01–P05 aprobadas por el Product Owner (2026-11-11)
 
-**Estas son opciones de diseño recomendadas, NO decisiones aún aprobadas por el PO.** No se crean tablas ni se importan datos al aceptarlas.
+**Decisión:** el Product Owner aprobó expresamente P01–P05 el 2026-11-11 como línea base de diseño. Esta aprobación no autoriza desplegar, crear tablas, contratar proveedores ni dar por comprobada la serie de tipo de cambio. La tasa BCRP exacta se seleccionará y probará en BF-014; el límite de hasta 5 días calendario queda aprobado como política de fallback, sujeto a su aplicación y pruebas de calendario.
 
 | Código | Política propuesta | Criterio de prueba futura |
 |---|---|---|
@@ -119,4 +119,4 @@ AC3: política explícita para nulos, dividendos, ajustes, FX, calendario y mét
 4. Uso de fecha anterior para valoración no significa crear un precio o FX nuevo: se conserva la observación original, la fecha solicitada y la regla aplicada.
 5. Cualquier retorno o escenario muestra método, moneda, fecha, fuente y limitación de cobertura.
 
-**Decisiones pendientes:** aprobación de P01–P05 por PO; identificación y prueba de serie FX BCRP (BF-014); proveedor y permiso histórico (BF-005); modelo físico y RLS (BF-008/BF-010).
+**Decisiones pendientes:** identificación y prueba de serie FX BCRP (BF-014); proveedor y permiso histórico (BF-005); modelo físico y RLS (BF-008/BF-010).
