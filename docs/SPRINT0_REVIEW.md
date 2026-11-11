@@ -21,7 +21,7 @@
 | BF-001 | DOCUMENTADO | DOCUMENTADO | DOCUMENTADO | **En revisión PO** |
 | BF-002 | DOCUMENTADO | DOCUMENTADO | ESTÁNDAR ESTABLECIDO, por verificar en PR futuro | **En revisión PO** |
 | BF-003 | DOCUMENTADO | DOCUMENTADO | **APROBADO por PO 2026-11-11** | **Diseño validado; pendiente merge y cierre formal** |
-| BF-004 | DOCUMENTADO | DOCUMENTADO | DOCUMENTADO | **En revisión PO** |
+| BF-004 | DOCUMENTADO + APROBADO PO | DOCUMENTADO + APROBADO PO | **P01–P05 aprobadas 2026-11-11** | **Contrato aprobado; pendiente merge/cierre formal** |
 | BF-005 | **PARCIAL: identidad sí, APIs no** | **PARCIAL: límites generales, derechos exactos no** | PROPUESTA, plan B documentado | **Bloqueado para cierre** |
 
 **Significado:** «DOCUMENTADO» no equivale a Done ni a QA funcional; requiere aprobación del PO. «PARCIAL» es criterio incompleto; no se maquilla como PASS.
@@ -56,7 +56,7 @@ Sin estas evidencias se puede construir estructura de app con fixtures y diagram
 - [ ] Aprobar Product Goal y exclusiones BF-001.
 - [ ] Aprobar convenios GitHub/Scrum y si desean releases solamente tras aprobación explícita.
 - [x] Validar recorrido de seis pantallas, móvil y los cinco estados BF-003. Aprobación visual expresa del PO (2026-11-11); no equivale a QA funcional de Next.js.
-- [ ] Aprobar el contrato lógico BF-004 y decidir cómo tratar nulos/FX en el simulador.
+- [x] Aprobar contrato lógico BF-004 y políticas de nulos/FX. El PO aprobó P01–P05 el 2026-11-11; serie concreta BCRP y QA de cálculo siguen en BF-014.
 - [ ] Autorizar prueba gratuita/plan EODHD y Twelve Data y un presupuesto máximo; BF-005 queda abierto hasta prueba.
 - [ ] Fijar timebox constante y Sprint Goal al preparar Sprint 1.
 
@@ -69,9 +69,9 @@ Sin estas evidencias se puede construir estructura de app con fixtures y diagram
 
 ## Definition of Done aplicada a esta etapa
 
-DOD-01/02/03/07/11: documentación y trazabilidad preparadas; BF-003 con aprobación visual del PO, las demás revisiones todavía pendientes.  
+DOD-01/02/03/07/11: documentación y trazabilidad preparadas; BF-003 con aprobación visual del PO y BF-004 con aprobación contractual del PO; BF-001/002 pendientes y BF-005 bloqueada para cierre.  
 DOD-04/05/08/09/10/13: **N/A para ejecución funcional**, porque no existe aplicación, migración ni MCP.  
 DOD-12: revisión del PR y autorización **pendientes**.  
 DOD-14: bloqueante BF-005 registrado y sin ocultarlo.
 
-**Resultado esperado de la revisión:** aceptar documentos BF-001/002/004, considerar BF-003 aprobada en diseño y decidir siguiente experimento de BF-005; no cerrar ninguna historia sin decisión explícita.
+**Resultado esperado de la revisión:** aceptar documentos BF-001/002, considerar BF-003 aprobada en diseño y BF-004 aprobada en contrato y decidir siguiente experimento de BF-005; no cerrar ninguna historia sin decisión explícita.
