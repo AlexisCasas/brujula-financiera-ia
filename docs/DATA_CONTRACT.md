@@ -15,61 +15,61 @@
 
 | Entidad | Clave / relaciones | Campos obligatorios | Estado |
 |---|---|---|---|
-| \`funds\` | \`id\`, \`isin\` único | issuer, name, domicile, fund_currency, dividend_policy, status | Borrador |
-| \`listings\` | \`id\`, \`fund_id\` FK | mic, exchange_name, ticker, trading_currency, active_from, active_to | Borrador |
-| \`data_providers\` | \`id\` | name, plan, license_type, terms_url, usage_restrictions, verified_at | Borrador |
-| \`source_documents\` | \`id\`, provider FK | canonical_url / document_ref, issuer, title, published_at, retrieved_at, rights | Borrador |
-| \`observations\` | \`id\`, fund_id/listing_id, source FK | field_key, value, unit, effective_at, captured_at, provenance_status, method, revision | Borrador |
-| \`price_bars\` | \`id\`, listing FK, provider FK | date, currency, price_kind, open/high/low/close as applicable, adjusted_flag, captured_at | Borrador |
-| \`corporate_actions\` | \`id\`, fund/listing FK, provider FK | action_type, ex_date/effective_date, amount/currency/ratio, source | Borrador |
-| \`fx_rates\` | \`id\`, provider FK | base_currency, quote_currency, quote_per_base, rate_type, date, captured_at | Borrador |
-| \`research_notes\` | \`id\`, fund_ids, user FK | question, author_client, summary, source_refs, observed_at, validation_status | Borrador |
-| \`research_proposals\` | \`id\`, source/target FK | proposed_payload, reason, author, status, created_at, reviewed_by, reviewed_at, idempotency_key | Borrador |
-| \`comparisons\` / \`simulation_runs\` | IDs + user FK | input_snapshot, methodology_version, source_snapshot_refs, output_summary, created_at | Borrador |
-| \`investment_decisions\` | \`id\`, user FK | thesis, reasons, risks, status, reviewed_at, research_refs, created_at | Borrador |
-| \`audit_events\` | \`id\` | actor, entity_ref, action, before_hash, after_hash, occurred_at | Borrador |
+| `funds` | `id`, `isin` único | issuer, name, domicile, fund_currency, dividend_policy, status | Borrador |
+| `listings` | `id`, `fund_id` FK | mic, exchange_name, ticker, trading_currency, active_from, active_to | Borrador |
+| `data_providers` | `id` | name, plan, license_type, terms_url, usage_restrictions, verified_at | Borrador |
+| `source_documents` | `id`, provider FK | canonical_url / document_ref, issuer, title, published_at, retrieved_at, rights | Borrador |
+| `observations` | `id`, fund_id/listing_id, source FK | field_key, value, unit, effective_at, captured_at, provenance_status, method, revision | Borrador |
+| `price_bars` | `id`, listing FK, provider FK | date, currency, price_kind, open/high/low/close as applicable, adjusted_flag, captured_at | Borrador |
+| `corporate_actions` | `id`, fund/listing FK, provider FK | action_type, ex_date/effective_date, amount/currency/ratio, source | Borrador |
+| `fx_rates` | `id`, provider FK | base_currency, quote_currency, quote_per_base, rate_type, date, captured_at | Borrador |
+| `research_notes` | `id`, fund_ids, user FK | question, author_client, summary, source_refs, observed_at, validation_status | Borrador |
+| `research_proposals` | `id`, source/target FK | proposed_payload, reason, author, status, created_at, reviewed_by, reviewed_at, idempotency_key | Borrador |
+| `comparisons` / `simulation_runs` | IDs + user FK | input_snapshot, methodology_version, source_snapshot_refs, output_summary, created_at | Borrador |
+| `investment_decisions` | `id`, user FK | thesis, reasons, risks, status, reviewed_at, research_refs, created_at | Borrador |
+| `audit_events` | `id` | actor, entity_ref, action, before_hash, after_hash, occurred_at | Borrador |
 
-**Permisos:** usuario autenticado único; todas las tablas expuestas con RLS por propietario cuando proceda. Tablas privadas/servicio y propuestas MCP con autorización de servidor y auditoría; no exponer \`service_role\` al cliente. La elección de schema/RPC/Edge Function pertenece a BF-008/BF-017, no queda comprometida aquí.
+**Permisos:** usuario autenticado único; todas las tablas expuestas con RLS por propietario cuando proceda. Tablas privadas/servicio y propuestas MCP con autorización de servidor y auditoría; no exponer `service_role` al cliente. La elección de schema/RPC/Edge Function pertenece a BF-008/BF-017, no queda comprometida aquí.
 
 ## 3. Esquema de observación y estados
 
-Cada valor mutable debe tener: \`field_key\`, \`value\` (decimal o texto tipado), \`unit\`, \`subject_ref\` (ISIN/listing), \`source_ref\`, \`canonical_url\`, \`effective_at\` (fecha del dato), \`captured_at\` (UTC), \`validation_status\`, \`method_version\` (si calculado), \`provider_license_ref\`. Timestamp técnico UTC; fecha de mercado en zona de la bolsa, con calendario del mercado.
+Cada valor mutable debe tener: `field_key`, `value` (decimal o texto tipado), `unit`, `subject_ref` (ISIN/listing), `source_ref`, `canonical_url`, `effective_at` (fecha del dato), `captured_at` (UTC), `validation_status`, `method_version` (si calculado), `provider_license_ref`. Timestamp técnico UTC; fecha de mercado en zona de la bolsa, con calendario del mercado.
 
-\`validation_status\`: \`proposed\` → \`under_review\` → \`approved\` / \`rejected\` / \`superseded\`. Ningún resultado LLM se marca \`approved\` solo por tener una URL. La aprobación es humana y auditable.
+`validation_status`: `proposed` → `under_review` → `approved` / `rejected` / `superseded`. Ningún resultado LLM se marca `approved` solo por tener una URL. La aprobación es humana y auditable.
 
-\`freshness_status\`: \`current\` / \`stale\` / \`unknown\` / \`missing\`. Frescura depende de cada campo (p. ej., cotización diario versus OCF mensual/anual); ventana concreta por campo se define con el proveedor, no inventar SLA.
+`freshness_status`: `current` / `stale` / `unknown` / `missing`. Frescura depende de cada campo (p. ej., cotización diario versus OCF mensual/anual); ventana concreta por campo se define con el proveedor, no inventar SLA.
 
-**Nulos:** dato faltante = \`null\`, no cero; mostrar **No disponible**. Si no hay denominador, FX de la fecha o serie homogénea, cálculo queda \`unavailable\` con \`reason_code\`. No sustituir valores por cifras de IA ni interpolar mercado sin política explícita.
+**Nulos:** dato faltante = `null`, no cero; mostrar **No disponible**. Si no hay denominador, FX de la fecha o serie homogénea, cálculo queda `unavailable` con `reason_code`. No sustituir valores por cifras de IA ni interpolar mercado sin política explícita.
 
 ## 4. Precios, rentabilidades y dividendos
 
 | Tipo | Qué representa | Permitido para |
 |---|---|---|
-| \`market_close\` | Cierre del listing en moneda de negociación; puede ser no ajustado | Visualización de cotización y retorno **solo precio** |
-| \`adjusted_close\` | Ajustado según metodología explícita del proveedor | Cálculos históricos solo si ajustes descritos |
-| \`nav\` | Valor liquidativo del fondo/share class, no precio de mercado | Informar NAV; no intercambiar silenciosamente con cierre |
-| \`total_return_index\` | Índice o serie de retorno total con dividendos tratados explícitamente | Backtest total-return solo si licenciado y suficientemente documentado |
-| \`distribution\` | Distribución real de efectivo, con ex-date y payment-date | Flujos o reinversión según política explícita |
+| `market_close` | Cierre del listing en moneda de negociación; puede ser no ajustado | Visualización de cotización y retorno **solo precio** |
+| `adjusted_close` | Ajustado según metodología explícita del proveedor | Cálculos históricos solo si ajustes descritos |
+| `nav` | Valor liquidativo del fondo/share class, no precio de mercado | Informar NAV; no intercambiar silenciosamente con cierre |
+| `total_return_index` | Índice o serie de retorno total con dividendos tratados explícitamente | Backtest total-return solo si licenciado y suficientemente documentado |
+| `distribution` | Distribución real de efectivo, con ex-date y payment-date | Flujos o reinversión según política explícita |
 
 - Para clases de **acumulación**, los dividendos reinvertidos ya se reflejan en el valor; no sumar un dividendo ficticio otra vez.
 - Para **distribución**, retorno total requiere reinversión y fechas ajustadas; si no hay datos, informar retorno de precio y la limitación.
 - Corporate actions (splits, consolidaciones, cambios ticker) tienen eventos con procedencia. Nunca tratar un split como pérdida de mercado.
-- Rendimiento de precio de una única inversión, sin aportes: \`(P_fin/P_inicio)-1\` usando el **mismo listing, misma base de ajuste y fechas**. Para dividendos/aportes usar motor determinista separado y metodología versionada.
+- Rendimiento de precio de una única inversión, sin aportes: `(P_fin/P_inicio)-1` usando el **mismo listing, misma base de ajuste y fechas**. Para dividendos/aportes usar motor determinista separado y metodología versionada.
 - Comparar retornos en **ventana común exacta** con datos homogéneos; si no existe, bloquear la clasificación y mostrar la causa.
 
 ## 5. USD/PEN y políticas de mercado
 
-- Tipo de cambio guardado como **PEN por 1 USD** si \`base=USD, quote=PEN\`; \`valor_PEN=valor_USD*fx\`, y la inversa solo con tasa positiva y redondeo final.
+- Tipo de cambio guardado como **PEN por 1 USD** si `base=USD, quote=PEN`; `valor_PEN=valor_USD*fx`, y la inversa solo con tasa positiva y redondeo final.
 - Guardar serie, fuente oficial, compra/venta/interbancario/medio, fecha de cotización, vigencia, fecha de consulta. No mezclar compra y venta sin avisar.
-- **Candidato:** BCRPData series diarias \`PD04637PD\` (interbancario compra), \`PD04638PD\` (venta); \`PD04639PD/PD04640PD\` SBS. La elección de una única tasa para el simulador se aprobará en BF-014. URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/daily/tipo-de-cambio-nominal
-- Si el mercado o FX no cotiza una fecha solicitada: **no** crear observación sintética. Para simulación se propone usar último cierre anterior **con máximo de días acotado y visible** (pendiente de aprobar) y registrar \`requested_date\` y \`effective_date\`. Si no hay tasa apropiada, devolver error explicativo.
+- **Candidato:** BCRPData series diarias `PD04637PD` (interbancario compra), `PD04638PD` (venta); `PD04639PD/PD04640PD` SBS. La elección de una única tasa para el simulador se aprobará en BF-014. URL: https://estadisticas.bcrp.gob.pe/estadisticas/series/daily/tipo-de-cambio-nominal
+- Si el mercado o FX no cotiza una fecha solicitada: **no** crear observación sintética. Para simulación se propone usar último cierre anterior **con máximo de días acotado y visible** (pendiente de aprobar) y registrar `requested_date` y `effective_date`. Si no hay tasa apropiada, devolver error explicativo.
 - Pen al mercado: tasa de cambio observada ≠ tipo de cambio real del bróker (spread/comisiones), ambos se mostrarán por separado cuando proceda.
 
 ## 6. Precisión, idempotencia y procedencia
 
-- \`DECIMAL/NUMERIC\` para dinero, tarifas y tasas; sin \`FLOAT\` para persistir resultados financieros sensibles. Precisión/escala final después de prueba de fixtures.
-- Unicidad de barras propuesta: \`(provider, listing, trading_date, price_kind, revision)\`; correcciones crean revisión y no destruyen la serie anterior.
-- Propuestas IA: \`idempotency_key\` por \`source+subject+field+effective_date+normalized_value_hash\`, sin asumir que coincidencia de hash prueba veracidad.
+- `DECIMAL/NUMERIC` para dinero, tarifas y tasas; sin `FLOAT` para persistir resultados financieros sensibles. Precisión/escala final después de prueba de fixtures.
+- Unicidad de barras propuesta: `(provider, listing, trading_date, price_kind, revision)`; correcciones crean revisión y no destruyen la serie anterior.
+- Propuestas IA: `idempotency_key` por `source+subject+field+effective_date+normalized_value_hash`, sin asumir que coincidencia de hash prueba veracidad.
 - Toda cita conserva URL canónica, fuente, fecha de captura, fecha de publicación, tipo de derecho y solo extractos permitidos; no clonar prospectos o noticias completas sin autorización.
 - Títulos de noticias ≠ datos de precio; contenidos de internet son entrada no confiable, nunca instrucciones ejecutables para MCP.
 
@@ -81,7 +81,7 @@ Cada valor mutable debe tener: \`field_key\`, \`value\` (decimal o texto tipado)
 4. Mismo ISIN/listing recargado => comportamiento idempotente y revisiones auditadas.
 5. Fuente sin permiso de reutilización => no se ingesta ni redistribuye.
 6. Propuesta GPT/Claude sin fuentes => puede guardarse como borrador, no aprobarse como cifra.
-7. Precio sospechoso, negativo o \`NaN\` => rechazo y registro de error, no ocultar.
+7. Precio sospechoso, negativo o `NaN` => rechazo y registro de error, no ocultar.
 8. Diferencias de moneda y periodos => aviso/bloqueo en matriz.
 
 ## 8. Decisiones abiertas para siguientes historias
@@ -95,6 +95,6 @@ Cada valor mutable debe tener: \`field_key\`, \`value\` (decimal o texto tipado)
 ## Verificación BF-004
 
 AC1: claves y entidades distinguen ISIN/share class y listing (ticker+MIC+moneda).  
-AC2: \`observations\` + fuente/fecha/estado de validación, sin sobrescritura silenciosa.  
+AC2: `observations` + fuente/fecha/estado de validación, sin sobrescritura silenciosa.  
 AC3: política explícita para nulos, dividendos, ajustes, FX, calendario y métodos.  
 **Estado:** contrato documental preparado; aprobación del PO y QA de implementación pendientes.
