@@ -1,9 +1,9 @@
 name: Documentation quality
 on:
   push:
-    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','.github/workflows/docs-validation.yml']
+    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','scripts/bf005-test-providers.ps1','.github/workflows/docs-validation.yml']
   pull_request:
-    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','.github/workflows/docs-validation.yml']
+    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','scripts/bf005-test-providers.ps1','.github/workflows/docs-validation.yml']
 permissions:
   contents: read
 jobs:
@@ -16,3 +16,14 @@ jobs:
           python-version: '3.12'
       - name: Verify Scrum backlog consistency
         run: python scripts/verify-backlog.py
+      - name: Validate BF-005 PowerShell syntax (no API calls)
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("scripts/bf005-test-providers.ps1", [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Error $_.Message }
+            exit 1
+          }
+          Write-Host "BF-005 PowerShell syntax PASS"
