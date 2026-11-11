@@ -1,0 +1,18 @@
+name: Documentation quality
+on:
+  push:
+    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','.github/workflows/docs-validation.yml']
+  pull_request:
+    paths: ['docs/**','backlog/**','AGENTS.md','CLAUDE.md','README.md','scripts/verify-backlog.py','.github/workflows/docs-validation.yml']
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify Scrum backlog consistency
+        run: python scripts/verify-backlog.py
