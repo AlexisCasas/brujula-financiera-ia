@@ -55,7 +55,7 @@
 
 | Instrumento / bolsa | EODHD: identificador a consultar | EODHD metadata / histórico / derechos | Twelve Data: ticker + bolsa | Twelve metadata / histórico / derechos |
 |---|---|---|---|---|
-| VWRA · LSE USD | descubrir por `exchange-symbol-list/LSE?symbols=VWRA&type=etf`; confirmar ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE | `symbol_search` o catálogo ETFs; confirmar exchange LSE, ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
+| VWRA · LSE USD | consultar catálogo LSE con `exchange-symbol-list/LSE`, filtrar VWRA localmente y confirmar ISIN/USD (no asumir parámetro `symbols`) | PENDIENTE / PENDIENTE / PENDIENTE | `symbol_search` o catálogo ETFs; confirmar exchange LSE, ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
 | FWRA · LSE USD | descubrir FWRA en LSE; ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE | buscar FWRA LSE; ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
 | VOO · NYSE Arca USD | catálogo `US` con símbolo VOO; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VOO con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
 | VUG · NYSE Arca USD | catálogo `US` con símbolo VUG; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VUG con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
@@ -98,9 +98,16 @@ Si el PO quiere que otras personas **utilicen** la app o vean los datos, **esa e
 
 **No aprobar BF-005 ni comenzar BF-013 con datos reales** hasta completar pruebas autenticadas y derechos para el caso de uso. Podemos continuar diseño UI, autenticación, datos ficticios con etiqueta fixture y contrato sin riesgos de licencia.
 
-## 8. Estado de aceptación
+## 8. Aclaración de prueba gratuita (2026-11-11)
+
+- EODHD confirma que **no ofrece trial de los planes de pago**: su versión gratuita limita consultas/histórico y el token público demo funciona solo para un pequeño conjunto de símbolos que **no prueba** VWRA ni FWRA. [Planes/trial](https://eodhd.com/help/plans).
+- Twelve Data permite un nivel Basic gratuito, pero los metadatos/búsqueda de ETFs pueden revelar mercados que el plan **no autoriza para históricos**. [Acceso/licencias](https://support.twelvedata.com/en/articles/5332349-commercial-and-personal-usage).
+- Para evitar gastos prematuros, el siguiente paso es el protocolo gratuito [BF005_VALIDATION_PLAN.md](BF005_VALIDATION_PLAN.md), sin pago ni conexión a Supabase.
+- **Distinguir** uso personal (MVP actual), compartir código en GitHub y **mostrar datos de mercado a terceros** (requiere permiso/licencia comercial según términos).
+
+## 9. Estado de aceptación
 
 - AC1: **PARCIAL**. Cinco identidades por fuentes oficiales; comparación de 2 proveedores a nivel documental; **sin prueba API autenticada**.
 - AC2: **PARCIAL**. Documentados intervalos/límites/precios conocidos; cobertura y derechos de almacenamiento por símbolo/plan pendientes.
 - AC3: **PROPUESTA**. EODHD como primer candidato, Twelve Data alternativo; pendiente de autorización del PO y prueba del gate.
-- **No cerrar BF-005 como Done todavía.**
+- **No cerrar BF-005 como Done todavía.** La ejecución del protocolo gratuito **no sustituye** la prueba con plan de producción si ese plan ofrece cobertura distinta.
