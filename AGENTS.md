@@ -8,7 +8,7 @@ Producto personal de investigación de **ETF** para inversor principiante. Módu
 
 **Arquitectura pactada:** Next.js + React + TypeScript (frontend y cálculos), Supabase PostgreSQL/Auth/RLS (persistencia), GitHub (control), Vercel (despliegue). ChatGPT y Claude conversan en sus clientes externos y utilizan MCP para leer y proponer actualizaciones. **NO añadir OpenAI API, Anthropic/Claude API ni chat LLM embebido al MVP** sin aprobación explícita del Product Owner. MCP no ejecuta inferencia del modelo en Vercel.
 
-Leer: `docs/PRODUCT_BACKLOG.md`, `docs/SCRUM_FRAMEWORK.md`, `docs/DEFINITION_OF_DONE.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md`.
+Leer: `docs/PRODUCT_BACKLOG.md`, `docs/SCRUM_FRAMEWORK.md`, `docs/DEFINITION_OF_DONE.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md`. Para S0, también `docs/PRODUCT_VISION.md`, `docs/WORKING_AGREEMENT.md`, `docs/UX_WIREFRAMES.md`, `docs/DATA_CONTRACT.md`, `docs/PROVIDER_EVALUATION.md` y `docs/SPRINT0_REVIEW.md`.
 
 ## 2. Estado y autorizaciones
 
