@@ -21,13 +21,13 @@
 - VUG (emisor/CUSIP): https://advisors.vanguard.com/investments/products/vug/vanguard-growth-etf ; BMV/ISIN: https://www.bmv.com.mx/es/emisoras/perfil/VUG-6773
 - SPYG (emisor): https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-growth-etf-spyg
 
-**Precaución:** símbolo Yahoo (p. ej., \`VWRA.L\`) y símbolo EODHD (sufijo \`.LSE\`) **no son intercambiables por defecto**. Confirmar código exacto por API y por ISIN; evitar mapear el fondo equivocado.
+**Precaución:** símbolo Yahoo (p. ej., `VWRA.L`) y símbolo EODHD (sufijo `.LSE`) **no son intercambiables por defecto**. Confirmar código exacto por API y por ISIN; evitar mapear el fondo equivocado.
 
 ## 2. Dos proveedores candidatos: capacidad comercial vs cobertura real
 
 | Aspecto | EODHD | Twelve Data |
 |---|---|---|
-| Documentación de histórico global | API EOD, splits y dividendos; bolsa LSE en catálogo | \`/time_series\` para ETF global; cobertura por nivel |
+| Documentación de histórico global | API EOD, splits y dividendos; bolsa LSE en catálogo | `/time_series` para ETF global; cobertura por nivel |
 | Comprobación exacta de VWRA/FWRA | **No probada con token** | **No probada con token** |
 | Comprobación exacta de VOO/VUG/SPYG | **No probada con token** | **No probada con token** |
 | Tipo de serie y ajuste | Disponible en API según dataset; probar ajuste/splits/dividendos por listing | OHLCV, metadatos; confirmar ajustes y disponibilidad real |
@@ -55,11 +55,11 @@
 
 | Instrumento / bolsa | EODHD: identificador a consultar | EODHD metadata / histórico / derechos | Twelve Data: ticker + bolsa | Twelve metadata / histórico / derechos |
 |---|---|---|---|---|
-| VWRA · LSE USD | descubrir por \`exchange-symbol-list/LSE?symbols=VWRA&type=etf\`; confirmar ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE | \`symbol_search\` o catálogo ETFs; confirmar exchange LSE, ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
+| VWRA · LSE USD | descubrir por `exchange-symbol-list/LSE?symbols=VWRA&type=etf`; confirmar ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE | `symbol_search` o catálogo ETFs; confirmar exchange LSE, ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
 | FWRA · LSE USD | descubrir FWRA en LSE; ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE | buscar FWRA LSE; ISIN y USD | PENDIENTE / PENDIENTE / PENDIENTE |
-| VOO · NYSE Arca USD | catálogo \`US\` con símbolo VOO; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VOO con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
-| VUG · NYSE Arca USD | catálogo \`US\` con símbolo VUG; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VUG con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
-| SPYG · NYSE Arca USD | catálogo \`US\` con símbolo SPYG; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar SPYG con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
+| VOO · NYSE Arca USD | catálogo `US` con símbolo VOO; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VOO con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
+| VUG · NYSE Arca USD | catálogo `US` con símbolo VUG; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar VUG con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
+| SPYG · NYSE Arca USD | catálogo `US` con símbolo SPYG; ISIN | PENDIENTE / PENDIENTE / PENDIENTE | buscar SPYG con bolsa/mic | PENDIENTE / PENDIENTE / PENDIENTE |
 
 **Lo que sí ha sido probado:** la identidad y bolsa del instrumento en sitios oficiales; existencia documentada de APIs, precios y políticas. **Lo que NO se ha probado:** una respuesta real autenticada para estos 10 pares (5 ETF × 2 proveedores), disponibilidad de los intervalos que necesitaremos, ni derecho efectivo de almacenamiento/visualización. **BF-005 AC1 sigue parcial.**
 
@@ -78,7 +78,7 @@ Para cada proveedor contratado/probado, ejecutar desde entorno privado con key e
 
 ## 5. FX USD/PEN: candidata institucional
 
-BCRPData (Banco Central de Reserva del Perú) ofrece series históricas diarias de tipo de cambio interbancario y SBS (compra/venta). Códigos: \`PD04637PD\`, \`PD04638PD\`, \`PD04639PD\`, \`PD04640PD\`.
+BCRPData (Banco Central de Reserva del Perú) ofrece series históricas diarias de tipo de cambio interbancario y SBS (compra/venta). Códigos: `PD04637PD`, `PD04638PD`, `PD04639PD`, `PD04640PD`.
 
 - Referencia: https://estadisticas.bcrp.gob.pe/estadisticas/series/daily/tipo-de-cambio-nominal
 - Disponibilidad de la **serie**: comprobada en catálogo oficial; política de tasa específica para simulador y acceso mediante API **pendientes** BF-014.
@@ -86,7 +86,7 @@ BCRPData (Banco Central de Reserva del Perú) ofrece series históricas diarias 
 
 ## 6. Licencia y repo público: decisión de arquitectura
 
-El repositorio \`AlexisCasas/brujula-financiera-ia\` es público, pero la app objetivo es de **uso personal con acceso autenticado y datos privados**. No incluir en Git: series históricas, cachés de proveedores, credenciales, extractos extensos, documentos con redistribución restringida ni investigaciones personales.
+El repositorio `AlexisCasas/brujula-financiera-ia` es público, pero la app objetivo es de **uso personal con acceso autenticado y datos privados**. No incluir en Git: series históricas, cachés de proveedores, credenciales, extractos extensos, documentos con redistribución restringida ni investigaciones personales.
 
 Si el PO quiere que otras personas **utilicen** la app o vean los datos, **esa es una ampliación material del alcance y de la licencia**: presupuestar plan comercial/redistribución y seguridad multiusuario antes de habilitar acceso. «Código abierto» no implica derecho a exponer datos de mercado.
 
