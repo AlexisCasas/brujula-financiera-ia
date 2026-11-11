@@ -1,0 +1,29 @@
+name: Historia de usuario
+about: Elemento del Product Backlog con criterios verificables
+title: "[BF-###] "
+labels: []
+body:
+  - type: input
+    id: user_story
+    attributes:
+      label: Historia de usuario
+      placeholder: "Como [rol] quiero [capacidad] para [beneficio]"
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Criterios de aceptación
+      description: Observables y verificables
+    validations:
+      required: true
+  - type: input
+    id: planning
+    attributes:
+      label: Épica, sprint, prioridad y puntos
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencias y riesgos
