@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { getEtfCatalog } from "@/lib/etfs/queries";
 import {
   type EtfProfile, type Measurement, NOT_AVAILABLE,
@@ -32,7 +33,7 @@ function MetricCell({ metric }: Readonly<{ metric: Measurement | null }>) {
 }
 
 function ComparisonTable({ profiles, asOf }: Readonly<{ profiles: EtfProfile[]; asOf: string }>) {
-  const rows: { label: string; render: (profile: EtfProfile) => React.ReactNode }[] = [
+  const rows: { label: string; render: (profile: EtfProfile) => ReactNode }[] = [
     { label: "ISIN", render: (p) => <code>{p.isin}</code> },
     { label: "Nombre", render: (p) => p.name },
     { label: "Gestora", render: (p) => p.issuer || NOT_AVAILABLE },
