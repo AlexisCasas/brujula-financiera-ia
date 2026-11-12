@@ -17,19 +17,19 @@ export type ExpenseFund = {
   unavailableReason: string | null;
 };
 
-const DATE = /^\\d{4}-\\d{2}-\\d{2}$/;
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
 const MAX_CAPITAL = 10_000_000;
 
 export function classifyExpenseNote(note: string | null): ExpenseKind {
   const text = (note ?? "").toLocaleLowerCase("en");
   if (/gross expense ratio|gross ongoing charge|gasto bruto/.test(text)) return "gross";
   if (/ongoing charge|ongoing charges|ocf/.test(text)) return "ongoing";
-  if (/expense ratio|ter/.test(text)) return "expense_ratio";
+  if (/expense ratio|ter\b/.test(text)) return "expense_ratio";
   return "unclassified";
 }
 
 export function parseCapitalInput(raw: string): number | null {
-  if (!/^\\d+(?:\\.\\d{1,2})?$/.test(raw.trim())) return null;
+  if (!/^\d+(?:\.\d{1,2})?$/.test(raw.trim())) return null;
   const value = Number(raw);
   return Number.isFinite(value) && value >= 100 && value <= MAX_CAPITAL
     ? value : null;
