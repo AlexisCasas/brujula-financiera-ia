@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { listSavedComparisons } from "@/lib/etfs/saved-queries";
 import { formatSavedTimestamp } from "@/lib/etfs/saved";
 import { formatDate } from "@/lib/etfs/catalog";
@@ -6,6 +7,7 @@ import { formatDate } from "@/lib/etfs/catalog";
 export const metadata = { title: "Historial de comparaciones · Brújula Financiera IA" };
 
 export default async function SavedComparisonsPage() {
+  await connection(); // Per-request private rendering under Next.js cacheComponents.
   const history = await listSavedComparisons();
   return (
     <section aria-labelledby="history-title">
