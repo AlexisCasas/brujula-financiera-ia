@@ -5,7 +5,6 @@ import { formatDate, METRIC_KEYS } from "@/lib/etfs/catalog";
 
 const item = findNavItem("/panel")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
-export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const catalog = await getEtfCatalog();
