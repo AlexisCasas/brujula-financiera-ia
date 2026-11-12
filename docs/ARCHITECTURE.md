@@ -1,4 +1,4 @@
-# Arquitectura conceptual MVP — v1.0 (pendiente de implementación)
+# Arquitectura del MVP — base implementada, módulos futuros pendientes
 
 ```mermaid
 flowchart TD
@@ -24,7 +24,7 @@ flowchart TD
 | Proveedores | Precios, documentos, composición y tipos de cambio con condiciones de licencia | Garantizar cobertura sin discovery previo |
 | GitHub | Versionar, revisar cambios, documentar QA y controlar releases | Reemplazar la aprobación del PO |
 
-## Entidades conceptuales por diseñar en BF-010 y posteriores
+## Entidades: implementadas BF-010/BF-011/BF-012 y próximas
 
 `instrument` (ISIN, gestora, índice) → `listing` (ticker, exchange, currency) → `price_observation` (fecha, close, adjusted/total_return, provenance); `fund_snapshot` (atributos + fecha); `fx_observation` (par USD/PEN + fecha); `source_record` (URL/título, fecha, licencia); `news_item`; `analysis_record`; `comparison`; `simulation`; `decision`; `change_proposal`; `audit_log`.
 
@@ -63,3 +63,7 @@ Los nombres anteriores son **contratos propuestos**, no endpoints existentes. En
 3. Tratamiento de dividendos, split/corporate actions y costos reales del bróker: nivel de datos permitido por fuente.
 4. Autenticación intercliente MCP y aprobaciones de herramientas en ChatGPT/Claude: primero prueba de concepto aislada.
 5. Diferencia entre guardar hallazgo resumido y guardar contenido de terceros sujeto a derechos de reproducción.
+
+## Lectura real del catálogo (incremento BF-011/012 UI)
+
+La rama `feat/BF-011-012-catalog-dashboard` conecta `/panel` y `/explorar` con las vistas `catalog_overview`, `field_status`, la tabla `instrument` y el RPC `snapshot_as_of`. Las consultas se hacen en Server Components con usuario autenticado y RLS. El sistema muestra solo TER y patrimonio, con fuente, fecha y ausencias explícitas. Ver `docs/FRONTEND_CATALOG_BF011_BF012.md`. La publicación en Vercel y los precios/FX no forman parte de este incremento.
