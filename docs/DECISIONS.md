@@ -16,5 +16,8 @@
 | DEC-012 | Repositorio GitHub público `AlexisCasas/brujula-financiera-ia` | Aprobado 2026-11-11 | Solo código y documentación publicables; datos personales y secretos fuera de GitHub |
 | DEC-013 | Sprint timebox constante (propuesto 1 o 2 semanas) | Pendiente | Se decide en Sprint Planning previo a S1 |
 | DEC-014 | Nombre del repositorio: `brujula-financiera-ia` | Propuesta técnica | Slug identificable y sin datos personales |
+| DEC-015 | Un único proyecto Supabase (`Brujula AI Finance`, `ncalhbwyuwxopokgfcty`) sin entorno dev/prod separado por ahora | Aprobada 2026-11-12 | Instrucción del PO; se aparta de la recomendación de AGENTS.md §5, por lo que la base queda cerrada por defecto y se exige respaldo antes de cambios destructivos |
+| DEC-016 | Diferir BF-007 (autenticación) y entrar directo a la app; BF-009 y BF-008 se adelantan | Aprobada 2026-11-12 | Instrucción del PO; sin datos privados mientras no haya identidad. Retomar BF-007 antes de cargar datos personales |
+| DEC-017 | Modelo de propietario único (`app_owner` + `private.is_owner()`) y RLS cerrada por defecto | Propuesta técnica | Defensa en profundidad si el registro público se habilitara por error; pendiente de validación del PO |
 
 **Regla:** no convertir una propuesta técnica en decisión aprobada sin confirmación explícita del PO. Toda modificación añade fecha, motivo e impacto en historias/arquitectura.

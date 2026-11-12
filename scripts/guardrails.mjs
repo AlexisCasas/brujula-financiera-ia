@@ -21,6 +21,20 @@ export function findForbiddenDeps(pkg) {
   return FORBIDDEN_DEPS.filter((name) => name in deps);
 }
 
+// BF-008 AC3: privileged Supabase credentials must never reach the browser bundle.
+const PUBLIC_ENV_SECRET = /NEXT_PUBLIC_\w*(?:SERVICE|SECRET|TOKEN|PRIVATE)/i;
+const SERVER_ONLY_DIR = "src/server/";
+
+export function findClientExposure(file, text) {
+  const normalized = file.replaceAll("\\", "/");
+  const problems = [];
+  if (PUBLIC_ENV_SECRET.test(text)) problems.push("secret-like name exposed through a NEXT_PUBLIC_ variable");
+  if (normalized.startsWith("src/") && !normalized.startsWith(SERVER_ONLY_DIR) && /service_role/i.test(text)) {
+    problems.push("service_role referenced outside src/server/");
+  }
+  return problems;
+}
+
 function main() {
   const files = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" })
     .split("\0")
@@ -34,6 +48,7 @@ function main() {
       continue;
     }
     for (const name of findSecrets(text)) problems.push(`${file}: possible ${name}`);
+    for (const issue of findClientExposure(file, text)) problems.push(`${file}: ${issue}`);
   }
   for (const name of findForbiddenDeps(JSON.parse(readFileSync("package.json", "utf8")))) {
     problems.push(`package.json: forbidden LLM dependency "${name}" (DEC-005)`);
