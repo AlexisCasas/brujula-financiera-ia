@@ -50,3 +50,19 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 - No exponer credenciales de servicio ni permitir SQL libre mediante MCP en producción.
 
 > Herramienta educativa y de investigación, no servicio de asesoría de inversiones ni sistema de ejecución de operaciones.
+## Desarrollo local (BF-006)
+
+Requisitos: Node 24 (`.nvmrc`) y npm 11. Las dependencias están fijadas con versiones exactas y `package-lock.json`.
+
+| Comando | Qué hace |
+|---|---|
+| `npm ci` | Instala dependencias exactas del lockfile |
+| `npm run dev` | Servidor local en http://localhost:3000 |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript estricto sin emitir |
+| `npm test` | Tests con Vitest |
+| `npm run check:guardrails` | Falla si hay patrones de claves en archivos versionados o SDKs de OpenAI/Anthropic en `package.json` |
+| `npm run build` | Build de producción de Next.js |
+| `npm run ci` | Todo lo anterior en el orden del CI |
+
+El workflow `.github/workflows/app-ci.yml` ejecuta lint, typecheck, tests, guardrails y build en cada PR; si uno falla, el job falla. No se requieren claves ni variables de entorno.

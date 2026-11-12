@@ -14,3 +14,4 @@ Thumbs.db
 *.log
 *.zip
 __pycache__/
+next-env.d.ts
