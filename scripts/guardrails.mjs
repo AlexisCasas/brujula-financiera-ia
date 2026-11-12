@@ -23,7 +23,7 @@ export function findForbiddenDeps(pkg) {
 
 function main() {
   const files = execFileSync("git", ["ls-files", "-z"], { encoding: "utf8" })
-    .split("\n")
+    .split("\0")
     .filter((f) => f && !/(package-lock\.json|\.(ico|png|jpg|svg|webp))$/.test(f) && f !== "scripts/guardrails.mjs");
   const problems = [];
   for (const file of files) {
