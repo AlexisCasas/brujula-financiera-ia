@@ -37,8 +37,8 @@ create policy example_owner_all on public.example
 
 ## Estado y límites conocidos
 
-- La identidad del propietario aún no existe: depende de BF-007 (autenticación), diferida por decisión del PO. Mientras tanto `app_owner` está vacía y ninguna tabla privada es accesible.
-- Las pruebas SQL se ejecutan a mano o por MCP; todavía no corren en CI.
+- La conexión de auditoría de 2026-11-11 confirma **una fila** en `app_owner` y cinco instrumentos visibles a nivel administrativo. La autenticación de propietario está implementada en el código (BF-007), pero la verificación UI de inicio/cierre de sesión en Vercel sigue pendiente.
+- Las pruebas SQL se ejecutaron mediante MCP según PRs BF-008/010/011/012 y todavía no corren en CI. Los tests del frontend sí pasan por CI; la auditoría independiente validó únicamente las consultas de lectura, no repitió los tests RLS con usuario ajeno.
 - El registro público de cuentas (BF-007 AC3) es un ajuste del panel de Auth de Supabase y **no está verificado** desde el repositorio.
 - Backups: el plan del proyecto no se ha revisado. Revisar antes de cualquier migración destructiva.
 
