@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { CostComparisonScenario } from "@/components/etfs/CostComparisonScenario";
+import { expenseFundFromProfile } from "@/lib/etfs/cost-analysis";
 import { saveComparisonAction } from "./actions";
 import { listSavedComparisons } from "@/lib/etfs/saved-queries";
 import { formatSavedTimestamp } from "@/lib/etfs/saved";
@@ -155,6 +157,7 @@ export default async function ComparatorPage({
             {selection.kind === "ready" && (
               <>
                 <ComparisonTable profiles={selection.items} asOf={catalog.asOf} />
+                <CostComparisonScenario funds={selection.items.map(expenseFundFromProfile)} />
                 <form action={saveComparisonAction} className="panel comparison-save"
                   aria-labelledby="save-comparison-heading">
                   <h2 id="save-comparison-heading">Guardar esta comparación</h2>
