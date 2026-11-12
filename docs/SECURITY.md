@@ -41,3 +41,25 @@ create policy example_owner_all on public.example
 - Las pruebas SQL se ejecutan a mano o por MCP; todavía no corren en CI.
 - El registro público de cuentas (BF-007 AC3) es un ajuste del panel de Auth de Supabase y **no está verificado** desde el repositorio.
 - Backups: el plan del proyecto no se ha revisado. Revisar antes de cualquier migración destructiva.
+
+## Autenticación del propietario (BF-007)
+
+- **Método:** correo y contraseña con Supabase Auth (DEC-018). No existe pantalla de registro.
+- **Proxy (`src/proxy.ts`):** chequeo optimista por cookie (`getClaims`) en cada ruta; sin sesión redirige a `/login?next=…`. Sin base de datos en el proxy, según las guías de Next.js. Si faltan las variables públicas de Supabase responde 503 (falla cerrado).
+- **Inicio de sesión (`src/lib/auth/actions.ts`):** tras validar la contraseña comprueba que el usuario sea el propietario (`app_owner`, visible solo para su dueño por RLS). Si no lo es, cierra esa sesión y devuelve el mismo mensaje genérico que ante una contraseña incorrecta.
+- **Redirección segura:** `next` solo admite rutas relativas del mismo sitio.
+- **Cierre de sesión:** botón en el menú; invalida la sesión y vuelve a `/login`.
+- **La autorización real sigue siendo RLS.** El proxy es solo una primera barrera: aunque se saltara, un usuario que no sea propietario no ve filas.
+
+### Pasos del propietario (no automatizables)
+
+1. **Deshabilitar el registro público:** Supabase → Authentication → Sign In / Providers → desactivar "Allow new users to sign up". Comprobable con `GET {url}/auth/v1/settings` (`disable_signup: true`).
+2. **Crear tu usuario:** Authentication → Users → Add user (correo y contraseña propios; nunca por el chat).
+3. **Registrarte como propietario:** insertar tu `user_id` en `public.app_owner` (migración o SQL con el rol administrativo).
+4. **Variables locales:** `.env.local` con `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`; en Vercel, las mismas como variables de entorno.
+
+### Estado y límites
+
+- Al abrir esta historia el registro público estaba **habilitado** (`disable_signup: false`): AC3 depende del paso 1.
+- Sin límite propio de intentos: se confía en los límites de Supabase Auth.
+- No verificado de extremo a extremo con credenciales reales: lo hace el propietario tras los pasos 1 a 4.
