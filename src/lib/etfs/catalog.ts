@@ -86,9 +86,9 @@ export function formatAssets(raw: string | null | undefined, currency: string | 
   if (raw === null || raw === undefined || raw.trim() === "" || !currency) return NOT_AVAILABLE;
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0 || !/^[A-Z]{3}$/.test(currency)) return NOT_AVAILABLE;
-  return currency + " " + new Intl.NumberFormat("de-DE", {
-    maximumFractionDigits: 2,
-  }).format(value / 1_000_000) + " millones";
+  const number = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2 });
+  if (value < 1_000_000) return currency + " " + number.format(value);
+  return currency + " " + number.format(value / 1_000_000) + " millones";
 }
 
 export function formatDate(raw: string | null | undefined): string {
