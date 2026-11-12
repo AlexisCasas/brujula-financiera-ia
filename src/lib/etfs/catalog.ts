@@ -72,11 +72,11 @@ export function filterProfiles(profiles: readonly EtfProfile[], query: string): 
   );
 }
 
-export function formatPercent(raw: string | null | undefined): string {
+// de-DE uses Spanish-style comma decimals and groups even four-digit thousands.\nexport function formatPercent(raw: string | null | undefined): string {
   if (raw === null || raw === undefined || raw.trim() === "") return NOT_AVAILABLE;
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0) return NOT_AVAILABLE;
-  return new Intl.NumberFormat("es-ES", {
+  return new Intl.NumberFormat("de-DE", {
     minimumFractionDigits: 2, maximumFractionDigits: 3,
   }).format(value) + " %";
 }
@@ -85,7 +85,7 @@ export function formatAssets(raw: string | null | undefined, currency: string | 
   if (raw === null || raw === undefined || raw.trim() === "" || !currency) return NOT_AVAILABLE;
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0 || !/^[A-Z]{3}$/.test(currency)) return NOT_AVAILABLE;
-  return currency + " " + new Intl.NumberFormat("es-ES", {
+  return currency + " " + new Intl.NumberFormat("de-DE", {
     maximumFractionDigits: 2,
   }).format(value / 1_000_000) + " millones";
 }
