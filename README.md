@@ -1,6 +1,6 @@
 # Brújula Financiera IA
 
-**Estado:** definición Scrum y preparación del MVP — todavía no hay aplicación desplegada.
+**Estado:** aplicación Next.js con navegación y Auth; catálogo de cinco ETF y mediciones presentes en Supabase. En esta rama se añade la lectura real en Panel/Explorar. Despliegue Vercel pendiente.
 
 Plataforma personal para investigar ETF, comparar alternativas, simular inversiones en USD/PEN y registrar decisiones con evidencia. ChatGPT y Claude realizan investigación desde sus chats y, tras configurar un MCP seguro, pueden consultar y proponer información para Supabase. La web Next.js/React en Vercel es el tablero y motor de cálculo; **no contiene un chat LLM integrado ni requiere OpenAI/Claude API en el MVP**.
 
@@ -10,7 +10,7 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 - **Usuario único personal** con sesión privada; no se habilita registro público.
 - **USD y PEN** con tipo de cambio histórico trazable.
 - **Equilibrio:** investigación guiada, benchmarking y simulador.
-- **Stack futuro:** Next.js + TypeScript + React, Supabase PostgreSQL/Auth/RLS, Vercel y GitHub.
+- **Stack técnico:** Next.js + TypeScript + React, Supabase PostgreSQL/Auth/RLS y GitHub implementados; Vercel pendiente.
 - **Fuera de alcance:** compras en bróker, conexiones a XTB, ejecución financiera, predicciones garantizadas, recomendaciones automáticas, OpenAI API y Claude API dentro de la aplicación.
 
 ## Documentación inicial
@@ -28,6 +28,12 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 | [`backlog/PRODUCT_BACKLOG.csv`](backlog/PRODUCT_BACKLOG.csv) | Exportación tabular de historias |
 | [`backlog/issues/`](backlog/issues/) | 38 cuerpos de Issue listos para publicar |
 
+## Frontend conectado al catálogo (BF-011/BF-012)
+
+- En rama de revisión, `/panel` y `/explorar` consultan `catalog_overview`, `instrument`, `field_status` y `snapshot_as_of` desde componentes de servidor, con sesión y RLS.
+- Ver [auditoría y guía de QA](docs/FRONTEND_CATALOG_BF011_BF012.md).
+- No se consulta todavía histórico de precios ni FX. No se publican credenciales en GitHub.
+
 ## QA documental inicial
 
 `python scripts/verify-backlog.py` valida consistencia de 38 historias, criterios, dependencias y documentos; `.github/workflows/docs-validation.yml` lo ejecutará en GitHub Actions al publicarse. Esto no certifica el QA de una aplicación todavía inexistente.
@@ -38,7 +44,7 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 2. Repositorio **público** creado por el propietario en `AlexisCasas/brujula-financiera-ia`. Solo documentación y código publicables; datos personales y credenciales permanecen privados. Publicar archivos iniciales.
 3. Publicar historias en GitHub Issues y revisar prioridades en abierto.
 4. Antes de iniciar Sprint 1, fijar duración constante del Sprint (Scrum: un mes o menos) y compromiso de Sprint Goal.
-5. Solo después configurar Supabase, desarrollar la web y desplegar en Vercel con QA y aprobación explícita.
+5. Continuar el frontend, probar en preview de Vercel con QA y aprobación explícita antes de producción.
 
 ## Reglas de confianza financiera
 
