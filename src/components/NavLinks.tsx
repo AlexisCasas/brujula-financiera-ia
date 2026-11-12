@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS, isActivePath } from "@/lib/navigation";
 
-export function NavLinks() {
+export function NavLinks({ onNavigate }: Readonly<{ onNavigate?: () => void }>) {
   const pathname = usePathname();
   return (
     <nav aria-label="Principal" className="nav">
@@ -13,7 +13,15 @@ export function NavLinks() {
           const active = isActivePath(pathname, item.href);
           return (
             <li key={item.href}>
-              <Link href={item.href} aria-current={active ? "page" : undefined} className="nav-link">
+              <Link
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className="nav-link"
+                onClick={onNavigate}
+              >
+                <span className="ico" aria-hidden="true">
+                  {item.icon}
+                </span>
                 {item.label}
               </Link>
             </li>
