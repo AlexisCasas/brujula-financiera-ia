@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 import { getSavedComparison } from "@/lib/etfs/saved-queries";
 import {
@@ -43,6 +44,7 @@ function MeasuredCell({ item, metric }: Readonly<{
 export default async function SavedComparisonPage({
   params,
 }: Readonly<{ params: Promise<{ id: string }> }>) {
+  await connection(); // Per-request private rendering under Next.js cacheComponents.
   const { id } = await params;
   const saved = await getSavedComparison(id);
   if (!saved) notFound();
