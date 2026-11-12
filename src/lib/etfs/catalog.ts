@@ -34,7 +34,7 @@ export type EtfProfile = {
   domicile: string | null;
   distributionPolicy: string | null;
   inceptionDate: string | null;
-  unverifiedCount: number;
+  unverifiedCount: number | null;
   evidence: Evidence[];
   metrics: Record<MetricKey, Measurement | null>;
 };
