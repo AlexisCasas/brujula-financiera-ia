@@ -72,7 +72,8 @@ export function filterProfiles(profiles: readonly EtfProfile[], query: string): 
   );
 }
 
-// de-DE uses Spanish-style comma decimals and groups even four-digit thousands.\nexport function formatPercent(raw: string | null | undefined): string {
+// de-DE uses Spanish-style comma decimals and groups even four-digit thousands.
+export function formatPercent(raw: string | null | undefined): string {
   if (raw === null || raw === undefined || raw.trim() === "") return NOT_AVAILABLE;
   const value = Number(raw);
   if (!Number.isFinite(value) || value < 0) return NOT_AVAILABLE;
