@@ -75,3 +75,62 @@ Las vistas usan `security_invoker`: respetan RLS (solo el propietario). La evide
 - **Vanguard EE. UU. no se puede leer con herramientas simples.** Las páginas de producto cargan por JavaScript con banner de cookies; los datos de VOO y VUG salen de las fichas PDF oficiales.
 - **Fuentes no oficiales** (justETF, TradingView y otras) se consultaron solo para localizar la fuente oficial y **no se usan como evidencia**. Discrepan entre sí en TER y tamaño; eso es de BF-012.
 - Solo se guardan identificadores. No se almacena contenido de las páginas ni de los documentos (nota de licencia en cada fuente).
+
+## Mediciones versionadas y snapshots (BF-012)
+
+Migración: `supabase/migrations/20261112300000_bf012_measurements_snapshots.sql`. Pruebas: `supabase/tests/measurements_snapshots.sql`. Carga: `supabase/seed/bf012_pilot_measurements.sql`.
+
+### Qué se guarda y dónde
+
+| Dato | Dónde | Cómo se versiona |
+|---|---|---|
+| Nombre, gestora, índice, política de dividendos, domicilio, fecha de inicio | `instrument` + `field_evidence` (BF-011) | Cada corrección retira la afirmación anterior sin borrarla |
+| TER, tamaño del ETF y tamaño del fondo | `instrument_measurement` | Cada cifra nueva es una **fila nueva** |
+| Fecha | `as_of_date` de cada medición y `document_date` de la fuente | — |
+
+`instrument_measurement` es **solo de adición**: ni el propietario ni el rol de migraciones pueden editar o borrar filas (un disparador lo impide). Solo existe una medición si una fuente la declara (`source_record_id` es obligatorio); si no hay fuente, no hay fila.
+
+- `ter_percent`: porcentaje (`0.14` = 0,14 %), entre 0 y 100, sin divisa.
+- `net_assets`: tamaño del ETF o de la clase de acciones, con divisa obligatoria.
+- `fund_net_assets`: total del fondo (todas las clases), con divisa obligatoria.
+
+### Versionado
+
+- Misma fecha y mismo valor y fuente: no hace nada (idempotente).
+- Misma fecha con otra cifra: **versión 2** que apunta a la 1 (`supersedes_id`); la versión 1 conserva valor y fuente.
+- Otra fecha: nueva fila en versión 1.
+
+### Consultas
+
+| Objeto | Uso |
+|---|---|
+| `record_measurement(...)` | Alta con versionado automático. |
+| `snapshot_as_of(fecha)` | Para cada instrumento y métrica, la última medición **a esa fecha** (versión más reciente de la fecha más reciente que no la supere). |
+| `measurement_history` (vista) | Historial completo con `is_latest_version`. |
+
+**Dato faltante:** en `snapshot_as_of`, sin medición el valor es `NULL`, la disponibilidad dice **"no disponible"** y no hay divisa ni fecha. Nunca aparece como cero (probado: una fecha anterior a todas las mediciones devuelve 15 filas "no disponible", 0 valores y 0 ceros).
+
+### Carga piloto
+
+13 mediciones de las cinco fuentes oficiales de BF-011. Algunas salidas relevantes:
+
+| ETF | TER | Tamaño del ETF | Fecha de la cifra |
+|---|---|---|---|
+| VWRA | 0,14 % | USD 62,19 mil millones | 2026-11-11 (la página no declara fecha; es la de lectura) |
+| FWRA | 0,15 % | USD 5.184,69 millones | 2026-09-30 |
+| VOO | 0,03 % | USD 1,03 billones | 2026-09-30 |
+| VUG | 0,03 % | USD 232.870 millones | 2026-09-30 |
+| SPYG | 0,04 % (bruto) | USD 52.602,73 millones | TER 2026-11-11, tamaño 2026-11-10 |
+
+### Correcciones a las brechas de BF-011
+
+Con el texto de las fichas de Vanguard leído en orden, "Dividend schedule: Quarterly" aparece rotulado: la distribución de **VOO y VUG** pasó a `verificado`. La página de SPYG indica "Trading currency: USD": su divisa pasó a `verificado`. Las afirmaciones anteriores quedaron como `superseded` (historial conservado). Resultado de `field_status`: 41 verificados, 3 derivados, 11 "sin verificar" (antes 38, 3 y 14).
+
+### Límites
+
+- **Tamaño de FWRA:** la ficha lo rotula "Fund size" sin aclarar si es de la clase o del fondo; se guardó como `net_assets` y se dejó la salvedad en la nota.
+- **VWRA:** la página no declara fecha de TER ni de tamaño; se usó la fecha de lectura y consta en la nota. Fuentes de terceros muestran TER de 0,19 a 0,22 %; se usa el valor oficial.
+- **SPYG:** la página da el gasto bruto, no el neto.
+- **`fund_net_assets`** de FWRA y SPYG: "no disponible" (la fuente no lo da).
+- La **identidad en el tiempo** (qué nombre tenía el fondo en una fecha) queda en el historial de `field_evidence`, pero `snapshot_as_of` aún no la reconstruye: devuelve la identidad actual.
+- Las pruebas SQL no corren en CI.
