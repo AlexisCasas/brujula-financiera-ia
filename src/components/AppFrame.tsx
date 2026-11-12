@@ -1,18 +1,21 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState, type ReactNode } from "react";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { findNavItem } from "@/lib/navigation";
 import { NavLinks } from "./NavLinks";
+
+function CurrentBreadcrumb() {
+  const pathname = usePathname();
+  const current = findNavItem(pathname);
+  return <span className="crumb">Brújula IA <span className="crumb-sep">/</span> {current?.label ?? "Panel"}</span>;
+}
 
 export function AppFrame({
   children,
   signOutAction,
 }: Readonly<{ children: ReactNode; signOutAction: () => Promise<void> }>) {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const current = findNavItem(pathname);
-
   // Escape closes the mobile drawer.
   useEffect(() => {
     if (!open) return;
@@ -38,7 +41,9 @@ export function AppFrame({
           </span>
         </p>
         <div className="navlabel">Laboratorio financiero</div>
-        <NavLinks onNavigate={() => setOpen(false)} />
+        <Suspense fallback={<p className="smalltxt">Cargando navegación…</p>}>
+          <NavLinks onNavigate={() => setOpen(false)} />
+        </Suspense>
         <div className="sidefoot">
           <span className="tag ok">● Sesión privada</span>
           <p className="smalltxt">Usuario único. Metadatos de ETF disponibles; precios históricos pendientes.</p>
@@ -64,9 +69,9 @@ export function AppFrame({
               >
                 ☰
               </button>
-              <span className="crumb">
-                Brújula IA <span className="crumb-sep">/</span> {current?.label ?? "Panel"}
-              </span>
+              <Suspense fallback={<span className="crumb">Brújula IA / …</span>}>
+                <CurrentBreadcrumb />
+              </Suspense>
             </div>
             <span className="tag">Usuario único</span>
           </div>

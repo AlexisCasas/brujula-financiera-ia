@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { saveComparisonAction } from "./actions";
+import { listSavedComparisons } from "@/lib/etfs/saved-queries";
+import { formatSavedTimestamp } from "@/lib/etfs/saved";
 import type { ReactNode } from "react";
 import { getEtfCatalog } from "@/lib/etfs/queries";
 import {
@@ -93,10 +96,10 @@ function ComparisonTable({ profiles, asOf }: Readonly<{ profiles: EtfProfile[]; 
 
 export default async function ComparatorPage({
   searchParams,
-}: Readonly<{ searchParams: Promise<{ listing?: string | string[] }> }>) {
-  const { listing } = await searchParams;
+}: Readonly<{ searchParams: Promise<{ listing?: string | string[]; notice?: string }> }>) {
+  const { listing, notice } = await searchParams;
   const selectedIds = parseListingSelection(listing);
-  const catalog = await getEtfCatalog();
+  const [catalog, history] = await Promise.all([getEtfCatalog(), listSavedComparisons()]);
 
   return (
     <section aria-labelledby="screen-title">
@@ -106,6 +109,13 @@ export default async function ComparatorPage({
         <p>Selecciona entre dos y cinco listings. Por ahora comparamos costos y atributos verificables;
           los rendimientos históricos quedan pendientes de fuentes licenciadas.</p>
       </header>
+      {notice && (
+        <div className="info" role="alert">
+          {notice === "selection" ? "La selección debe contener entre 2 y 5 ETF válidos, sin repetidos."
+            : notice === "title" ? "El título supera los 120 caracteres permitidos."
+            : "No se pudo guardar la comparación. Verifica tu sesión y reintenta."}
+        </div>
+      )}
       {catalog.status === "error" && (
         <div className="info" role="alert"><p>{catalog.message}</p><Link href="/comparador">Reintentar</Link></div>
       )}
@@ -142,10 +152,49 @@ export default async function ComparatorPage({
             {selection.kind === "not_found" && (
               <div className="info" role="alert">Uno o más listings ya no están disponibles en el catálogo. Revisa la selección y vuelve a comparar.</div>
             )}
-            {selection.kind === "ready" && <ComparisonTable profiles={selection.items} asOf={catalog.asOf} />}
+            {selection.kind === "ready" && (
+              <>
+                <ComparisonTable profiles={selection.items} asOf={catalog.asOf} />
+                <form action={saveComparisonAction} className="panel comparison-save"
+                  aria-labelledby="save-comparison-heading">
+                  <h2 id="save-comparison-heading">Guardar esta comparación</h2>
+                  <p className="comparison-help">
+                    Se conservarán los listings, la fecha de corte, los valores
+                    disponibles, las versiones y los documentos de origen.
+                    No podrás sobrescribir una fotografía anterior.
+                  </p>
+                  {selection.items.map((p) => (
+                    <input key={p.listingId} type="hidden" name="listing" value={p.listingId} />
+                  ))}
+                  <label htmlFor="comparison-title">Título de la comparación</label>
+                  <input id="comparison-title" name="title" type="text" maxLength={120}
+                    placeholder={`Ejemplo: ${selection.items.map((p) => p.ticker).join(" vs ")}`} />
+                  <div className="comparison-actions">
+                    <button className="primary-button" type="submit">Guardar fotografía</button>
+                    <Link href="/comparador/guardadas" className="etf-clear">Ver historial</Link>
+                  </div>
+                </form>
+              </>
+            )}
           </>
         );
       })()}
+      <section className="panel comparison-history" aria-labelledby="comparison-history-title">
+        <h2 id="comparison-history-title">Comparaciones guardadas</h2>
+        {history.status === "error"
+          ? <p className="comparison-help">{history.message}</p>
+          : history.rows.length === 0
+            ? <p className="comparison-help">Todavía no hay comparaciones guardadas.</p>
+            : <ul className="comparison-history-list">
+                {history.rows.slice(0, 5).map((row) => (
+                  <li key={row.id}>
+                    <Link href={`/comparador/guardadas/${row.id}`}>{row.title}</Link>
+                    <small>{formatSavedTimestamp(row.saved_at)} · {row.listing_ids.length} ETF</small>
+                  </li>
+                ))}
+              </ul>}
+        <Link href="/comparador/guardadas" className="etf-clear">Abrir historial completo</Link>
+      </section>
     </section>
   );
 }
