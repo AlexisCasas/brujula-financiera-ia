@@ -166,3 +166,55 @@ input:focus-visible,
   h1 { font-size: 24px; }
   .top .tag { display: none; }
 }
+
+
+/* BF-011/012: catalog and dashboard backed by the authenticated financial data. */
+.etf-search { margin-bottom: 17px; }
+.etf-search label { display: block; margin-bottom: 9px; color: var(--muted); font-weight: 600; font-size: 12px; }
+.etf-search-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.etf-search input { flex: 1 1 240px; min-width: 0; min-height: 44px; padding: 10px 13px; background: var(--bg); color: var(--fg); font: inherit; border: 1px solid var(--line); border-radius: 9px; }
+.etf-clear { font-size: 12px; color: var(--accent); font-weight: 700; padding: 9px 7px; }
+.etf-results-heading { display: flex; flex-wrap: wrap; gap: 5px 16px; justify-content: space-between; margin: 0 0 14px; }
+.etf-results-heading p { margin: 0; font-size: 12px; }
+.etf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 390px), 1fr)); align-items: start; gap: 16px; }
+.etf-card { display: grid; gap: 14px; }
+.etf-card-head { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.etf-card-head .eyebrow { margin-bottom: 7px; }
+.etf-ticker { margin: 0 0 4px; font-size: 23px; display: flex; flex-direction: column; gap: 3px; }
+.etf-name { font-size: 13px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--muted); }
+.etf-id { color: var(--sub); font-size: 11px; margin: 0; overflow-wrap: anywhere; }
+.etf-id code { color: var(--fg); }
+.etf-attributes { display: grid; gap: 5px; border-top: 1px solid var(--line); padding-top: 13px; }
+.etf-attributes p { margin: 0; font-size: 12px; }
+.etf-attributes strong { color: #d6e8f6; }
+.etf-metrics { margin: 0; display: grid; gap: 9px; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
+.etf-metric { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface2); overflow-wrap: anywhere; }
+.etf-metric dt { color: var(--muted); font-size: 11px; }
+.etf-metric dd { color: var(--fg); margin: 5px 0; font-size: 17px; font-weight: 750; letter-spacing: -0.4px; }
+.etf-meta { color: var(--sub); font-size: 11px; margin: 5px 0; }
+.etf-note { color: #c4d5e5; font-size: 11px; margin: 6px 0; }
+.etf-source { color: var(--accent); font-size: 12px; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.etf-details { border-top: 1px solid var(--line); padding-top: 11px; }
+.etf-details summary { cursor: pointer; color: var(--accent); font-size: 12px; font-weight: 700; padding: 5px 0; }
+.etf-evidence { list-style: none; padding: 0; display: grid; gap: 0; }
+.etf-evidence li { display: flex; flex-wrap: wrap; gap: 5px 12px; align-items: baseline; border-bottom: 1px solid var(--line); padding: 8px 0; font-size: 11px; color: var(--muted); }
+.etf-evidence strong { color: var(--fg); min-width: 85px; }
+.etf-evidence a { color: var(--accent); text-decoration: underline; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 17px 0; }
+.dashboard-kpi p { font-size: 12px; margin: 0 0 6px; }
+.dashboard-kpi strong { display: block; font-size: 29px; font-variant-numeric: tabular-nums; line-height: 1.15; color: var(--fg); margin-bottom: 7px; }
+.dashboard-kpi span { font-size: 11px; color: var(--sub); }
+.dashboard-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.dashboard-bottom .panel { display: flex; flex-direction: column; align-items: flex-start; }
+.dashboard-bottom h2 { margin-bottom: 10px; }
+.dashboard-bottom p { font-size: 12px; }
+.dashboard-bottom .primary-button { margin-top: auto; }
+.dashboard-table h2 { margin-bottom: 13px; }
+.dashboard-table a { color: var(--accent); font-weight: 700; text-decoration: underline; }
+@media (max-width: 1100px) { .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .etf-card-head { flex-direction: column; }
+  .etf-metrics { grid-template-columns: 1fr; }
+  .dashboard-bottom { grid-template-columns: 1fr; }
+  .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
