@@ -41,7 +41,7 @@ export function AppFrame({
         <NavLinks onNavigate={() => setOpen(false)} />
         <div className="sidefoot">
           <span className="tag ok">● Sesión privada</span>
-          <p className="smalltxt">Usuario único. Sin datos de mercado conectados todavía.</p>
+          <p className="smalltxt">Usuario único. Metadatos de ETF disponibles; precios históricos pendientes.</p>
           <form action={signOutAction}>
             <button type="submit" className="logout-button">
               Cerrar sesión
