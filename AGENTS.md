@@ -12,7 +12,7 @@ Leer: `docs/PRODUCT_BACKLOG.md`, `docs/SCRUM_FRAMEWORK.md`, `docs/DEFINITION_OF_
 
 ## 2. Estado y autorizaciones
 
-- Estado inicial: **solo documentación**, sin Supabase/Vercel creados ni producción modificada.
+- Estado vigente (2026-11): aplicación Next.js y Supabase Auth/RLS con catálogo de cinco ETF y mediciones versionadas creados. Vercel aún sin proyecto; leer `docs/DATA_MODEL.md` y `docs/FRONTEND_CATALOG_BF011_BF012.md` antes de modificar el frontend.
 - No crear, migrar, desplegar ni publicar recursos externos de forma implícita. Seguir autorización del PO y documentar impacto, rollback y QA.
 - No realizar merges o despliegues productivos si las pruebas están fallando o el PO no lo ha aprobado.
 - Prohibido alterar servicios, proyectos, repos o cuentas no relacionados.
@@ -43,7 +43,7 @@ Leer: `docs/PRODUCT_BACKLOG.md`, `docs/SCRUM_FRAMEWORK.md`, `docs/DEFINITION_OF_
 - Jamás incluir service_role, tokens MCP o credenciales en código del cliente, archivos versionados, prompts o logs.
 - El MCP financiero debe tener herramientas específicas (consultar ETF, listar snapshots, proponer investigación, revisar propuesta), validación de esquemas y privilegio mínimo. Evitar SQL arbitrario.
 - Las propuestas de escritura de ChatGPT/Claude van a staging/cola de revisión, con autor, fuente, fecha y checksum/idempotencia; aplicación a datos aprobados solo tras revisión humana.
-- Separar infraestructura de desarrollo y producción cuando exista; contar con rollback y respaldo antes de cambios destructivos.
+- Existe un único proyecto Supabase para desarrollo/producción (DEC-015). No modificar sus datos ni crear migraciones sin permiso expreso; usar QA de solo lectura para el frontend y preparar respaldo/rollback antes de operaciones destructivas.
 - No automatizar scraping que infrinja condiciones de proveedores o restricciones de licencia. No inferir una noticia o cifra sin evidencia.
 
 ## 6. Calidad y verificación
