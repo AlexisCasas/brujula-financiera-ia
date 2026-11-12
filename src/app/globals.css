@@ -218,3 +218,34 @@ input:focus-visible,
   .dashboard-bottom { grid-template-columns: 1fr; }
   .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+
+/* BF-023: comparative matrix using existing documented ETF attributes. */
+.comparison-picker { margin-bottom: 16px; }
+.comparison-picker fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.comparison-picker legend { color: var(--fg); font-size: 16px; font-weight: 800; }
+.comparison-help { color: var(--muted); font-size: 12px; margin: 8px 0 14px; }
+.comparison-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 10px; }
+.comparison-choice { display: flex; gap: 10px; align-items: start; border: 1px solid var(--line); background: var(--surface2); border-radius: 10px; padding: 11px; cursor: pointer; min-height: 77px; }
+.comparison-choice:has(input:checked) { border-color: var(--accent); background: #163a3a; }
+.comparison-choice input { accent-color: var(--accent); margin-top: 5px; min-width: 16px; min-height: 16px; }
+.comparison-choice span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.comparison-choice strong { font-size: 14px; color: var(--fg); }
+.comparison-choice small { font-size: 10px; color: var(--muted); overflow-wrap: anywhere; }
+.comparison-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 15px; }
+.comparison-result { display: grid; gap: 12px; }
+.comparison-result h2 { margin-bottom: 0; }
+.comparison-scroll { width: 100%; }
+.comparison-scroll table { min-width: max(680px, 100%); table-layout: fixed; }
+.comparison-table caption { text-align: left; color: var(--sub); font-size: 11px; padding: 10px; }
+.comparison-table thead th { min-width: 150px; white-space: normal; vertical-align: top; }
+.comparison-table thead th:first-child { width: 195px; }
+.comparison-table thead th span { display: block; font-size: 10px; font-weight: 500; color: var(--sub); }
+.comparison-table tbody th { white-space: normal; vertical-align: top; text-align: left; }
+.comparison-table tbody td { min-width: 150px; overflow-wrap: anywhere; white-space: normal; vertical-align: top; }
+.comparison-value { display: grid; gap: 4px; }
+.comparison-value strong { font-size: 12px; color: var(--fg); }
+.comparison-value small { font-size: 10px; line-height: 1.35; color: var(--muted); }
+.comparison-value a { font-size: 11px; color: var(--accent); text-decoration: underline; }
+.comparison-missing { color: var(--warn); font-size: 11px; }
+@media (max-width: 700px) { .comparison-table thead th:first-child { width: 160px; } }
