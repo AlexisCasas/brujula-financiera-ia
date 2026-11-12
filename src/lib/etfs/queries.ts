@@ -1,5 +1,6 @@
 import "server-only";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import {
   type EtfProfile, type Evidence, type Measurement, type MetricKey,
@@ -38,10 +39,12 @@ export function currentUtcDate(now: Date = new Date()): string {
 
 /** Request-scoped, authenticated and RLS-enforced. No service keys or caching. */
 export async function getEtfCatalog(): Promise<CatalogResult> {
-  const asOf = currentUtcDate();
+  // The UTC cutoff and authenticated data must be resolved per request, never during prerender.
+  await connection();
   const client = await createClient();
   const { data: { user }, error: authError } = await client.auth.getUser();
   if (authError || !user) redirect("/login");
+  const asOf = currentUtcDate();
 
   const [catalogResult, instrumentsResult, evidenceResult, snapshotsResult] = await Promise.all([
     client.from("catalog_overview")
