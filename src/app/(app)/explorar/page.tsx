@@ -4,7 +4,6 @@ import { findNavItem } from "@/lib/navigation";
 
 const item = findNavItem("/explorar")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
-export const dynamic = "force-dynamic";
 
 export default async function ExplorePage({
   searchParams,
