@@ -20,5 +20,6 @@
 | DEC-016 | Diferir BF-007 (autenticación) y entrar directo a la app; BF-009 y BF-008 se adelantan | Aprobada 2026-11-12 | Instrucción del PO; sin datos privados mientras no haya identidad. Retomar BF-007 antes de cargar datos personales |
 | DEC-017 | Modelo de propietario único (`app_owner` + `private.is_owner()`) y RLS cerrada por defecto | Propuesta técnica | Defensa en profundidad si el registro público se habilitara por error; pendiente de validación del PO |
 | DEC-018 | Acceso por correo y contraseña con Supabase Auth, sin registro público | Propuesta técnica | Menor fricción para un usuario único y sin depender de correo transaccional; pendiente de validación del PO |
+| DEC-019 | Perfil de inversionista separa capacidad financiera y tolerancia emocional; el resultado global no supera la dimensión más restrictiva | Aprobada para BF-039 v1.0; scoring sujeto a QA del PO | Confirmación del PO para construir el primer incremento de perfil; evaluación educativa, no recomendación ni prueba regulatoria |
 
 **Regla:** no convertir una propuesta técnica en decisión aprobada sin confirmación explícita del PO. Toda modificación añade fecha, motivo e impacto en historias/arquitectura.

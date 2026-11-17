@@ -1,12 +1,12 @@
 # Product Backlog — Brújula Financiera IA
 
-**Versión:** 1.0 · **Fecha:** 2026-11-11 · **Estado:** propuesta lista para refinamiento del Product Owner
+**Versión:** 1.1 · **Fecha:** 2026-11-16 · **Estado:** BF-039 añadida por decisión del Product Owner; resto del backlog en refinamiento
 
 > Orden, story points y sprint propuesto son hipótesis iniciales, no compromisos de fecha. El PO puede repriorizar en cada refinamiento.
 
 ## Product Goal
 
-Permitir a un inversor principiante investigar 5 ETF, comparar atributos verificables, simular inversiones históricas y futuras en USD/PEN, y documentar decisiones trazables desde una plataforma privada; ChatGPT y Claude interactúan desde sus chats externos mediante un MCP controlado.
+Permitir a un inversor principiante conocer su perfil de riesgo, investigar ETF, comparar atributos verificables, simular inversiones en USD/PEN y documentar decisiones trazables desde una plataforma privada; ChatGPT y Claude interactúan desde sus chats externos mediante un MCP controlado.
 
 ## Condiciones de MVP / exclusiones
 
@@ -20,7 +20,7 @@ Permitir a un inversor principiante investigar 5 ETF, comparar atributos verific
 
 | Épica | Descripción | Historias | SP preliminares |
 |---|---|---:|---:|
-| E0 | Producto y gobierno | 5 | 19 |
+| E0 | Producto, gobierno y perfil personal | 6 | 24 |
 | E1 | Plataforma y seguridad | 4 | 21 |
 | E2 | Catálogo y calidad de datos | 7 | 32 |
 | E3 | Investigación externa y MCP | 6 | 32 |
@@ -28,7 +28,7 @@ Permitir a un inversor principiante investigar 5 ETF, comparar atributos verific
 | E5 | Simulación financiera | 6 | 31 |
 | E6 | Decisiones, QA y lanzamiento | 5 | 26 |
 
-**Puntos totales preliminares:** 187 SP. No representan horas ni duración comprometida.
+**Puntos totales preliminares:** 192 SP. No representan horas ni duración comprometida.
 
 ## Inventario priorizado
 
@@ -72,6 +72,7 @@ Permitir a un inversor principiante investigar 5 ETF, comparar atributos verific
 | [BF-036](../backlog/issues/BF-036.md) | Exportar comparaciones y decisiones con referencias | P1 | 5 | S6 | BF-024, BF-034 |
 | [BF-037](../backlog/issues/BF-037.md) | QA integral financiero y de seguridad | P0 | 8 | S6 | BF-008, BF-020, BF-024, BF-028, BF-031 |
 | [BF-038](../backlog/issues/BF-038.md) | Preparación de release, smoke test y recuperación | P0 | 5 | S6 | BF-037 |
+| [BF-039](../backlog/issues/BF-039.md) | Perfil del inversor: cuestionario versionado de tolerancia y capacidad de riesgo | P0 | 5 | S1 | BF-007, BF-008 |
 
 ## Detalle y criterios de aceptación
 
@@ -456,6 +457,23 @@ Como propietario quiero desplegar sin perder datos ni investigaciones.
 1. Existe procedimiento reproducible de Vercel con variables por entorno y control de autorizaciones.
 2. Antes de producción se verifican migraciones, respaldos, rutas privadas, consulta y simulación de punta a punta.
 3. Rollback, versionado y smoke test post-release están documentados y cuentan con aprobación de PO.
+
+
+### BF-039 — Perfil del inversor: cuestionario versionado de tolerancia y capacidad de riesgo
+
+**E0 · S1 · P0 · 5 SP · Dep.: BF-007, BF-008**
+
+Como inversor principiante quiero responder un cuestionario sencillo que evalúe por separado mi tolerancia al riesgo y mi capacidad financiera para asumirlo, para comprender mi perfil y sus límites antes de investigar inversiones.
+
+**Criterios de aceptación:**
+1. El test presenta preguntas claras en español para separar capacidad financiera, tolerancia emocional, objetivo y experiencia. No solicita edad, ingreso exacto, saldo bancario ni números de cuenta.
+2. El scoring es determinista, versionado y documentado. Capacidad y tolerancia se muestran separadas; el perfil global no supera la dimensión más restrictiva. Las respuestas inconsistentes o no reveladas no se fuerzan a una categoría.
+3. Se muestra una explicación comprensible, factores que limitaron el resultado, fecha, versión y aviso de que es una autoevaluación educativa, no una prueba regulatoria de idoneidad ni una recomendación de inversión.
+4. Cada envío guarda una fotografía inmutable; volver a responder crea otra versión y conserva la anterior. El historial se puede consultar y comparar.
+5. RLS impide lectura de usuario ajeno y escritura directa. El guardado usa RPC que valida identidad y respuestas; pruebas negativas y rollback documentados.
+6. Interfaz autenticada, responsive, accesible por teclado, con estados vacío/error/cargando y pruebas deterministas para bandas, límites, respuestas omitidas y contradicciones.
+
+El scoring v1.0 separa capacidad (0–12) y tolerancia (0–8); el perfil global adopta la banda más restrictiva. Si faltan respuestas sensibles o hay contradicciones en las caídas hipotéticas, no se asigna un perfil global. Ver [detalle BF-039](../backlog/issues/BF-039.md).
 
 ## Gestión y refinamiento
 

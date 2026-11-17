@@ -12,7 +12,7 @@ Leer: `docs/PRODUCT_BACKLOG.md`, `docs/SCRUM_FRAMEWORK.md`, `docs/DEFINITION_OF_
 
 ## 2. Estado y autorizaciones
 
-- Estado vigente (2026-11): aplicación Next.js y Supabase Auth/RLS con catálogo de cinco ETF y mediciones versionadas creados. Vercel aún sin proyecto; leer `docs/DATA_MODEL.md` y `docs/FRONTEND_CATALOG_BF011_BF012.md` antes de modificar el frontend.
+- Estado vigente (2026-11): aplicación Next.js desplegada en Vercel; Supabase Auth/RLS, catálogo de cinco ETF, mediciones versionadas y comparaciones guardadas en uso. BF-039 añade perfil del inversor en una rama; su migración aún no se ha aplicado. Leer `docs/DATA_MODEL.md` y `docs/FRONTEND_CATALOG_BF011_BF012.md` antes de modificar el frontend.
 - No crear, migrar, desplegar ni publicar recursos externos de forma implícita. Seguir autorización del PO y documentar impacto, rollback y QA.
 - No realizar merges o despliegues productivos si las pruebas están fallando o el PO no lo ha aprobado.
 - Prohibido alterar servicios, proyectos, repos o cuentas no relacionados.

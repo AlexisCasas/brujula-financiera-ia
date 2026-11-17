@@ -1,8 +1,8 @@
 # Brújula Financiera IA
 
-**Estado:** aplicación Next.js con navegación y Auth; catálogo de cinco ETF y mediciones presentes en Supabase. En esta rama se añade la lectura real en Panel/Explorar. Despliegue Vercel pendiente.
+**Estado:** aplicación Next.js desplegada en Vercel con Auth/RLS, catálogo de cinco ETF, comparador y comparaciones guardadas. BF-039 incorpora el perfil del inversor en revisión; su migración Supabase aún requiere autorización.
 
-Plataforma personal para investigar ETF, comparar alternativas, simular inversiones en USD/PEN y registrar decisiones con evidencia. ChatGPT y Claude realizan investigación desde sus chats y, tras configurar un MCP seguro, pueden consultar y proponer información para Supabase. La web Next.js/React en Vercel es el tablero y motor de cálculo; **no contiene un chat LLM integrado ni requiere OpenAI/Claude API en el MVP**.
+Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar alternativas, simular inversiones en USD/PEN y registrar decisiones con evidencia. ChatGPT y Claude realizan investigación desde sus chats y, tras configurar un MCP seguro, pueden consultar y proponer información para Supabase. La web Next.js/React en Vercel es el tablero y motor de cálculo; **no contiene un chat LLM integrado ni requiere OpenAI/Claude API en el MVP**.
 
 ## Alcance aprobado
 
@@ -17,7 +17,7 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 
 | Documento | Propósito |
 |---|---|
-| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 38 historias con aceptación y dependencias |
+| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 39 historias con aceptación y dependencias |
 | [`docs/SCRUM_FRAMEWORK.md`](docs/SCRUM_FRAMEWORK.md) | Product Goal, eventos, roles, cadencia y reglas |
 | [`docs/DEFINITION_OF_DONE.md`](docs/DEFINITION_OF_DONE.md) | Requisitos verificables para cerrar una historia |
 | [`docs/SPRINT_ROADMAP.md`](docs/SPRINT_ROADMAP.md) | Orden tentativo de sprints basado en objetivos |
@@ -26,7 +26,13 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 | [`AGENTS.md`](AGENTS.md) | Instrucciones para agentes de desarrollo |
 | [`CLAUDE.md`](CLAUDE.md) | Punto de entrada para agentes Claude |
 | [`backlog/PRODUCT_BACKLOG.csv`](backlog/PRODUCT_BACKLOG.csv) | Exportación tabular de historias |
-| [`backlog/issues/`](backlog/issues/) | 38 cuerpos de Issue listos para publicar |
+| [`backlog/issues/`](backlog/issues/) | 39 cuerpos de Issue listos para publicar |
+
+## Perfil del inversor (BF-039)
+
+- Cuestionario versionado que separa capacidad financiera y tolerancia emocional; el resultado global se limita por la dimensión más restrictiva.
+- Respuestas codificadas, historial inmutable y acceso privado. No se solicitan importes exactos ni se envían respuestas a asistentes externos.
+- La migración de persistencia requiere autorización explícita del Product Owner porque Supabase es un proyecto compartido.
 
 ## Frontend conectado al catálogo (BF-011/BF-012)
 
@@ -36,7 +42,7 @@ Plataforma personal para investigar ETF, comparar alternativas, simular inversio
 
 ## QA documental inicial
 
-`python scripts/verify-backlog.py` valida consistencia de 38 historias, criterios, dependencias y documentos; `.github/workflows/docs-validation.yml` lo ejecutará en GitHub Actions al publicarse. Esto no certifica el QA de una aplicación todavía inexistente.
+`python scripts/verify-backlog.py` valida consistencia de 39 historias, criterios, dependencias y documentos; `.github/workflows/docs-validation.yml` lo ejecutará en GitHub Actions al publicarse. Esto no certifica el QA de una aplicación todavía inexistente.
 
 ## Cómo arrancaremos
 

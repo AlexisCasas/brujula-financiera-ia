@@ -26,7 +26,7 @@ flowchart TD
 
 ## Entidades: implementadas BF-010/BF-011/BF-012 y próximas
 
-`instrument` (ISIN, gestora, índice) → `listing` (ticker, exchange, currency) → `price_observation` (fecha, close, adjusted/total_return, provenance); `fund_snapshot` (atributos + fecha); `fx_observation` (par USD/PEN + fecha); `source_record` (URL/título, fecha, licencia); `news_item`; `analysis_record`; `comparison`; `simulation`; `decision`; `change_proposal`; `audit_log`.
+`instrument` (ISIN, gestora, índice) → `listing` (ticker, exchange, currency) → `price_observation` (fecha, close, adjusted/total_return, provenance); `fund_snapshot` (atributos + fecha); `fx_observation` (par USD/PEN + fecha); `source_record` (URL/título, fecha, licencia); `news_item`; `analysis_record`; `comparison`; `simulation`; `decision`; `change_proposal`; `audit_log`; `investor_profile_snapshot` (respuestas codificadas, scoring versionado y resultado privado).
 
 Una misma etiqueta ticker puede corresponder a listings distintos: **el identificador del fondo NO es el ticker**. Los snapshots se versionan y conservan la fecha efectiva de los datos.
 

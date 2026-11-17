@@ -18,12 +18,20 @@ export const NAV_ITEMS: readonly NavItem[] = [
     description: "Organiza tus ETF, investigaciones y escenarios antes de tomar una decisión.",
   },
   {
+    href: "/perfil",
+    label: "Mi perfil",
+    icon: "◎",
+    eyebrow: "Conoce tu perfil",
+    heading: "Mi perfil de inversionista.",
+    description: "Comprende tu capacidad financiera y tu tolerancia al riesgo antes de analizar alternativas.",
+  },
+  {
     href: "/seguimiento",
     label: "Mi seguimiento",
     icon: "◎",
     eyebrow: "Tu lista personal",
     heading: "Mi seguimiento.",
-    description: "Sigue ETF identificados, deja de seguirlos o reanuda el interés sin borrar tu historial.",
+    description: "Sigue ETF y acciones BVL identificadas, deja de seguirlas o reanuda tu interés sin borrar el historial.",
   },
   {
     href: "/explorar",
