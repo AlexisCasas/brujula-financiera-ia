@@ -8,7 +8,7 @@ export type EquityCatalogResult =
   | { status: "ready"; rows: EquityListing[] }
   | { status: "error"; rows: []; message: string };
 
-/** Uses Auth + SECURITY INVOKER view + underlying RLS; no service_role. */
+/** Uses user Auth, a SECURITY INVOKER view, and underlying RLS. */
 export async function getEquityCatalog(): Promise<EquityCatalogResult> {
   await connection();
   const supabase = await createClient();
