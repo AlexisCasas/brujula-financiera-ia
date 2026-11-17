@@ -145,8 +145,8 @@ export default async function WatchlistPage({
         </form>
         <p className="etf-meta">
           Solo están disponibles los ETF ya identificados en Supabase.
-          Las acciones individuales de la Bolsa local aparecen abajo como referencias para investigar; su incorporación al seguimiento requiere BF-040.
-          no agregamos un ticker sin verificar el emisor y su mercado.
+          Más abajo encontrarás una selección adicional de la BVL para investigar. Su incorporación
+          al seguimiento requiere BF-040; no registramos valores arbitrarios sin verificar su identidad.
         </p>
       </section>
 
@@ -219,7 +219,7 @@ export default async function WatchlistPage({
       <div className="watchlist-footnote">
         <h2>Qué agregaremos en el siguiente incremento</h2>
         <p>
-          Acciones individuales con identidad validada, noticias, resultados
+          Alta de acciones de la BVL con identidad validada, noticias, resultados
           empresariales y distribuciones por activo. La futura integración
           ChatGPT/Claude por MCP permitirá administrar esta misma lista mediante
           acciones explícitas. Ningún seguimiento representa una recomendación.
