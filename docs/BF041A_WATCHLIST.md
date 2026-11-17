@@ -2,14 +2,14 @@
 
 **Historia en GitHub:** #56
 **Rama:** feat/BF-041a-watchlist
-**Estado:** preparación de PR / revisión del PO
-**Migración:** supabase/migrations/20261117120000_bf041a_watchlist.sql — **NO APLICADA**
+**Estado:** migración BF-041a aplicada con autorización y QA SQL PASS; QA real en Preview y merge pendientes.
+**Migración:** supabase/migrations/20261117044420_bf041a_watchlist.sql — **APLICADA, versión 20261117044420**
 
 ## Propósito
 
 Mi seguimiento permite a un inversor principiante registrar interés, no tenencia ni compra, sobre un listing de ETF del catálogo existente. Puede seguir, dejar de seguir y reanudar sin perder historial.
 
-Primera iteración: los 5 ETF VWRA, FWRA, VOO, VUG y SPYG. Las acciones individuales requieren BF-040 para incorporar identidades y listings verificados; no se admiten tickers arbitrarios.
+Primera iteración de seguimiento persistente: cinco ETF (VWRA, FWRA, VOO, VUG y SPYG). **Se añadió una segunda lista informativa separada** con ocho acciones de referencia de la Bolsa de Valores de Lima (BVL), con ISIN, moneda y referencias BVL. No se permite agregarlas a la lista persistente hasta ampliar el catálogo genérico en BF-040; no se aceptan tickers arbitrarios.
 
 ## Modelo de datos
 
@@ -42,7 +42,7 @@ Dejar de seguir implica estado inactive, nunca DELETE. Los eventos históricos s
 
 ## QA manual en Preview
 
-1. Abrir /seguimiento autenticado. Antes de aplicar migración debe verse el catálogo con mensaje de persistencia pendiente y sin botones activos.
+1. Abrir /seguimiento autenticado. Con la migración aplicada debe mostrar el catálogo y controles de seguimiento de ETF.
 2. Tras autorización separada de la migración, corroborar cinco ETF disponibles y lista vacía.
 3. Agregar VWRA y luego FWRA; verificar identidad (ISIN, mercado, divisa) y eventos.
 4. Dejar de seguir VWRA. Debe quedar inactivo y conservar su evento anterior.
@@ -50,12 +50,13 @@ Dejar de seguir implica estado inactive, nunca DELETE. Los eventos históricos s
 6. Probar búsqueda por nombre, ticker e ISIN.
 7. Confirmar que doble clic o repetir operación no duplica filas ni eventos.
 8. Verificar diseño móvil, teclado y bloqueo sin autenticación.
-9. Verificar que comparador, perfil y comparaciones guardadas no cambian.
+9. Comprobar que la sección **Bolsa local · BVL** presenta ocho acciones de referencia, con fuente, fecha, ISIN y moneda, sin botón de alta ni cotizaciones inventadas.
+10. Verificar que comparador, perfil y comparaciones guardadas no cambian.
 
 ## Pruebas y dependencias
 
 - Frontend: tests/watchlist.test.ts, navegación y CI de lint/typecheck/Vitest/guardrails/build.
-- SQL: supabase/tests/bf041a_watchlist.sql (10 verificaciones con rollback). No se ejecuta automáticamente ni antes de autorización.
+- SQL: supabase/tests/bf041a_watchlist.sql (10 verificaciones con rollback). Ejecutadas con autorización del PO el 2026-11-17; 10 controles PASS y rollback verificado (0 ítems, 0 eventos residuales).
 - **BF-040:** ampliar modelo de activos para acciones con fuente/identidad corroborada.
 - **BF-015 / BF-042:** noticias, reportes, dividendos y distribuciones.
 - **BF-017–020:** integración MCP con ChatGPT/Claude y acciones confirmadas.
@@ -63,4 +64,26 @@ Dejar de seguir implica estado inactive, nunca DELETE. Los eventos históricos s
 
 ## Gate de release
 
-Requiere autorización explícita para aplicar la migración al proyecto Supabase único dev/prod; después pruebas SQL y QA funcional del propietario. Merge y despliegue productivo requieren aprobación explícita adicional.
+**BF-041a aplicada con autorización explícita del PO:** la versión de migración quedó registrada como 20261117044420 y se verificó RLS, ACL y 10 pruebas SQL con rollback. Permanece el QA funcional real del propietario. **BF-040 no migrada:** BVL está disponible solo como investigación inicial. Merge y despliegue productivo requieren aprobación explícita adicional.
+
+## Primer lote de descubrimiento BVL — BF-040
+
+La tabla de **valores referenciales para operaciones de reporte** de la BVL, vigente desde el 1 de octubre de 2026, identifica los nemónicos; el reporte de **Mercado de Renta Variable** actualizado al 16 de noviembre de 2026 documenta ISIN y moneda; la página de componentes S&P/BVL ESG (actualizada al 25 de julio de 2025) ayuda a vincular nombres y nemónicos históricos. Estas fuentes son de alcance distinto y **no constituyen un registro de altas verificado de valores vigentes** ni un feed de precios licenciados.
+
+Referencias:
+- https://documents.bvl.com.pe/empresas/alertas/TVR%202026-4T.pdf
+- https://documents.bvl.com.pe/pubdif/boldia/stockq.htm
+- https://documents.bvl.com.pe/pubdif/boldia/emp_ibgc.htm
+
+| Nemónico BVL | Emisor | ISIN | Moneda del reporte BVL |
+|---|---|---|---|
+| ALICORC1 | Alicorp S.A. | PEP214001005 | PEN |
+| FERREYC1 | Ferreycorp S.A.A. | PEP736001004 | PEN |
+| INRETC1 | InRetail Perú Corp. | PAL1801171A1 | USD |
+| BBVAC1 | Banco BBVA Perú | PEP116001004 | PEN |
+| CPACASC1 | Cementos Pacasmayo S.A.A. | PEP239501005 | PEN |
+| ENGIEC1 | Engie Energía Perú S.A. | PEP702101002 | PEN |
+| UNACEMC1 | Unacem Corp S.A.A. | PEP761001002 | PEN |
+| NEXAPEC1 | Nexa Resources Perú S.A.A. | PEP620001003 | PEN |
+
+No se registran estos valores como ETFs y no se insertan en `instrument`/`listing`: faltaría tipo de activo y separación de metadatos antes de conectar a BF-041a. No se realiza una nueva migración sin autorización.
