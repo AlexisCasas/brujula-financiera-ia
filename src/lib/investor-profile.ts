@@ -59,9 +59,11 @@ const OPTIONS: Record<AnswerKey, readonly string[]> = {
 export function parseInvestorAnswers(raw: Record<string, unknown>):
   | { ok: true; answers: InvestorAnswers }
   | { ok: false; missing: AnswerKey[] } {
+  const extraKeys = Object.keys(raw).filter((key) => !ANSWER_KEYS.includes(key as AnswerKey));
   const missing = ANSWER_KEYS.filter((key) =>
     typeof raw[key] !== "string" || !OPTIONS[key].includes(raw[key] as string),
   );
+  if (extraKeys.length > 0) missing.push(...extraKeys.map(() => "horizon" as AnswerKey));
   if (missing.length > 0) return { ok: false, missing };
   return { ok: true, answers: raw as InvestorAnswers };
 }
