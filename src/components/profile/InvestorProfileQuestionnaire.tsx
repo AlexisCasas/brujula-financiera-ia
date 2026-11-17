@@ -92,10 +92,11 @@ const experience: Option[] = [
   { value: "advanced", label: "Avanzada: conozco instrumentos y sus riesgos" },
 ];
 
-export function InvestorProfileQuestionnaire() {
+export function InvestorProfileQuestionnaire({ disabled = false }: Readonly<{ disabled?: boolean }>) {
   return (
     <form action={saveInvestorProfileAction} className="profile-form">
       <input type="hidden" name="questionnaire_version" value={QUESTIONNAIRE_VERSION} />
+      <fieldset className="profile-form-fields" disabled={disabled}>
       <section className="panel profile-section" aria-labelledby="capacity-title">
         <p className="eyebrow">Dimensión 1 · Capacidad financiera</p>
         <h2 id="capacity-title">¿Qué margen tienes para asumir pérdidas?</h2>
@@ -159,9 +160,10 @@ export function InvestorProfileQuestionnaire() {
       </section>
 
       <div className="profile-submit">
-        <button className="primary-button" type="submit">Calcular y guardar mi perfil</button>
+        <button className="primary-button" type="submit" disabled={disabled}>Calcular y guardar mi perfil</button>
         <span className="etf-meta">Cuestionario v{QUESTIONNAIRE_VERSION} · Se conservará el historial de evaluaciones.</span>
       </div>
+      </fieldset>
     </form>
   );
 }
