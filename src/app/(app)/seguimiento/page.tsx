@@ -12,6 +12,7 @@ import {
 import { findNavItem } from "@/lib/navigation";
 import { changeWatchlistAction } from "./actions";
 import { WatchlistSubmit } from "@/components/watchlist/WatchlistSubmit";
+import { BvlDiscoveryList } from "@/components/watchlist/BvlDiscoveryList";
 
 const item = findNavItem("/seguimiento")!;
 export const metadata = { title: "Mi seguimiento · Brújula Financiera IA" };
@@ -144,7 +145,7 @@ export default async function WatchlistPage({
         </form>
         <p className="etf-meta">
           Solo están disponibles los ETF ya identificados en Supabase.
-          Las acciones individuales se incorporarán tras BF-040;
+          Las acciones individuales de la Bolsa local aparecen abajo como referencias para investigar; su incorporación al seguimiento requiere BF-040.
           no agregamos un ticker sin verificar el emisor y su mercado.
         </p>
       </section>
@@ -189,6 +190,8 @@ export default async function WatchlistPage({
           </section>
         </>
       )}
+
+      <BvlDiscoveryList query={query} />
 
       <section className="panel watchlist-history" aria-labelledby="watchlist-history-title">
         <h2 id="watchlist-history-title">Historial de seguimiento</h2>
