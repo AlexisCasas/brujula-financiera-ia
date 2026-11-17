@@ -7,7 +7,7 @@ export type NavItem = {
   description: string;
 };
 
-// The six screens agreed in BF-003 (approved prototype) and BF-009, in menu order.
+// Core screens plus incrementally approved personal workspace modules, in menu order.
 export const NAV_ITEMS: readonly NavItem[] = [
   {
     href: "/panel",
@@ -16,6 +16,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
     eyebrow: "Tu centro de decisiones",
     heading: "Invierte con más contexto.",
     description: "Organiza tus ETF, investigaciones y escenarios antes de tomar una decisión.",
+  },
+  {
+    href: "/seguimiento",
+    label: "Mi seguimiento",
+    icon: "◎",
+    eyebrow: "Tu lista personal",
+    heading: "Mi seguimiento.",
+    description: "Sigue ETF identificados, deja de seguirlos o reanuda el interés sin borrar tu historial.",
   },
   {
     href: "/explorar",
