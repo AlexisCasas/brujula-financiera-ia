@@ -343,3 +343,19 @@ input:focus-visible,
   .watchlist-history li { grid-template-columns: 1fr; gap: 4px; }
   .watchlist-facts { grid-template-columns: 1fr; }
 }
+
+
+/* BF-040 discovery: BVL reference-only stock candidates with documented source. */
+.watchlist-bvl-intro { display: grid; gap: 8px; margin-bottom: 12px; }
+.watchlist-bvl-intro p { margin: 0; font-size: 12px; }
+.watchlist-bvl-intro p strong { color: var(--fg); }
+.watchlist-bvl-sources { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.watchlist-bvl-sources a, .watchlist-bvl-card-footer a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; font-size: 12px; }
+.watchlist-bvl-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.watchlist-bvl-card { display: grid; gap: 7px; }
+.watchlist-bvl-card h3 { margin: 0; color: var(--fg); font-size: 14px; }
+.watchlist-bvl-card p { margin: 0; }
+.watchlist-bvl-card code { color: var(--fg); overflow-wrap: anywhere; }
+.watchlist-bvl-card-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 7px; border-top: 1px solid var(--line); }
+.watchlist-bvl-pending { color: var(--warn); font-size: 11px; }
+@media (max-width: 800px) { .watchlist-bvl-grid { grid-template-columns: 1fr; } }
