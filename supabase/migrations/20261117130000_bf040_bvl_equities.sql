@@ -80,7 +80,7 @@ insert into public.field_evidence(
   entity_type,entity_id,field,value,verification_status,
   source_record_id,effective_date,note,created_by
 )
-select 'instrument',i.id,'isin',i.isin,'verified',s.id,'2026-11-16',
+select 'instrument',i.id,'isin',i.isin,'verified',s.id,date '2026-11-16',
   'ISIN of BVL security; identity only, not live-price verification.','BF-040'
 from public.instrument i
 cross join lateral (select id from public.source_record
@@ -95,7 +95,7 @@ and not exists (
     and e.field='isin' and e.verification_status='verified'
 )
 union all
-select 'listing',l.id,'ticker',l.ticker,'verified',s.id,'2026-11-16',
+select 'listing',l.id,'ticker',l.ticker,'verified',s.id,date '2026-11-16',
   'BVL XLIM equity identifier as of source date; listing status not confirmed.','BF-040'
 from public.listing l join public.instrument i on i.id=l.instrument_id
 cross join lateral (select id from public.source_record
@@ -110,7 +110,7 @@ insert into public.field_evidence(
   entity_type,entity_id,field,value,verification_status,
   source_record_id,effective_date,note,created_by
 )
-select 'listing',l.id,'currency',l.currency,'verified',s.id,'2026-11-16',
+select 'listing',l.id,'currency',l.currency,'verified',s.id,date '2026-11-16',
   'Published BVL quote currency. No exchange-rate conversion implied.','BF-040'
 from public.listing l join public.instrument i on i.id=l.instrument_id
 cross join lateral (select id from public.source_record
