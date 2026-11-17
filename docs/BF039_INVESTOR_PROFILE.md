@@ -1,7 +1,7 @@
 # BF-039 — Perfil del inversor v1.0
 
 **Historia:** [BF-039](../backlog/issues/BF-039.md) · **Issue GitHub:** #54  
-**Estado:** frontend y migración preparados en rama; migración NO aplicada a Supabase.  
+**Estado:** migración aplicada en Supabase compartido el 2026-11-17; nueve pruebas SQL con rollback superadas. QA visual y merge pendientes.  
 **Cuestionario:** 1.0 · **Scoring:** 1.0.
 
 ## Objetivo y límites
@@ -77,13 +77,13 @@ Si capacidad no se puede determinar, el resultado global queda no determinado. S
 
 ## Migración y rollback
 
-Archivo: `supabase/migrations/20261116090000_bf039_investor_profile.sql`.
+Archivo: `supabase/migrations/20261117015103_bf039_investor_profile.sql`.
 
 Crea `public.investor_profile_snapshot`, su índice, RLS, política owner-only y `public.save_investor_profile(jsonb)`. No altera el catálogo ni las comparaciones existentes.
 
-**Supabase es un único proyecto compartido por desarrollo y producción.** Por esa razón la migración está versionada en GitHub, pero no se aplicará hasta autorización explícita del PO. Una vez aplicada, el rollback preferido es dejar los snapshots históricos intactos y revertir el frontend si aparece un defecto; eliminar la tabla y sus respuestas no es una reversión rutinaria.
+**Supabase es un único proyecto compartido por desarrollo y producción.** Por esa razón la migración se aplicó solo tras autorización explícita del PO y quedó registrada en el historial Supabase como versión `20261117015103`. Una vez aplicada, el rollback preferido es dejar los snapshots históricos intactos y revertir el frontend si aparece un defecto; eliminar la tabla y sus respuestas no es una reversión rutinaria.
 
-Test SQL: `supabase/tests/bf039_investor_profile.sql`; usa transacción y rollback y debe ejecutarse solo con autorización y en una sesión controlada.
+Test SQL: `supabase/tests/bf039_investor_profile.sql`; ejecutado en la base compartida con autorización, nueve controles superados y rollback verificado (cero filas residuales).
 
 ## QA manual
 
