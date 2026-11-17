@@ -69,7 +69,7 @@ export function parseInvestorAnswers(raw: Record<string, unknown>):
 }
 
 const CAPACITY_POINTS: Record<string, number> = {
-  under_1y: 0, "1_3y": 0, "3_5y": 1, "5_10y": 2, over_10y: 2,
+  under_1y: 0, "1_3y": 0, "3_5y": 1, "5_10y": 2, over_10y: 2, over_3y: 2,
   under_1m: 0, "1_3m": 1, over_3m: 2,
   variable: 0, mixed: 1, stable: 2,
   essential: 0, partial: 1, not_needed: 2,
