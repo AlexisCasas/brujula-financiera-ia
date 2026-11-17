@@ -18,6 +18,14 @@ export const NAV_ITEMS: readonly NavItem[] = [
     description: "Organiza tus ETF, investigaciones y escenarios antes de tomar una decisión.",
   },
   {
+    href: "/perfil",
+    label: "Mi perfil",
+    icon: "◎",
+    eyebrow: "Conoce tu perfil",
+    heading: "Mi perfil de inversionista.",
+    description: "Comprende tu capacidad financiera y tu tolerancia al riesgo antes de analizar alternativas.",
+  },
+  {
     href: "/explorar",
     label: "Explorar ETF",
     icon: "⌕",
