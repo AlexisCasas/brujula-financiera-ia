@@ -1,7 +1,7 @@
 import { normalizedSearch } from "./etfs/catalog";
 
 /**
- * BF-040 discovery seed, read-only. These are eight BVL capital-share
+ * BF-040 discovery seed, read-only. These are nine BVL capital-share
  * mnemonics (Oct 2026 reference table), cross-matched with older issuer names
  * in BVL's S&P/BVL ESG basket. A separate BVL spot report as of Nov 16, 2026 corroborates
  * ISIN and quote currency. NOT a traded-price feed, investment advice,
@@ -32,6 +32,7 @@ export const BVL_DISCOVERY_CANDIDATES: readonly BvlCandidate[] = [
   { mnemonic: "ENGIEC1", issuerName: "Engie Energía Perú S.A.", marketLabel: "BVL · Perú", classLabel: "Acción de capital", isin: "PEP702101002", currency: "PEN" },
   { mnemonic: "UNACEMC1", issuerName: "Unacem Corp S.A.A.", marketLabel: "BVL · Perú", classLabel: "Acción de capital", isin: "PEP761001002", currency: "PEN" },
   { mnemonic: "NEXAPEC1", issuerName: "Nexa Resources Perú S.A.A.", marketLabel: "BVL · Perú", classLabel: "Acción de capital", isin: "PEP620001003", currency: "PEN" },
+  { mnemonic: "BAP", issuerName: "Credicorp Ltd.", marketLabel: "BVL · Perú", classLabel: "Acción de capital", isin: "BMG2519Y1084", currency: "USD" },
 ];
 
 export function filterBvlCandidates(
