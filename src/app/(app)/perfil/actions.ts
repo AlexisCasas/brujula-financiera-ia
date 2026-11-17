@@ -7,6 +7,7 @@ import { parseInvestorAnswers } from "@/lib/investor-profile";
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 
 export async function saveInvestorProfileAction(form: FormData): Promise<void> {
+  if (form.get("privacy_acknowledged") !== "yes") redirect("/perfil?notice=privacy");
   const raw: Record<string, unknown> = {};
   for (const key of [
     "horizon", "withdrawal", "emergency_fund", "income_stability",
