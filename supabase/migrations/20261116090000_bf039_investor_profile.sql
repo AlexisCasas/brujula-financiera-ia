@@ -51,7 +51,7 @@ create policy investor_profile_owner_read on public.investor_profile_snapshot
 revoke all on public.investor_profile_snapshot from public, anon, authenticated;
 grant select on public.investor_profile_snapshot to authenticated;
 
-create function public.save_investor_profile(p_answers jsonb)
+create function private.save_investor_profile(p_answers jsonb)
 returns uuid
 language plpgsql
 security definer
@@ -198,6 +198,23 @@ begin
 
   return v_id;
 end
+$bf$;
+
+-- Keep the SECURITY DEFINER implementation in the non-exposed private schema.
+-- The public RPC below is SECURITY INVOKER and delegates to this owner-checked function.
+revoke all on function private.save_investor_profile(jsonb)
+  from public, anon, authenticated;
+grant usage on schema private to authenticated;
+grant execute on function private.save_investor_profile(jsonb)
+  to authenticated;
+
+create function public.save_investor_profile(p_answers jsonb)
+returns uuid
+language sql
+security invoker
+set search_path = ''
+as $bf$
+  select private.save_investor_profile(p_answers);
 $bf$;
 
 revoke all on function public.save_investor_profile(jsonb)
