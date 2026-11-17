@@ -143,7 +143,7 @@ export default async function WatchlistPage({
           <div className="etf-search-row">
             <input type="search" id="watchlist-query" name="q"
               defaultValue={query} maxLength={120}
-              placeholder="Ejemplo: VWRA, FWRA o Vanguard" />
+              placeholder="Ejemplo: BAP, Credicorp, VWRA o Alicorp" />
             <button className="primary-button" type="submit">Buscar</button>
             {query && <Link href="/seguimiento" className="etf-clear">Limpiar</Link>}
           </div>
@@ -159,7 +159,7 @@ export default async function WatchlistPage({
         <>
           <section aria-labelledby="watchlist-following-title" className="watchlist-section">
             <div className="watchlist-heading">
-              <h2 id="watchlist-following-title">Mi lista de seguimiento</h2>
+              <h2 id="watchlist-following-title">ETF que sigo</h2>
               <span className="tag ok">{followed.length} activo(s)</span>
             </div>
             {followed.length === 0 ? (
@@ -225,8 +225,8 @@ export default async function WatchlistPage({
       <div className="watchlist-footnote">
         <h2>Qué agregaremos en el siguiente incremento</h2>
         <p>
-          Noticias y resultados para ETF y acciones BVL con identidad validada,
-          empresariales y distribuciones por activo. La futura integración
+          Noticias, informes de resultados empresariales y distribuciones
+          para ETF y acciones BVL, con fuentes verificables por activo. La futura integración
           ChatGPT/Claude por MCP permitirá administrar esta misma lista mediante
           acciones explícitas. Ningún seguimiento representa una recomendación.
         </p>
