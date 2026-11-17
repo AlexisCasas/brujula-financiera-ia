@@ -1,6 +1,7 @@
 import {
   BVL_CODES_AS_OF, BVL_CODES_SOURCE, BVL_DISCOVERY_CANDIDATES,
-  BVL_ISSUERS_AS_OF, BVL_ISSUERS_SOURCE, filterBvlCandidates,
+  BVL_ISSUERS_AS_OF, BVL_ISSUERS_SOURCE, BVL_STOCK_REPORT_SOURCE,
+  BVL_STOCK_REPORT_AS_OF, filterBvlCandidates,
 } from "@/lib/bvl-discovery";
 import { formatDate } from "@/lib/etfs/catalog";
 
@@ -24,11 +25,15 @@ export function BvlDiscoveryList({ query }: Readonly<{ query: string }>) {
         <p className="etf-meta">
           Códigos según tabla BVL vigente desde {formatDate(BVL_CODES_AS_OF)};
           relación de emisores del índice BVL publicada al {formatDate(BVL_ISSUERS_AS_OF)}.
-          Estas fuentes no garantizan precio, liquidez ni estado actual de negociación.
+          ISIN y moneda contrastados con boletín oficial BVL al {formatDate(BVL_STOCK_REPORT_AS_OF)}.
+          No publicamos precios ni rentabilidad en esta selección.
         </p>
         <div className="watchlist-bvl-sources">
           <a href={BVL_CODES_SOURCE} target="_blank" rel="noopener noreferrer">
             Tabla oficial de valores BVL ↗
+          </a>
+          <a href={BVL_STOCK_REPORT_SOURCE} target="_blank" rel="noopener noreferrer">
+            Boletín oficial BVL (ISIN y divisas) ↗
           </a>
           <a href={BVL_ISSUERS_SOURCE} target="_blank" rel="noopener noreferrer">
             Listado BVL de empresas ↗
@@ -50,8 +55,9 @@ export function BvlDiscoveryList({ query }: Readonly<{ query: string }>) {
               </div>
               <h3>{entry.issuerName}</h3>
               <p className="etf-meta">{entry.marketLabel} · {entry.classLabel}</p>
+              <p className="etf-meta">ISIN: <code>{entry.isin}</code> · Moneda: {entry.currency}</p>
               <p className="etf-meta">
-                Sin precio ni moneda de negociación verificados en esta ficha.
+                No hay precio ni rentabilidad integrada en esta ficha.
                 No equivale a una recomendación.
               </p>
               <div className="watchlist-bvl-card-footer">
