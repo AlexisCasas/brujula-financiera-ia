@@ -58,13 +58,13 @@ const OPTIONS: Record<AnswerKey, readonly string[]> = {
 
 export function parseInvestorAnswers(raw: Record<string, unknown>):
   | { ok: true; answers: InvestorAnswers }
-  | { ok: false; missing: AnswerKey[] } {
+  | { ok: false; missing: AnswerKey[]; reason?: "missing_or_invalid" | "extra_fields" } {
   const extraKeys = Object.keys(raw).filter((key) => !ANSWER_KEYS.includes(key as AnswerKey));
   const missing = ANSWER_KEYS.filter((key) =>
     typeof raw[key] !== "string" || !OPTIONS[key].includes(raw[key] as string),
   );
-  if (extraKeys.length > 0) missing.push(...extraKeys.map(() => "horizon" as AnswerKey));
-  if (missing.length > 0) return { ok: false, missing };
+  if (extraKeys.length > 0) return { ok: false, missing: [], reason: "extra_fields" };
+  if (missing.length > 0) return { ok: false, missing, reason: "missing_or_invalid" };
   return { ok: true, answers: raw as InvestorAnswers };
 }
 
