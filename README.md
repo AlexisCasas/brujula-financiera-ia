@@ -1,6 +1,6 @@
 # Brújula Financiera IA
 
-**Estado:** aplicación Next.js con navegación y Auth; catálogo de cinco ETF y mediciones presentes en Supabase. En esta rama se añade la lectura real en Panel/Explorar. Despliegue Vercel pendiente.
+**Estado:** aplicación Next.js desplegada en Vercel con Auth/RLS, catálogo de cinco ETF, comparador y comparaciones guardadas. BF-039 incorpora el perfil del inversor en revisión; su migración Supabase aún requiere autorización.
 
 Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar alternativas, simular inversiones en USD/PEN y registrar decisiones con evidencia. ChatGPT y Claude realizan investigación desde sus chats y, tras configurar un MCP seguro, pueden consultar y proponer información para Supabase. La web Next.js/React en Vercel es el tablero y motor de cálculo; **no contiene un chat LLM integrado ni requiere OpenAI/Claude API en el MVP**.
 
