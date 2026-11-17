@@ -1,5 +1,5 @@
--- BF-039 SQL integration tests. Run only in an isolated QA database.
--- All inserts are rolled back; do not run on shared production without PO authorization.
+-- BF-039 SQL integration tests. Run only with explicit Product Owner authorization.
+-- The entire transaction rolls back; verify zero residual rows after execution.
 begin;
 select set_config('request.jwt.claim.sub',
   (select user_id::text from public.app_owner limit 1), true);
