@@ -23,8 +23,8 @@ describe("BF-039 investor profile scoring v1.0", () => {
   it("parses only the 12 supported answer options", () => {
     expect(parseInvestorAnswers(base).ok).toBe(true);
     expect(parseInvestorAnswers({ ...base, horizon: "forever" }).ok).toBe(false);
-    expect(parseInvestorAnswers({ ...base, extra: "private data" }).ok).toBe(true);
-    const { horizon: _horizon, ...missing } = base;
+    expect(parseInvestorAnswers({ ...base, extra: "private data" }).ok).toBe(false);
+    const missing = Object.fromEntries(Object.entries(base).filter(([key]) => key !== "horizon"));
     expect(parseInvestorAnswers(missing).ok).toBe(false);
   });
 
