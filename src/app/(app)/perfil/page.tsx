@@ -72,7 +72,7 @@ export default async function InvestorProfilePage({
       </div>}
 
       {history.status === "error" && <div className="info" role="alert">
-        {history.message}
+        {history.message} La migración de BF-039 aún no se ha aplicado al proyecto Supabase compartido; por ahora puedes revisar el cuestionario, pero el guardado está deshabilitado.
       </div>}
 
       {selected && (
@@ -154,7 +154,7 @@ export default async function InvestorProfilePage({
           Son 12 preguntas. Puedes volver a realizarlo cuando cambien tus objetivos
           o situación; cada evaluación se guarda como un registro independiente.
         </p>
-        <InvestorProfileQuestionnaire/>
+        <InvestorProfileQuestionnaire disabled={history.status === "error"}/>
       </details>
 
       <div className="profile-next-step">
