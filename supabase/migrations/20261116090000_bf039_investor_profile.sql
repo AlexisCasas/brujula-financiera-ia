@@ -6,7 +6,7 @@ create table public.investor_profile_snapshot (
   questionnaire_version text not null check (questionnaire_version = '1.0'),
   scoring_version text not null check (scoring_version = '1.0'),
   answers jsonb not null check (
-    jsonb_typeof(answers) = 'object' and jsonb_object_length(answers) = 12
+    jsonb_typeof(answers) = 'object'
   ),
   profile_status text not null check (
     profile_status in ('complete', 'incomplete', 'review_needed')
@@ -80,8 +80,12 @@ begin
       using errcode = '42501';
   end if;
 
-  if p_answers is null or jsonb_typeof(p_answers) <> 'object'
-     or jsonb_object_length(p_answers) <> 12
+  if p_answers is null or jsonb_typeof(p_answers) <> 'object' then
+    raise exception 'Respuestas incompletas o con campos no permitidos'
+      using errcode = '22023';
+  end if;
+
+  if (select count(*) from jsonb_object_keys(p_answers)) <> 12
      or not (p_answers ?& array[
        'horizon','withdrawal','emergency_fund','income_stability',
        'capital_dependency','high_cost_debt','drop_10','drop_20',
