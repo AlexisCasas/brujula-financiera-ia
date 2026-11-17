@@ -22,4 +22,6 @@
 | DEC-018 | Acceso por correo y contraseña con Supabase Auth, sin registro público | Propuesta técnica | Menor fricción para un usuario único y sin depender de correo transaccional; pendiente de validación del PO |
 | DEC-019 | Perfil de inversionista separa capacidad financiera y tolerancia emocional; el resultado global no supera la dimensión más restrictiva | Aprobada para BF-039 v1.0; scoring sujeto a QA del PO | Confirmación del PO para construir el primer incremento de perfil; evaluación educativa, no recomendación ni prueba regulatoria |
 
+| DEC-020 | Contrato MCP financiero BF-017a versionado y en rama, con allowlist de siete herramientas, sin endpoint ni tokens; autorización del servidor y doble confirmación necesarias antes de escrituras | Propuesta técnica 2026-11-17, no aprobada para ejecución | La integración de perfil, seguimiento y BVL se prepara en PR #60; BF-017a solo define esquemas y pruebas, pendiente de OAuth, RLS real y QA de clientes |
+
 **Regla:** no convertir una propuesta técnica en decisión aprobada sin confirmación explícita del PO. Toda modificación añade fecha, motivo e impacto en historias/arquitectura.
