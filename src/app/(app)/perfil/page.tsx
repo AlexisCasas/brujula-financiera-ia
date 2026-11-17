@@ -72,7 +72,7 @@ export default async function InvestorProfilePage({
       </div>}
 
       {history.status === "error" && <div className="info" role="alert">
-        {history.message} La migración de BF-039 aún no se ha aplicado al proyecto Supabase compartido; por ahora puedes revisar el cuestionario, pero el guardado está deshabilitado.
+        {history.message} La migración de BF-039 puede estar pendiente o el acceso requiere revisión. Por ahora puedes revisar el cuestionario, pero el guardado está deshabilitado.
       </div>}
 
       {selected && (
