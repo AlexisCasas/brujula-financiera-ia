@@ -2,7 +2,7 @@
 
 **Alcance:** ampliar el catálogo de 5 ETF con 9 acciones de capital cotizadas en la Bolsa de Valores de Lima (XLIM). Incluye Credicorp Ltd. BAP.
 **Rama:** feat/BF-040-bvl-equities, dependiente de feat/BF-041a-watchlist / PR #57, todavía sin merge.
-**Migración propuesta:** supabase/migrations/20261117130000_bf040_bvl_equities.sql.
+**Migración aplicada con autorización PO:** supabase/migrations/20261117045805_bf040_bvl_equities.sql (Supabase remote version 20261117045805).
 
 ## Contrato financiero y seguridad
 
@@ -51,7 +51,17 @@ Los nueve ISIN fueron validados con `private.is_valid_isin` en el proyecto Supab
 5. Desde `/seguimiento` autenticado agregar BAP, dejar de seguirlo, reanudar y consultar eventos. Repetir operaciones no duplica ni pierde registros.
 6. Usuario ajeno o anónimo no lee ni modifica seguimiento; RLS y función de escritura heredadas continúan intactas.
 7. No aparecen acciones en `/explorar` ni `/comparador`; su importe de compra, TER o dividendo no se inventa.
-8. Pruebas automatizadas (Vitest + lint/TS/build) y 12 controles SQL transaccionales con rollback.
-9. Sin merge ni despliegue productivo hasta validación y autorización separada del PO.
+8. Pruebas automatizadas (Vitest + lint/TS/build) y 12 controles SQL transaccionales con rollback. **Las 12 pruebas SQL se ejecutaron en el Supabase compartido y pasaron; BAP quedó con 0 ítems y 0 eventos residuales tras rollback.**
+9. Migración Supabase ya aplicada; sin merge ni despliegue productivo hasta validación y autorización separada del PO.
 
 **Rollback:** DDL adicional es compatible con lectura anterior. Ante un fallo en frontend revertir PR sin borrar watchlist ni registros históricos. Para reversión estructural, no hacer `DROP` sin inventario y respaldo de los nuevos datos; preferir deshabilitar lectura y preservar historial.
+
+## Evidencia de ejecución Supabase (2026-11-17 UTC)
+
+- Migración `20261117045805_bf040_bvl_equities`: PASS, aplicada y registrada en `supabase_migrations.schema_migrations`.
+- Pruebas SQL `supabase/tests/bf040_bvl_equities.sql`: 12/12 PASS dentro de transacción, `BF040_ROLLBACK_PASS` con 0 eventos y 0 ítems BAP de prueba.
+- Conteos posteriores: 5 ETF, 9 acciones, 5 filas en `catalog_overview`, 9 filas en `equity_listing_overview`, 0 fuentes faltantes, 1 Credicorp BAP/XLIM/USD con ISIN correcto.
+- El guardado BF-041a RLS sigue activo; fila(s) previamente seguidas y perfil BF-039 preservados.
+- Security advisor: **sin nuevas advertencias**. Se mantienen advertencias heredadas sobre `public.save_etf_comparison` (SECURITY DEFINER) y Leaked Password Protection deshabilitada; no forman parte de BF-040.
+- La URL BVL `stockq.htm` es una página actualizable: la fecha explícita 16/11/2026 se guarda en la evidencia; para reproducibilidad histórica futura convendrá archivar la fuente o vincular una publicación de corte inmutable, respetando la licencia.
+- **Frontend:** disponible en PR #59 de forma dependiente de PR #57. QA visual y merge pendientes.
