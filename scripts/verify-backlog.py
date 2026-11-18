@@ -4,10 +4,10 @@ import csv, json, re
 r = Path(__file__).resolve().parent.parent
 S = json.loads((r / 'backlog/issues.json').read_text(encoding='utf-8'))
 ids = {x['id'] for x in S}
-assert len(S) == 39 and len(ids) == 39, 'Cantidad o IDs duplicados'
+assert len(S) == 47 and len(ids) == 47, 'Cantidad o IDs duplicados'
 assert all(len(x['acceptance']) >= 3 for x in S)
-assert {x['epic'] for x in S} == {f'E{i}' for i in range(7)}
-assert {x['sprint'] for x in S} == {f'S{i}' for i in range(7)}
+assert {x['epic'] for x in S} == {f'E{i}' for i in range(8)}
+assert {x['sprint'] for x in S} == {f'S{i}' for i in range(10)}
 assert all(x['priority'] in ('P0','P1','P2') and x['points'] in (1,2,3,5,8,13) for x in S)
 assert all((r / x['issue_file']).is_file() for x in S)
 backlog = (r / 'docs/PRODUCT_BACKLOG.md').read_text(encoding='utf-8')
