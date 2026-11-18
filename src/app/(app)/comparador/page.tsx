@@ -184,6 +184,12 @@ export default async function ComparatorPage({
           </>
         );
       })()}
+      <section className="panel s6-comparison-invite">
+        <p className="eyebrow">Sesión 6 · Taller práctico</p>
+        <h2>¿Quieres agregar ponderaciones y justificar tu evaluación?</h2>
+        <p>Este comparador muestra los datos documentados. La matriz de benchmarking del taller añade criterios y razonamiento propio del estudiante.</p>
+        <Link href="/investigaciones/benchmarking" className="etf-clear">Abrir benchmarking didáctico →</Link>
+      </section>
       <section className="panel comparison-history" aria-labelledby="comparison-history-title">
         <h2 id="comparison-history-title">Comparaciones guardadas</h2>
         {history.status === "error"
