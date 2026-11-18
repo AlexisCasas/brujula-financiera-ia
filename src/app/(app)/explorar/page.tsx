@@ -1,15 +1,17 @@
 import { EtfCatalog } from "@/components/etfs/EtfCatalog";
 import { getEtfCatalog } from "@/lib/etfs/queries";
 import { findNavItem } from "@/lib/navigation";
+import type { ExploreLens } from "@/lib/etfs/catalog";
 
 const item = findNavItem("/explorar")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
 
 export default async function ExplorePage({
   searchParams,
-}: Readonly<{ searchParams: Promise<{ q?: string }> }>) {
-  const { q } = await searchParams;
+}: Readonly<{ searchParams: Promise<{ q?: string; lens?: string }> }>) {
+  const { q, lens: lensParam } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 120) : "";
+  const lens: ExploreLens | "all" = ["global","dividends","usd","accumulating"].includes(lensParam) ? lensParam as ExploreLens : "all";
   const catalog = await getEtfCatalog();
 
   return (
@@ -32,7 +34,7 @@ export default async function ExplorePage({
         </div>
       )}
       {catalog.status === "ready" && (
-        <EtfCatalog profiles={catalog.profiles} query={query} asOf={catalog.asOf} />
+        <EtfCatalog profiles={catalog.profiles} query={query} lens={lens} asOf={catalog.asOf} />
       )}
     </section>
   );
