@@ -11,7 +11,7 @@ export default async function ExplorePage({
 }: Readonly<{ searchParams: Promise<{ q?: string; lens?: string }> }>) {
   const { q, lens: lensParam } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 120) : "";
-  const lens: ExploreLens | "all" = ["global","dividends","usd","accumulating"].includes(lensParam) ? lensParam as ExploreLens : "all";
+  const lens: ExploreLens | "all" = typeof lensParam === "string" && ["global", "dividends", "usd", "accumulating"].includes(lensParam) ? lensParam as ExploreLens : "all";
   const catalog = await getEtfCatalog();
 
   return (
