@@ -1,10 +1,3 @@
-import { findNavItem } from "@/lib/navigation";
-import { ScreenPlaceholder } from "@/components/ScreenPlaceholder";
-
-const item = findNavItem("/decisiones")!;
-
-export const metadata = { title: `${item.label} · Brújula Financiera IA` };
-
-export default function Page() {
-  return <ScreenPlaceholder item={item} />;
-}
+import {DecisionForm} from "@/components/beginner/DecisionForm";import {listInvestorDecisions} from "@/lib/beginner-decision-queries";
+export const metadata={title:"Mis decisiones · Brújula Financiera IA"};
+export default async function DecisionsPage(){const rows=await listInvestorDecisions();return <section aria-labelledby="screen-title"><header className="intro"><p className="eyebrow">Bitácora personal</p><h1 id="screen-title">Mis decisiones.</h1><p>Registra qué estás considerando, por qué, qué riesgos entiendes y qué alternativas comparaste. Considerar no significa comprar.</p></header>{rows.length>0&&<section className="panel decision-history"><h2>Decisiones registradas</h2><ul>{rows.map(r=><li key={r.id}><strong>{r.title}</strong><span>{r.decision_status}</span><small>{new Date(r.created_at).toLocaleDateString("es-PE")}</small></li>)}</ul></section>}<DecisionForm/></section>;}

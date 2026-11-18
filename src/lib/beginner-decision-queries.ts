@@ -1,0 +1,3 @@
+import "server-only";import {redirect} from "next/navigation";import {createClient} from "@/lib/supabase/server";
+export type InvestorDecision={id:string;title:string;thesis:string|null;risks:string|null;alternatives:string|null;doubts:string|null;amount:number|null;currency:string|null;decision_status:string;created_at:string};
+export async function listInvestorDecisions():Promise<InvestorDecision[]>{const client=await createClient();const{data:{user}}=await client.auth.getUser();if(!user)redirect("/login");const{data}=await client.from("investor_decision").select("id,title,thesis,risks,alternatives,doubts,amount,currency,decision_status,created_at").order("created_at",{ascending:false}).limit(20);return(data??[]) as InvestorDecision[];}

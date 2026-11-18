@@ -21,6 +21,8 @@ export type Evidence = {
   note: string | null;
 };
 
+export type ExploreLens = "global" | "dividends" | "usd" | "accumulating";
+
 export type EtfProfile = {
   listingId: string;
   instrumentId: string;
@@ -63,12 +65,16 @@ export function normalizedSearch(value: string): string {
   return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
 
-export function filterProfiles(profiles: readonly EtfProfile[], query: string): EtfProfile[] {
+export function filterProfiles(profiles: readonly EtfProfile[], query: string, lens: ExploreLens | "all" = "all"): EtfProfile[] {
   const text = normalizedSearch(query);
-  if (!text) return [...profiles];
   return profiles.filter((profile) =>
-    [profile.ticker, profile.name, profile.issuer, profile.isin, profile.indexName]
-      .some((value) => normalizedSearch(value ?? "").includes(text)),
+    (!text || [profile.ticker, profile.name, profile.issuer, profile.isin, profile.indexName].some((value) => normalizedSearch(value ?? "").includes(text)))
+    && (lens === "all"
+      || (lens === "usd" && profile.currency === "USD")
+      || (lens === "accumulating" && profile.distributionPolicy === "accumulating")
+      || (lens === "dividends" && profile.distributionPolicy === "distributing")
+      || (lens === "global" && normalizedSearch(profile.indexName ?? "").match(/world|all-world|global/))
+    ),
   );
 }
 

@@ -7,6 +7,7 @@ import {
   formatProfileDate, type RiskBand,
 } from "@/lib/investor-profile";
 import { findNavItem } from "@/lib/navigation";
+import { BeginnerProfileGuidance } from "@/components/beginner/BeginnerProfileGuidance";
 
 const item = findNavItem("/perfil")!;
 export const metadata = { title: "Mi perfil de inversionista · Brújula Financiera IA" };
@@ -119,6 +120,7 @@ export default async function InvestorProfilePage({
               Scoring v{selected.scoring_version}
             </p>
           </div>
+          {selected?.overall_band && <BeginnerProfileGuidance band={selected.overall_band} />}
           <p className="profile-disclaimer">
             Este resultado es una autoevaluación educativa, no una prueba
             regulatoria de idoneidad ni una recomendación de inversión.
