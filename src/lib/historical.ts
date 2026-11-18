@@ -1,0 +1,3 @@
+export type HistoricalMetric={listing_id:string;metric_key:"annualized_return"|"volatility"|"max_drawdown"|"calendar_return";period_years:number|null;value:number;unit:"percent"|"decimal";as_of_date:string;source_date:string;source_url:string;methodology:string;coverage_status:"verified"|"partial"|"not_comparable";note:string|null};
+export function historicalLabel(key:HistoricalMetric["metric_key"]){switch(key){case"annualized_return":return"Rentabilidad anualizada";case"volatility":return"Volatilidad";case"max_drawdown":return"Máxima caída";case"calendar_return":return"Rentabilidad del año";}}
+export function historicalValue(row:HistoricalMetric){return row.unit==="percent"?row.value.toFixed(2)+" %":(row.value*100).toFixed(2)+" %";}
