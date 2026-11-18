@@ -105,8 +105,8 @@ function EtfCard({ profile }: Readonly<{ profile: EtfProfile }>) {
 
 export function EtfCatalog({
   profiles, query, asOf,
-}: Readonly<{ profiles: EtfProfile[]; query: string; asOf: string }>) {
-  const filtered = filterProfiles(profiles, query);
+}: Readonly<{ profiles: EtfProfile[]; query: string; distributionFilter: string; currencyFilter: string; asOf: string }>) {
+  const filtered = filterProfiles(profiles, query).filter((p) => !distributionFilter || p.distributionPolicy === distributionFilter).filter((p) => !currencyFilter || p.currency === currencyFilter);
   return (
     <section aria-label="Catálogo ETF">
       <form method="get" action="/explorar" className="etf-search panel" role="search">
@@ -122,7 +122,7 @@ export function EtfCatalog({
       </form>
       <div className="etf-results-heading">
         <p>{filtered.length} de {profiles.length} listings · Corte de datos: {formatDate(asOf)} (UTC)</p>
-        <p className="etf-meta">No hay precios históricos ni conversión PEN en este incremento.</p>
+        <p className="etf-meta">Los filtros describen características documentadas; no son recomendaciones. No hay precios históricos ni conversión PEN en esta pantalla.</p>
       </div>
       {filtered.length === 0
         ? <div className="empty"><h2>No se encontraron ETF</h2><p>Modifica la búsqueda o consulta los cinco instrumentos del piloto.</p></div>
