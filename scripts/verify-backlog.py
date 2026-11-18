@@ -4,7 +4,7 @@ import csv, json, re
 r = Path(__file__).resolve().parent.parent
 S = json.loads((r / 'backlog/issues.json').read_text(encoding='utf-8'))
 ids = {x['id'] for x in S}
-assert len(S) == 47 and len(ids) == 47, 'Cantidad o IDs duplicados'
+assert len(S) == 49 and len(ids) == 49, 'Cantidad o IDs duplicados'
 assert all(len(x['acceptance']) >= 3 for x in S)
 assert {x['epic'] for x in S} == {f'E{i}' for i in range(8)}
 assert {x['sprint'] for x in S} == {f'S{i}' for i in range(10)}
