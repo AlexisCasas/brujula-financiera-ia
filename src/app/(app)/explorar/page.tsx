@@ -7,9 +7,11 @@ export const metadata = { title: `${item.label} · Brújula Financiera IA` };
 
 export default async function ExplorePage({
   searchParams,
-}: Readonly<{ searchParams: Promise<{ q?: string }> }>) {
-  const { q } = await searchParams;
+}: Readonly<{ searchParams: Promise<{ q?: string; distribution?: string; currency?: string }> }>) {
+  const { q, distribution, currency } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 120) : "";
+  const distributionFilter = distribution === "accumulating" || distribution === "distributing" ? distribution : "";
+  const currencyFilter = currency === "USD" || currency === "PEN" ? currency : "";
   const catalog = await getEtfCatalog();
 
   return (
@@ -32,7 +34,7 @@ export default async function ExplorePage({
         </div>
       )}
       {catalog.status === "ready" && (
-        <EtfCatalog profiles={catalog.profiles} query={query} asOf={catalog.asOf} />
+        <EtfCatalog profiles={catalog.profiles} query={query} distributionFilter={distributionFilter} currencyFilter={currencyFilter} asOf={catalog.asOf} />
       )}
     </section>
   );
