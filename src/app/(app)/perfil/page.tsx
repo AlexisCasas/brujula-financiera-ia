@@ -6,7 +6,6 @@ import {
   BAND_SHORT_LABELS, PROFILE_LABELS, RESULT_EXPLANATIONS,
   formatProfileDate, type RiskBand,
 } from "@/lib/investor-profile";
-import { findNavItem } from "@/lib/navigation";
 
 
 export const metadata = { title: "Mi perfil de inversionista · Brújula Financiera IA" };
