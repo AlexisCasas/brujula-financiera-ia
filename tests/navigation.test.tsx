@@ -10,9 +10,10 @@ import { ScrollableTable } from "../src/components/ScrollableTable";
 import { NAV_ITEMS, isActivePath } from "../src/lib/navigation";
 
 describe("navigation", () => {
-  it("lists the six agreed screens with their routes", () => {
+  it("lists seven screens including the private watchlist", () => {
     expect(NAV_ITEMS.map((i) => i.label)).toEqual([
       "Panel",
+      "Mi seguimiento",
       "Explorar ETF",
       "Comparador",
       "Simulador",

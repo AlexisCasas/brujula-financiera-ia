@@ -292,3 +292,70 @@ input:focus-visible,
   .cost-evidence { grid-template-columns: 1fr; }
   .cost-controls { align-items: stretch; }
 }
+
+
+/* BF-041a — owner-only watchlist; interest never implies holdings. */
+.watchlist-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 15px 0 20px; }
+.watchlist-summary .panel { display: grid; gap: 5px; padding: 15px 18px; }
+.watchlist-summary span, .watchlist-summary small { color: var(--muted); font-size: 11px; }
+.watchlist-summary strong { font-size: 29px; line-height: 1.2; color: var(--fg); }
+.watchlist-discovery { margin: 12px 0 23px; }
+.watchlist-discovery h2 { margin-bottom: 10px; }
+.watchlist-discovery form { display: grid; gap: 9px; }
+.watchlist-discovery label { color: var(--fg); font-size: 12px; font-weight: 700; }
+.watchlist-discovery .etf-meta { margin: 10px 0 0; }
+.watchlist-section { margin: 16px 0 26px; }
+.watchlist-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; }
+.watchlist-heading h2 { margin: 0; }
+.watchlist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.watchlist-card { display: grid; align-content: start; gap: 11px; }
+.watchlist-card-top { display: flex; align-items: start; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.watchlist-identity { display: flex; align-items: start; gap: 12px; }
+.watchlist-ticker { font-size: 20px; font-weight: 800; color: var(--accent); line-height: 1.2; min-width: 57px; }
+.watchlist-identity > div:last-child { display: grid; gap: 4px; }
+.watchlist-identity strong { color: var(--fg); font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.watchlist-identity span { color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+.watchlist-facts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+.watchlist-facts > div { display: grid; gap: 5px; padding: 10px; background: var(--surface2); border-radius: 8px; }
+.watchlist-facts span { color: var(--muted); font-size: 11px; }
+.watchlist-facts strong { color: var(--fg); font-size: 13px; }
+.watchlist-card .etf-meta { margin: 0; }
+.watchlist-card-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+.watchlist-card-actions form { margin: 0; }
+.watchlist-secondary-button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 9px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface2); color: var(--fg); font: inherit; font-weight: 700; font-size: 12px; cursor: pointer; }
+.watchlist-secondary-button:disabled { opacity: 0.6; cursor: wait; }
+.watchlist-secondary-button:hover:not(:disabled) { border-color: var(--accent); }
+.watchlist-history { margin: 16px 0 20px; }
+.watchlist-history h2 { margin-bottom: 6px; }
+.watchlist-history ol { list-style: none; margin: 8px 0 0; padding: 0; display: grid; }
+.watchlist-history li { display: grid; grid-template-columns: minmax(120px,1fr) minmax(150px,2fr) auto; gap: 8px 16px; align-items: center; padding: 11px 0; border-top: 1px solid var(--line); font-size: 12px; }
+.watchlist-history li > div { display: grid; gap: 2px; }
+.watchlist-history li strong { color: var(--fg); }
+.watchlist-history li span, .watchlist-history time { color: var(--muted); font-size: 11px; }
+.watchlist-footnote { border-top: 1px solid var(--line); padding-top: 18px; }
+.watchlist-footnote h2 { margin-bottom: 7px; }
+.watchlist-footnote p { max-width: 800px; font-size: 12px; }
+@media (max-width: 800px) {
+  .watchlist-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .watchlist-summary { grid-template-columns: 1fr; }
+  .watchlist-history li { grid-template-columns: 1fr; gap: 4px; }
+  .watchlist-facts { grid-template-columns: 1fr; }
+}
+
+
+/* BF-040 discovery: BVL reference-only stock candidates with documented source. */
+.watchlist-bvl-intro { display: grid; gap: 8px; margin-bottom: 12px; }
+.watchlist-bvl-intro p { margin: 0; font-size: 12px; }
+.watchlist-bvl-intro p strong { color: var(--fg); }
+.watchlist-bvl-sources { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.watchlist-bvl-sources a, .watchlist-bvl-card-footer a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; font-size: 12px; }
+.watchlist-bvl-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.watchlist-bvl-card { display: grid; gap: 7px; }
+.watchlist-bvl-card h3 { margin: 0; color: var(--fg); font-size: 14px; }
+.watchlist-bvl-card p { margin: 0; }
+.watchlist-bvl-card code { color: var(--fg); overflow-wrap: anywhere; }
+.watchlist-bvl-card-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding-top: 7px; border-top: 1px solid var(--line); }
+.watchlist-bvl-pending { color: var(--warn); font-size: 11px; }
+@media (max-width: 800px) { .watchlist-bvl-grid { grid-template-columns: 1fr; } }
