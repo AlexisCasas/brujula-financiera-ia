@@ -17,6 +17,7 @@ describe("navigation", () => {
       "Mi objetivo",
       "Academia",
       "Mi seguimiento",
+      "Dividendos",
       "Explorar ETF",
       "Comparador",
       "Simulador",

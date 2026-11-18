@@ -5,6 +5,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
 {href:"/objetivo",label:"Mi objetivo",icon:"◎",eyebrow:"Define tu propósito",heading:"Mi objetivo de inversión.",description:"Define qué quieres lograr, en cuánto tiempo y con qué ritmo de aportes."},
 {href:"/academia",label:"Academia",icon:"✦",eyebrow:"Aprende lo esencial",heading:"Academia financiera básica.",description:"Aprende los conceptos que necesitas antes de comparar instrumentos."},
 {href:"/seguimiento",label:"Mi seguimiento",icon:"◎",eyebrow:"Tu lista personal",heading:"Mi seguimiento.",description:"Sigue ETF y acciones BVL identificadas, deja de seguirlas o reanuda tu interés sin borrar el historial."},
+{href:"/dividendos",label:"Dividendos",icon:"▦",eyebrow:"Calendario de distribuciones",heading:"Calendario de dividendos.",description:"Consulta pagos anunciados para las acciones BVL y ETF de tu catálogo."},
 {href:"/explorar",label:"Explorar ETF",icon:"⌕",eyebrow:"Catálogo educativo",heading:"Explorar ETF",description:"Busca instrumentos y entiende por qué aparecen en el catálogo."},
 {href:"/comparador",label:"Comparador",icon:"⇄",eyebrow:"Matriz objetiva",heading:"Compara lo comparable.",description:"Contrasta dos a cinco ETF con evidencia, costos y limitaciones explícitas."},
 {href:"/simulador",label:"Simulador",icon:"▥",eyebrow:"Prueba tus hipótesis",heading:"Simulador de escenarios",description:"Explora escenarios ilustrativos antes de convertir una alternativa en una decisión."},
