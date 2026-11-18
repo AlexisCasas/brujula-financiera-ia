@@ -625,5 +625,133 @@
     ],
     "depends": "BF-007, BF-008",
     "issue_file": "backlog/issues/BF-039.md"
+  },
+  {
+    "id": "BF-042",
+    "epic": "E7",
+    "sprint": "S7",
+    "priority": "P0",
+    "points": 5,
+    "title": "Definir y guardar el objetivo de inversión, horizonte y capacidad de aporte",
+    "goal": "Como inversor principiante quiero declarar qué quiero conseguir, en cuánto tiempo y con qué capacidad de aporte, para interpretar mi perfil y mis investigaciones dentro de un objetivo concreto.",
+    "acceptance": [
+      "Se puede guardar objetivo, categoría, horizonte, moneda, capital inicial y aporte periódico.",
+      "Los montos son opcionales y no requieren cuentas bancarias ni credenciales.",
+      "El acceso es owner-only con RLS y cada actualización conserva un snapshot anterior."
+    ],
+    "depends": "BF-039, BF-008",
+    "issue_file": "backlog/issues/BF-042.md"
+  },
+  {
+    "id": "BF-043",
+    "epic": "E7",
+    "sprint": "S7",
+    "priority": "P0",
+    "points": 3,
+    "title": "Explicar el perfil del inversor en lenguaje accionable y educativo",
+    "goal": "Como principiante quiero entender qué significa mi perfil y qué límites tiene.",
+    "acceptance": [
+      "Se explican capacidad y tolerancia por separado.",
+      "Se muestra el factor que limita el perfil global cuando corresponde.",
+      "Incluye aviso educativo y no transforma el perfil en recomendación automática."
+    ],
+    "depends": "BF-039, BF-042",
+    "issue_file": "backlog/issues/BF-043.md"
+  },
+  {
+    "id": "BF-044",
+    "epic": "E7",
+    "sprint": "S7",
+    "priority": "P0",
+    "points": 5,
+    "title": "Academia financiera básica contextual para principiantes",
+    "goal": "Como principiante quiero aprender conceptos financieros justo cuando los necesito.",
+    "acceptance": [
+      "Existe contenido breve para acción, ETF, riesgo, volatilidad, diversificación, rentabilidad, TER/costos, dividendos, horizonte, interés compuesto, USD/PEN y drawdown.",
+      "Cada concepto tiene explicación, ejemplo, por qué importa y qué no permite concluir.",
+      "Las fuentes educativas se identifican y los ejemplos hipotéticos no se presentan como datos de mercado."
+    ],
+    "depends": "BF-043",
+    "issue_file": "backlog/issues/BF-044.md"
+  },
+  {
+    "id": "BF-045",
+    "epic": "E7",
+    "sprint": "S8",
+    "priority": "P0",
+    "points": 5,
+    "title": "Explorador educativo por características comprensibles",
+    "goal": "Como principiante quiero filtrar instrumentos por características que comprendo.",
+    "acceptance": [
+      "Se filtra por tipo, diversificación documentada, distribución, mercado/región y moneda cuando haya evidencia.",
+      "Se distinguen ETF y acciones BVL.",
+      "Cada filtro explica qué significa y qué no significa; no asigna una recomendación automática."
+    ],
+    "depends": "BF-044, BF-040",
+    "issue_file": "backlog/issues/BF-045.md"
+  },
+  {
+    "id": "BF-046",
+    "epic": "E7",
+    "sprint": "S8",
+    "priority": "P0",
+    "points": 5,
+    "title": "Comparador educativo con compensaciones explicables",
+    "goal": "Como principiante quiero comparar alternativas y entender qué diferencias importan.",
+    "acceptance": [
+      "La matriz explica cada métrica en lenguaje simple.",
+      "Distingue costos recurrentes y costos de transacción.",
+      "Presenta compensaciones y cobertura de datos sin seleccionar un ganador automático."
+    ],
+    "depends": "BF-023, BF-027, BF-042, BF-045",
+    "issue_file": "backlog/issues/BF-046.md"
+  },
+  {
+    "id": "BF-047",
+    "epic": "E7",
+    "sprint": "S8",
+    "priority": "P0",
+    "points": 8,
+    "title": "Simulador de escenarios hipotéticos y aportes",
+    "goal": "Como principiante quiero probar capital, aportes y horizonte bajo supuestos explícitos.",
+    "acceptance": [
+      "Permite PEN/USD, capital inicial, aporte periódico y plazo.",
+      "Permite escenarios definidos por el usuario y limita valores extremos para evitar falsas expectativas.",
+      "Separa capital aportado de crecimiento hipotético, muestra fórmula y puede guardar un escenario reproducible."
+    ],
+    "depends": "BF-030, BF-042",
+    "issue_file": "backlog/issues/BF-047.md"
+  },
+  {
+    "id": "BF-048",
+    "epic": "E7",
+    "sprint": "S9",
+    "priority": "P0",
+    "points": 5,
+    "title": "Registrar la primera decisión con tesis, riesgos y alternativas",
+    "goal": "Como principiante quiero registrar por qué considero un instrumento y qué riesgos entiendo.",
+    "acceptance": [
+      "Guarda listing, objetivo, tesis, razones, riesgos, alternativa, escenario y estado.",
+      "Los cambios generan historial y no borran la decisión anterior.",
+      "Se puede consultar por instrumento y fecha y no constituye una orden ni registra tenencias."
+    ],
+    "depends": "BF-046, BF-047",
+    "issue_file": "backlog/issues/BF-048.md"
+  },
+  {
+    "id": "BF-049",
+    "epic": "E7",
+    "sprint": "S9",
+    "priority": "P0",
+    "points": 8,
+    "title": "Capa verificable de históricos, rendimiento y riesgo",
+    "goal": "Como inversor quiero consultar rendimiento y riesgo históricos únicamente cuando la cobertura sea verificable.",
+    "acceptance": [
+      "Existe un modelo versionado para métricas históricas con fuente, fecha efectiva, captura, unidad, metodología y cobertura.",
+      "Se soportan rendimiento por periodo, volatilidad y drawdown cuando haya datos suficientes.",
+      "La UI marca explícitamente datos no disponibles y el diseño desacopla las series de cualquier proveedor concreto."
+    ],
+    "depends": "BF-013, BF-014, BF-046, BF-047",
+    "issue_file": "backlog/issues/BF-049.md"
   }
 ]
