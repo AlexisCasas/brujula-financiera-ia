@@ -65,3 +65,47 @@ grant select on public.investment_goal_snapshot,public.simulation_scenario,publi
 
 -- Mutation functions live in private schema; exposed wrappers are SECURITY INVOKER.
 -- Detailed validation is enforced by the live functions; these declarations document their public contracts.
+
+create function private.save_investment_goal(p_goal_category text,p_title text,p_target_amount numeric,p_currency text,p_horizon text,p_initial_amount numeric,p_recurring_amount numeric,p_recurring_frequency text,p_financial_readiness text,p_notes text) returns uuid language plpgsql security definer set search_path='' as $bf$
+declare v_user uuid:=auth.uid();v_id uuid;
+begin
+ if v_user is null or not (select private.is_owner()) then raise exception 'No autorizado para guardar el objetivo' using errcode='42501'; end if;
+ if p_goal_category not in('patrimonio','jubilacion','vivienda','educacion','ingresos','aprendizaje','otro') or p_currency not in('PEN','USD') or p_horizon not in('under_2y','2_5y','5_10y','over_10y') or p_recurring_frequency not in('monthly','quarterly','annual') or p_financial_readiness not in('ready','emergency_fund','high_interest_debt','building_plan','prefer_not') then raise exception 'Valores de objetivo no válidos' using errcode='22023'; end if;
+ if p_title is null or char_length(btrim(p_title)) not between 2 and 120 or coalesce(p_target_amount,0)<0 or coalesce(p_initial_amount,0)<0 or coalesce(p_recurring_amount,0)<0 or coalesce(p_initial_amount,0)>100000000 or coalesce(p_recurring_amount,0)>10000000 or (p_notes is not null and char_length(p_notes)>600) then raise exception 'Montos o texto del objetivo fuera de rango' using errcode='22023'; end if;
+ insert into public.investment_goal_snapshot(owner_user_id,goal_category,title,target_amount,currency,horizon,initial_amount,recurring_amount,recurring_frequency,financial_readiness,notes) values(v_user,btrim(p_goal_category),btrim(p_title),p_target_amount,p_currency,p_horizon,p_initial_amount,p_recurring_amount,p_recurring_frequency,p_financial_readiness,nullif(btrim(p_notes),'')) returning id into v_id; return v_id;
+end $bf$;
+revoke all on function private.save_investment_goal(text,text,numeric,text,text,numeric,numeric,text,text,text) from public,anon,authenticated;
+grant usage on schema private to authenticated;
+grant execute on function private.save_investment_goal(text,text,numeric,text,text,numeric,numeric,text,text,text) to authenticated;
+create function public.save_investment_goal(p_goal_category text,p_title text,p_target_amount numeric,p_currency text,p_horizon text,p_initial_amount numeric,p_recurring_amount numeric,p_recurring_frequency text,p_financial_readiness text,p_notes text) returns uuid language sql security invoker set search_path='' as $bf$ select private.save_investment_goal(p_goal_category,p_title,p_target_amount,p_currency,p_horizon,p_initial_amount,p_recurring_amount,p_recurring_frequency,p_financial_readiness,p_notes); $bf$;
+revoke all on function public.save_investment_goal(text,text,numeric,text,text,numeric,numeric,text,text,text) from public,anon,authenticated;
+grant execute on function public.save_investment_goal(text,text,numeric,text,text,numeric,numeric,text,text,text) to authenticated;
+
+create function private.save_simulation_scenario(p_title text,p_currency text,p_initial_amount numeric,p_recurring_amount numeric,p_recurring_frequency text,p_years smallint,p_rates jsonb,p_result jsonb) returns uuid language plpgsql security definer set search_path='' as $bf$
+declare v_user uuid:=auth.uid();v_id uuid;
+begin
+ if v_user is null or not (select private.is_owner()) then raise exception 'No autorizado para guardar el escenario' using errcode='42501'; end if;
+ if p_title is null or char_length(btrim(p_title)) not between 2 and 120 or p_currency not in('PEN','USD') or p_initial_amount<0 or p_initial_amount>100000000 or p_recurring_amount<0 or p_recurring_amount>10000000 or p_recurring_frequency not in('monthly','quarterly','annual') or p_years not between 1 and 50 or p_rates is null or jsonb_typeof(p_rates)<>'object' or p_result is null or jsonb_typeof(p_result)<>'object' or not(p_rates ?& array['conservative','base','optimistic']) then raise exception 'Parámetros de simulación fuera de rango' using errcode='22023'; end if;
+ insert into public.simulation_scenario(owner_user_id,title,currency,initial_amount,recurring_amount,recurring_frequency,years,rates,result,formula_version) values(v_user,btrim(p_title),p_currency,p_initial_amount,p_recurring_amount,p_recurring_frequency,p_years,p_rates,p_result,'1.0') returning id into v_id; return v_id;
+end $bf$;
+revoke all on function private.save_simulation_scenario(text,text,numeric,numeric,text,smallint,jsonb,jsonb) from public,anon,authenticated;
+grant execute on function private.save_simulation_scenario(text,text,numeric,numeric,text,smallint,jsonb,jsonb) to authenticated;
+create function public.save_simulation_scenario(p_title text,p_currency text,p_initial_amount numeric,p_recurring_amount numeric,p_recurring_frequency text,p_years smallint,p_rates jsonb,p_result jsonb) returns uuid language sql security invoker set search_path='' as $bf$ select private.save_simulation_scenario(p_title,p_currency,p_initial_amount,p_recurring_amount,p_recurring_frequency,p_years,p_rates,p_result); $bf$;
+revoke all on function public.save_simulation_scenario(text,text,numeric,numeric,text,smallint,jsonb,jsonb) from public,anon,authenticated;
+grant execute on function public.save_simulation_scenario(text,text,numeric,numeric,text,smallint,jsonb,jsonb) to authenticated;
+
+create function private.save_investment_decision(p_listing_id uuid,p_goal_snapshot_id uuid,p_simulation_id uuid,p_status text,p_thesis text,p_positives text,p_risks text,p_alternative text) returns uuid language plpgsql security definer set search_path='' as $bf$
+declare v_user uuid:=auth.uid();v_id uuid;
+begin
+ if v_user is null or not(select private.is_owner()) then raise exception 'No autorizado para guardar la decisión' using errcode='42501'; end if;
+ if p_status not in('observing','considering','discarded') or p_thesis is null or char_length(btrim(p_thesis)) not between 10 and 1200 or p_risks is null or char_length(btrim(p_risks)) not between 10 and 1600 then raise exception 'Decisión incompleta o inválida' using errcode='22023'; end if;
+ if p_listing_id is not null and not exists(select 1 from public.listing l where l.id=p_listing_id) then raise exception 'Listing no registrado' using errcode='22023'; end if;
+ if p_goal_snapshot_id is not null and not exists(select 1 from public.investment_goal_snapshot g where g.id=p_goal_snapshot_id and g.owner_user_id=v_user) then raise exception 'Objetivo no pertenece al usuario' using errcode='42501'; end if;
+ if p_simulation_id is not null and not exists(select 1 from public.simulation_scenario s where s.id=p_simulation_id and s.owner_user_id=v_user) then raise exception 'Simulación no pertenece al usuario' using errcode='42501'; end if;
+ insert into public.investment_decision(owner_user_id,listing_id,goal_snapshot_id,simulation_id,status,thesis,positives,risks,alternative) values(v_user,p_listing_id,p_goal_snapshot_id,p_simulation_id,p_status,btrim(p_thesis),nullif(btrim(p_positives),''),btrim(p_risks),nullif(btrim(p_alternative),'')) returning id into v_id; return v_id;
+end $bf$;
+revoke all on function private.save_investment_decision(uuid,uuid,uuid,text,text,text,text,text) from public,anon,authenticated;
+grant execute on function private.save_investment_decision(uuid,uuid,uuid,text,text,text,text,text) to authenticated;
+create function public.save_investment_decision(p_listing_id uuid,p_goal_snapshot_id uuid,p_simulation_id uuid,p_status text,p_thesis text,p_positives text,p_risks text,p_alternative text) returns uuid language sql security invoker set search_path='' as $bf$ select private.save_investment_decision(p_listing_id,p_goal_snapshot_id,p_simulation_id,p_status,p_thesis,p_positives,p_risks,p_alternative); $bf$;
+revoke all on function public.save_investment_decision(uuid,uuid,uuid,text,text,text,text,text) from public,anon,authenticated;
+grant execute on function public.save_investment_decision(uuid,uuid,uuid,text,text,text,text,text) to authenticated;
