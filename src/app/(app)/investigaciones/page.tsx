@@ -24,8 +24,18 @@ export default function ResearchHub() {
         <ul><li>Criterios ponderados por el estudiante</li><li>Puntuación 1–5 sin valores prefijados</li><li>Conclusión solo con matriz completa</li></ul>
         <Link href="/investigaciones/benchmarking" className="primary-button">Abrir matriz de benchmarking</Link>
       </article>
+      <article className="panel s6-hub-card"><p className="eyebrow">S6-03 · Evaluación</p><h2>Evaluación de alternativas</h2>
+        <p>Analiza si cambian las conclusiones con otros pesos. Identifica argumentos, riesgos e información pendiente.</p>
+        <ul><li>Cuatro escenarios de sensibilidad</li><li>Advertencias de justificaciones genéricas</li><li>Conclusión razonada y autoguardada</li></ul>
+        <Link href="/investigaciones/evaluacion" className="primary-button">Abrir evaluación de alternativas</Link>
+      </article>
+      <article className="panel s6-hub-card"><p className="eyebrow">S6-04 · Reporte</p><h2>Informe ejecutivo comparativo</h2>
+        <p>Reúne investigación, matriz, sensibilidad, riesgos y conclusión en un documento listo para presentar.</p>
+        <ul><li>Importación de fichas y matriz anteriores</li><li>Vista para revisión y impresión PDF</li><li>Exportación Markdown</li></ul>
+        <Link href="/investigaciones/informe" className="primary-button">Abrir informe ejecutivo</Link>
+      </article>
     </div>
     <div className="info s6-bottom-note"><strong>Secuencia pedagógica:</strong> primero investigar, después comparar. BAP se trabaja como empresa individual; no se trata como un ETF equivalente.
-      S6-03 (evaluación de alternativas) y S6-04 (informe ejecutivo) quedan para el siguiente desarrollo.</div>
+      S6-03 analiza la sensibilidad y S6-04 genera el informe de cierre; los borradores son locales al navegador.</div>
   </section>;
 }
