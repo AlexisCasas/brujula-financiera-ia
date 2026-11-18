@@ -1,6 +1,6 @@
 # Product Backlog — Brújula Financiera IA
 
-**Versión:** 1.1 · **Fecha:** 2026-11-16 · **Estado:** BF-039 añadida por decisión del Product Owner; resto del backlog en refinamiento
+**Versión:** 1.2 · **Fecha:** 2026-11-18 · **Estado:** BF-042 a BF-049 añadidas como ruta prioritaria para inversor principiante
 
 > Orden, story points y sprint propuesto son hipótesis iniciales, no compromisos de fecha. El PO puede repriorizar en cada refinamiento.
 
@@ -27,8 +27,9 @@ Permitir a un inversor principiante conocer su perfil de riesgo, investigar ETF,
 | E4 | Benchmark comparativo | 5 | 26 |
 | E5 | Simulación financiera | 6 | 31 |
 | E6 | Decisiones, QA y lanzamiento | 5 | 26 |
+| E7 | Ruta de principiante: objetivo, aprendizaje, comparación, simulación e históricos | 8 | 44 |
 
-**Puntos totales preliminares:** 192 SP. No representan horas ni duración comprometida.
+**Puntos totales preliminares:** 236 SP. La nueva E7 es una capa de experiencia y no reemplaza las historias técnicas previas. No representan horas ni duración comprometida.
 
 ## Inventario priorizado
 
@@ -73,6 +74,14 @@ Permitir a un inversor principiante conocer su perfil de riesgo, investigar ETF,
 | [BF-037](../backlog/issues/BF-037.md) | QA integral financiero y de seguridad | P0 | 8 | S6 | BF-008, BF-020, BF-024, BF-028, BF-031 |
 | [BF-038](../backlog/issues/BF-038.md) | Preparación de release, smoke test y recuperación | P0 | 5 | S6 | BF-037 |
 | [BF-039](../backlog/issues/BF-039.md) | Perfil del inversor: cuestionario versionado de tolerancia y capacidad de riesgo | P0 | 5 | S1 | BF-007, BF-008 |
+| [BF-042](../backlog/issues/BF-042.md) | Definir y guardar el objetivo de inversión, horizonte y capacidad de aporte | P0 | 5 | S7 | BF-039, BF-008 |
+| [BF-043](../backlog/issues/BF-043.md) | Explicar el perfil del inversor en lenguaje accionable y educativo | P0 | 3 | S7 | BF-039, BF-042 |
+| [BF-044](../backlog/issues/BF-044.md) | Academia financiera básica contextual para principiantes | P0 | 5 | S7 | BF-043 |
+| [BF-045](../backlog/issues/BF-045.md) | Explorador educativo por características comprensibles | P0 | 5 | S8 | BF-044, BF-040 |
+| [BF-046](../backlog/issues/BF-046.md) | Comparador educativo con compensaciones explicables | P0 | 5 | S8 | BF-023, BF-027, BF-042, BF-045 |
+| [BF-047](../backlog/issues/BF-047.md) | Simulador de escenarios hipotéticos y aportes | P0 | 8 | S8 | BF-030, BF-042 |
+| [BF-048](../backlog/issues/BF-048.md) | Registrar la primera decisión con tesis, riesgos y alternativas | P0 | 5 | S9 | BF-046, BF-047 |
+| [BF-049](../backlog/issues/BF-049.md) | Capa verificable de históricos, rendimiento y riesgo | P0 | 8 | S9 | BF-013, BF-014, BF-046, BF-047 |
 
 ## Detalle y criterios de aceptación
 
@@ -474,6 +483,26 @@ Como inversor principiante quiero responder un cuestionario sencillo que evalúe
 6. Interfaz autenticada, responsive, accesible por teclado, con estados vacío/error/cargando y pruebas deterministas para bandas, límites, respuestas omitidas y contradicciones.
 
 El scoring v1.0 separa capacidad (0–12) y tolerancia (0–8); el perfil global adopta la banda más restrictiva. Si faltan respuestas sensibles o hay contradicciones en las caídas hipotéticas, no se asigna un perfil global. Ver [detalle BF-039](../backlog/issues/BF-039.md).
+
+### BF-042 a BF-049 — Ruta prioritaria para inversor principiante
+
+Estas ocho historias forman una nueva capa de producto sobre el backlog técnico existente. No sustituyen BF-013/BF-014 ni BF-023–BF-033; los convierten en capacidades comprensibles para un principiante. La especificación completa está en [BF042_BF049_BEGINNER_PRIORITY_PLAN](./BF042_BF049_BEGINNER_PRIORITY_PLAN.md).
+
+**BF-042 — Objetivo de inversión.** El usuario define objetivo, horizonte, moneda, capital inicial y aportes sin conectar cuentas bancarias. Se conserva historial de snapshots y acceso owner-only.
+
+**BF-043 — Explicación del perfil.** El resultado de BF-039 se explica separando capacidad, tolerancia y factor limitante. No transforma el perfil en recomendación automática.
+
+**BF-044 — Academia financiera básica.** Microlecciones contextuales: acción, ETF, riesgo, volatilidad, diversificación, TER, dividendos, horizonte, interés compuesto, USD/PEN y drawdown. Cada concepto incluye ejemplo, relevancia y límites.
+
+**BF-045 — Explorador educativo.** Filtros por características documentadas y lenguaje de principiante. ETF y acciones BVL permanecen separados.
+
+**BF-046 — Comparador educativo.** Enriquece BF-023/BF-027 con explicación de métricas, costos, diversificación, cobertura de datos y compensaciones; no selecciona un ganador.
+
+**BF-047 — Simulador de escenarios.** Capital + aportes + horizonte + supuestos explícitos. Se separan aportes y crecimiento y se guardan escenarios reproducibles. No se presenta una predicción.
+
+**BF-048 — Primera decisión.** Bitácora append-only con instrumento, objetivo, tesis, riesgos, alternativa, escenario y estado de la decisión. No constituye una orden bursátil.
+
+**BF-049 — Históricos verificables.** Modelo y UI para métricas históricas con fuente, fecha y metodología. Las series no disponibles no se inventan. El soporte para series diarias queda desacoplado del proveedor y el uso de precios masivos/API requiere una decisión de cobertura/licencia posterior.
 
 ## Gestión y refinamiento
 
