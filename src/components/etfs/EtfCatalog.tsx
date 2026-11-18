@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { EtfProfile, Measurement } from "@/lib/etfs/catalog";
 import {
-  NOT_AVAILABLE, distributionLabel, filterProfiles,
+  NOT_AVAILABLE, distributionLabel, filterProfiles, type ExploreLens,
   formatDate, metricText, validSourceUrl,
 } from "@/lib/etfs/catalog";
 
@@ -104,9 +104,9 @@ function EtfCard({ profile }: Readonly<{ profile: EtfProfile }>) {
 }
 
 export function EtfCatalog({
-  profiles, query, asOf,
-}: Readonly<{ profiles: EtfProfile[]; query: string; asOf: string }>) {
-  const filtered = filterProfiles(profiles, query);
+  profiles, query, asOf, lens = "all",
+}: Readonly<{ profiles: EtfProfile[]; query: string; asOf: string; lens?: ExploreLens | "all" }>) {
+  const filtered = filterProfiles(profiles, query, lens);
   return (
     <section aria-label="Catálogo ETF">
       <form method="get" action="/explorar" className="etf-search panel" role="search">
@@ -119,6 +119,7 @@ export function EtfCatalog({
           <button className="primary-button" type="submit">Buscar</button>
           {query && <Link href="/explorar" className="etf-clear">Limpiar</Link>}
         </div>
+        <label htmlFor="etf-lens">Quiero explorar por</label><select id="etf-lens" name="lens" defaultValue={lens}><option value="all">Todos</option><option value="global">Diversificación global</option><option value="dividends">Distribución de dividendos</option><option value="accumulating">Acumulación</option><option value="usd">Cotización en USD</option></select>
       </form>
       <div className="etf-results-heading">
         <p>{filtered.length} de {profiles.length} listings · Corte de datos: {formatDate(asOf)} (UTC)</p>
