@@ -88,7 +88,7 @@ describe("S6-04 evidence-preserving report",()=>{
   expect(report).toContain("4.80");
   expect(report).toContain("4.20");
   expect(report).toContain("Justificaciones potencialmente genéricas: 12 de 12");
-  expect(report).toContain("no comprar");
+  expect(report).toContain("No constituye recomendación");
   expect(report).toContain("Credicorp BAP");
   expect(report).toContain("IE000716YHJ7");
  });
