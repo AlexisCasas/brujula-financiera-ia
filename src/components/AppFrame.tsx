@@ -75,7 +75,9 @@ export function AppFrame({
             </div>
             <span className="tag">Usuario único</span>
           </div>
-          {children}
+          <Suspense fallback={<div className="smalltxt">Cargando contenido…</div>}>
+            {children}
+          </Suspense>
         </main>
       </div>
     </div>
