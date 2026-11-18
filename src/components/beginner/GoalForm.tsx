@@ -1,45 +1,4 @@
 "use client";
-
-import { useState } from "react";
-import { GOAL_OBJECTIVES, type Currency, type Periodicity } from "@/lib/beginner-journey";
-
-export function GoalForm() {
-  const [message, setMessage] = useState("");
-  const [saving, setSaving] = useState(false);
-
-  async function submit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSaving(true); setMessage("");
-    const form = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(form.entries());
-    const res = await fetch("/api/beginner/goal", { method: "POST", headers: {"content-type":"application/json"}, body: JSON.stringify(payload) });
-    const data = await res.json().catch(() => ({}));
-    setSaving(false);
-    setMessage(res.ok ? "Objetivo guardado. Ya puedes pasar a entender tu perfil." : (data.error ?? "No se pudo guardar."));
-  }
-
-  return (
-    <form className="panel beginner-form" onSubmit={submit}>
-      <fieldset disabled={saving}>
-        <legend className="beginner-legend">Tu objetivo principal</legend>
-        <div className="beginner-choice-grid">
-          {GOAL_OBJECTIVES.map((o) => <label className="beginner-choice" key={o.value}><input type="radio" name="objective" value={o.value} required /><span>{o.label}</span></label>)}
-        </div>
-        <label className="beginner-field">Si elegiste «Otro», cuéntanos brevemente<input name="objective_detail" maxLength={500} /></label>
-        <div className="beginner-grid-2">
-          <label className="beginner-field">Horizonte (años)<input name="horizon_years" type="number" min="0.5" max="100" step="0.5" defaultValue="10" required /></label>
-          <label className="beginner-field">Moneda<input name="currency" defaultValue="PEN" readOnly aria-describedby="currency-help" /><small id="currency-help">Puedes cambiarla en la siguiente versión; el MVP inicial conserva PEN como opción principal.</small></label>
-        </div>
-        <div className="beginner-grid-2">
-          <label className="beginner-field">Monto inicial<input name="initial_amount" type="number" min="0" step="0.01" /></label>
-          <label className="beginner-field">Aporte periódico<input name="periodic_amount" type="number" min="0" step="0.01" /></label>
-        </div>
-        <div className="beginner-grid-2">
-          <label className="beginner-field">Frecuencia<select name="periodicity" defaultValue="monthly"><option value="monthly">Mensual</option><option value="quarterly">Trimestral</option><option value="annual">Anual</option><option value="none">Sin aporte periódico</option></select></label>
-          <label className="beginner-field">Prioridad<select name="priority" defaultValue="1"><option value="1">Principal</option><option value="2">Secundario</option><option value="3">Exploratorio</option></select></label>
-        </div>
-        <div className="beginner-actions"><button className="primary-button" type="submit">{saving ? "Guardando…" : "Guardar objetivo"}</button>{message && <span className="form-message" role="status">{message}</span>}</div>
-      </fieldset>
-    </form>
-  );
-}
+import {useState} from "react";
+import {GOAL_OBJECTIVES} from "@/lib/beginner-journey";
+export function GoalForm(){const[message,setMessage]=useState(""),[saving,setSaving]=useState(false);async function submit(event:React.FormEvent<HTMLFormElement>){event.preventDefault();setSaving(true);setMessage("");const form=new FormData(event.currentTarget);const payload=Object.fromEntries(form.entries());const res=await fetch("/api/beginner/goal",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(payload)});const data=await res.json().catch(()=>({}));setSaving(false);setMessage(res.ok?"Objetivo guardado. Ya puedes pasar a entender tu perfil.":(data.error??"No se pudo guardar."));}return <form className="panel beginner-form" onSubmit={submit}><fieldset disabled={saving}><legend className="beginner-legend">Tu objetivo principal</legend><div className="beginner-choice-grid">{GOAL_OBJECTIVES.map(o=><label className="beginner-choice" key={o.value}><input type="radio" name="objective" value={o.value} required/><span>{o.label}</span></label>)}</div><label className="beginner-field">Si elegiste «Otro», cuéntanos brevemente<input name="objective_detail" maxLength={500}/></label><div className="beginner-grid-2"><label className="beginner-field">Horizonte (años)<input name="horizon_years" type="number" min="0.5" max="100" step="0.5" defaultValue="10" required/></label><label className="beginner-field">Moneda<select name="currency" defaultValue="PEN"><option value="PEN">PEN · soles</option><option value="USD">USD · dólares</option></select></label></div><div className="beginner-grid-2"><label className="beginner-field">Monto inicial<input name="initial_amount" type="number" min="0" step="0.01"/></label><label className="beginner-field">Aporte periódico<input name="periodic_amount" type="number" min="0" step="0.01"/></label></div><div className="beginner-grid-2"><label className="beginner-field">Frecuencia<select name="periodicity" defaultValue="monthly"><option value="monthly">Mensual</option><option value="quarterly">Trimestral</option><option value="annual">Anual</option><option value="none">Sin aporte periódico</option></select></label><label className="beginner-field">Prioridad<select name="priority" defaultValue="1"><option value="1">Principal</option><option value="2">Secundario</option><option value="3">Exploratorio</option></select></label></div><div className="beginner-actions"><button className="primary-button" type="submit">{saving?"Guardando…":"Guardar objetivo"}</button>{message&&<span className="form-message" role="status">{message}</span>}</div></fieldset></form>;}
