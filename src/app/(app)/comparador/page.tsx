@@ -15,6 +15,7 @@ import {
   selectEtfsForComparison, MAX_COMPARISON_ETFS, MIN_COMPARISON_ETFS,
 } from "@/lib/etfs/comparison";
 import { findNavItem } from "@/lib/navigation";
+import { BeginnerComparisonGuide } from "@/components/beginner/BeginnerComparisonGuide";
 
 const item = findNavItem("/comparador")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
@@ -158,6 +159,7 @@ export default async function ComparatorPage({
               <>
                 <ComparisonTable profiles={selection.items} asOf={catalog.asOf} />
                 <CostComparisonScenario funds={selection.items.map(expenseFundFromProfile)} />
+                <BeginnerComparisonGuide />
                 <form action={saveComparisonAction} className="panel comparison-save"
                   aria-labelledby="save-comparison-heading">
                   <h2 id="save-comparison-heading">Guardar esta comparación</h2>
