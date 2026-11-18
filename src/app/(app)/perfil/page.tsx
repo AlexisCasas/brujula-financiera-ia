@@ -6,10 +6,8 @@ import {
   BAND_SHORT_LABELS, PROFILE_LABELS, RESULT_EXPLANATIONS,
   formatProfileDate, type RiskBand,
 } from "@/lib/investor-profile";
-import { findNavItem } from "@/lib/navigation";
 import { BeginnerProfileGuidance } from "@/components/beginner/BeginnerProfileGuidance";
 
-const item = findNavItem("/perfil")!;
 export const metadata = { title: "Mi perfil de inversionista · Brújula Financiera IA" };
 
 const GOALS: Record<string, string> = {
