@@ -3,8 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   BENCH_CRITERIA, SESSION6_CASE, SOURCE_GUIDES, TARGETS,
   benchmarkMarkdown, emptyBenchDraft, emptyResearchDraft,
-  evaluateBenchmark, makeResearchInstruments, researchCompletion, researchMarkdown,
-  type ResearchInstrument,
+  evaluateBenchmark, makeResearchInstruments, researchCompletion, researchMarkdown
 } from "../src/lib/session6/logic";
 import type { EtfProfile } from "../src/lib/etfs/catalog";
 import type { EquityListing } from "../src/lib/equities/types";
@@ -81,7 +80,7 @@ describe("S6-02 weighted educational matrix", () => {
       expect(result.scores.FWRA).toBe(4);
       expect(result.higher).toBe("FWRA");
     }
-    expect(benchmarkMarkdown(draft,"2026-11-18")).toContain("No equivale");
+    expect(benchmarkMarkdown(draft,"2026-11-18")).toContain("no rentabilidades");
   });
   it("a zero-weight criterion is excluded rather than requiring unsupported evidence",()=>{
     const draft=emptyBenchDraft();
