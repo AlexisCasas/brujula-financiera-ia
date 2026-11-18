@@ -105,7 +105,7 @@ function EtfCard({ profile, historical }: Readonly<{ profile: EtfProfile; histor
 }
 
 export function EtfCatalog({
-  profiles, query, asOf,
+  profiles, query, distributionFilter, currencyFilter, historical, asOf,
 }: Readonly<{ profiles: EtfProfile[]; query: string; distributionFilter: string; currencyFilter: string; historical: HistoricalMetric[]; asOf: string }>) {
   const filtered = filterProfiles(profiles, query).filter((p) => !distributionFilter || p.distributionPolicy === distributionFilter).filter((p) => !currencyFilter || p.currency === currencyFilter);
   return (
