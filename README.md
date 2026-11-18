@@ -17,7 +17,7 @@ Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar a
 
 | Documento | Propósito |
 |---|---|
-| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 47 historias con aceptación y dependencias |
+| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 49 historias con aceptación y dependencias |
 | [`docs/SCRUM_FRAMEWORK.md`](docs/SCRUM_FRAMEWORK.md) | Product Goal, eventos, roles, cadencia y reglas |
 | [`docs/DEFINITION_OF_DONE.md`](docs/DEFINITION_OF_DONE.md) | Requisitos verificables para cerrar una historia |
 | [`docs/SPRINT_ROADMAP.md`](docs/SPRINT_ROADMAP.md) | Orden tentativo de sprints basado en objetivos |\n| [`docs/BF042_BF049_BEGINNER_PRIORITY_PLAN.md`](docs/BF042_BF049_BEGINNER_PRIORITY_PLAN.md) | Plan de producto y criterios del bloque principiante antes de MCP |
