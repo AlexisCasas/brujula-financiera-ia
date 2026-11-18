@@ -487,3 +487,52 @@ input:focus-visible,
 .s6-comparison-invite{margin:18px 0}.s6-comparison-invite h2{margin-bottom:8px}
 @media(max-width:850px){.s6-case{flex-direction:column;align-items:stretch}.s6-case-stats{justify-content:flex-start}.s6-hub-grid{grid-template-columns:1fr}}
 @media(max-width:540px){.s6-facts{grid-template-columns:1fr}.s6-scores{grid-template-columns:1fr}.s6-case-stats span{flex:1;min-width:90px}}
+
+
+/* S6-03 + S6-04, educational sensitivity and report */
+.s6-import-row{display:flex;gap:16px;align-items:end;flex-wrap:wrap;margin-top:14px}
+.s6-import-row label{display:grid;gap:7px;font-size:12px;color:var(--fg);font-weight:700}
+.s6-import-row input[type=file]{max-width:290px;min-height:44px;padding:9px;border-radius:9px;border:1px solid var(--line);background:var(--surface2);font-size:11px;color:var(--fg)}
+.s6-report-field{display:grid;gap:8px;margin:12px 0 16px;font-size:13px;font-weight:750}
+.s6-report-field select{min-height:44px;padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--fg)}
+.s6-weight-scenarios{display:grid;gap:7px;margin:14px 0}
+.s6-weight-scenarios details{background:var(--surface2);border:1px solid var(--line);border-radius:7px;padding:10px 14px}
+.s6-weight-scenarios summary{cursor:pointer;font-size:12px;font-weight:700}
+.s6-weight-scenarios p{font-size:11px;margin:8px 0 0}
+.s6-sensitivity th small{display:block;font-size:10px;color:var(--muted);font-weight:400;margin:5px 0 0}
+.s6-evidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}
+.s6-evidence-grid>div{border:1px solid var(--line);border-radius:9px;padding:13px;display:grid;gap:5px;background:var(--surface2)}
+.s6-evidence-grid strong{font-size:25px;color:var(--accent)}
+.s6-evidence-grid span{font-size:11px;color:var(--muted)}
+.s6-print{display:grid;gap:22px;overflow-wrap:anywhere}
+.s6-print h2,.s6-print h3,.s6-print h4{color:var(--fg)}
+.s6-print h3{font-size:17px;margin:0 0 9px}
+.s6-print h4{font-size:12px;margin:10px 0 6px}
+.s6-print p,.s6-print li{font-size:12px;line-height:1.6;white-space:pre-wrap}
+.s6-print section{padding-top:18px;border-top:1px solid var(--line)}
+.s6-print ul{padding-left:20px}
+.s6-report-head{display:grid;gap:7px}.s6-report-head h2{font-size:28px;line-height:1.15;margin:0}
+.s6-report-head p{margin:0}
+.s6-report-facts{display:flex;flex-wrap:wrap;gap:12px;margin:15px 0}
+.s6-report-facts span{min-width:120px;padding:12px;background:var(--surface2);border:1px solid var(--line);border-radius:9px;font-size:10px;display:grid;gap:4px}
+.s6-report-facts strong{font-size:18px;color:var(--accent)}
+.s6-report-research{background:var(--surface2);border-radius:9px;padding:12px;margin:11px 0}
+.s6-report-research p{margin:6px 0}.s6-report-footer{padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
+.s6-report-warning{border-left:3px solid var(--accent);padding:12px;background:var(--surface2)}
+.s6-report-details{margin:16px 0;border:1px solid var(--line);border-radius:8px;padding:11px 14px}
+.s6-report-details summary{cursor:pointer;font-size:12px;font-weight:700}
+.s6-report-toolbar{margin-bottom:2px}
+@media(max-width:600px){.s6-evidence-grid{grid-template-columns:1fr}.s6-report-facts{flex-direction:column}.s6-import-row input[type=file]{width:100%;max-width:100%}}
+@media print{
+ @page{size:A4;margin:13mm}
+ body:has(.s6-print){background:white!important;color:#111!important}
+ body:has(.s6-print) aside,body:has(.s6-print) nav,body:has(.s6-print) header:not(.s6-report-head),body:has(.s6-print) .s6-report-toolbar,body:has(.s6-print) .s6-back{display:none!important}
+ body:has(.s6-print) .s6-print{display:block!important;box-shadow:none!important;border:0!important;background:white!important;color:#111!important;padding:0!important}
+ body:has(.s6-print) .s6-print *,body:has(.s6-print) .s6-print h2,body:has(.s6-print) .s6-print h3,body:has(.s6-print) .s6-print h4{color:#111!important;background:transparent!important}
+ body:has(.s6-print) .s6-print section{break-inside:avoid-page;border-top:1px solid #ccc;margin-top:16px}
+ body:has(.s6-print) .s6-print .table-scroll{overflow:visible!important}
+ body:has(.s6-print) .s6-print .s6-fact-table{min-width:0;width:100%;font-size:10px}
+ body:has(.s6-print) .s6-print .s6-fact-table th,body:has(.s6-print) .s6-print .s6-fact-table td{padding:5px;border-bottom:1px solid #aaa}
+ body:has(.s6-print) .s6-print .s6-report-details{display:block!important}
+ body:has(.s6-print) .s6-print .s6-report-details>div{display:block!important}
+}

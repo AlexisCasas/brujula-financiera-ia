@@ -131,6 +131,7 @@ export function BenchmarkWorkspace({ instruments, asOf }: Readonly<{ instruments
         <p>No asignamos puntuaciones por defecto ni proclamamos una alternativa ganadora con información incompleta.</p></div>}
       <div className="s6-actions"><button className="primary-button" type="button" onClick={()=>downloadReport(benchmarkMarkdown(draft,asOf))}>Exportar matriz (.md)</button>
         <button type="button" className="s6-secondary" onClick={reset}>Restablecer ejercicio</button>
+        <a href="/investigaciones/evaluacion" className="s6-secondary">Continuar a S6-03 · Evaluación</a>
         <small className="s6-fine">{loaded ? "Borrador guardado solo en este navegador" : "Cargando borrador..."}</small></div>
     </section>
   </div>;
