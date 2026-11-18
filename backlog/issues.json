@@ -753,5 +753,37 @@
     ],
     "depends": "BF-013, BF-014, BF-046, BF-047",
     "issue_file": "backlog/issues/BF-049.md"
+  },
+  {
+    "id": "BF-040",
+    "epic": "E2",
+    "sprint": "S2",
+    "priority": "P0",
+    "points": 5,
+    "title": "Incorporar acciones individuales con identidad y fuentes verificadas",
+    "goal": "Como inversor quiero incorporar empresas y acciones individuales a mi seguimiento sin confundir emisor, ticker o mercado.",
+    "acceptance": [
+      "Ampliar el catálogo con tipo de activo ETF / acción individual sin alterar la identidad histórica de los cinco ETF.",
+      "La identidad usa emisor/instrumento + listing (ticker, bolsa/MIC, moneda) e identificador oficial cuando aplique; no acepta ticker ambiguo a ciegas.",
+      "El flujo de seguimiento usa listings verificados y mantiene RLS owner-only; no compra, vende ni registra tenencias."
+    ],
+    "depends": "BF-010, BF-011, BF-041a",
+    "issue_file": "backlog/issues/BF-040.md"
+  },
+  {
+    "id": "BF-041a",
+    "epic": "E6",
+    "sprint": "S6",
+    "priority": "P0",
+    "points": 5,
+    "title": "Mi seguimiento: agregar, dejar de seguir y reanudar ETF con historial",
+    "goal": "Como inversor principiante quiero mantener una lista personal de ETF que me interesan, para saber cuáles estoy investigando y dejar de seguirlos sin perder su historial.",
+    "acceptance": [
+      "Ruta privada con activos seguidos y catálogo verificable.",
+      "Agregar, dejar de seguir y reanudar un listing concreto identificado por UUID, ISIN, bolsa, ticker y divisa; operaciones idempotentes.",
+      "Conservar bitácora de alta, baja y reactivación con acceso owner-only; seguir no equivale a poseer."
+    ],
+    "depends": "BF-010, BF-011, BF-007, BF-008",
+    "issue_file": "backlog/issues/BF-041a.md"
   }
 ]
