@@ -2,8 +2,8 @@
 "use client";
 import Link from "next/link";
 import {
- BENCH_CRITERIA, RESEARCH_FIELDS, SESSION6_CASE, SOURCE_GUIDES, TARGETS,
- evaluateBenchmark, type TargetTicker
+ BENCH_CRITERIA, RESEARCH_FIELDS, SOURCE_GUIDES, TARGETS,
+ evaluateBenchmark
 } from "@/lib/session6/logic";
 import { createReportMarkdown, evaluateScenarios, evidenceFlags, stableChoice } from "@/lib/session6/analysis";
 import { useSession6Workshop } from "@/components/session6/useSession6Workshop";
