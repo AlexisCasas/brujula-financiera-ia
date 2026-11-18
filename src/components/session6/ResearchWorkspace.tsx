@@ -23,22 +23,26 @@ export function ResearchWorkspace({ instruments, asOf }: Readonly<{ instruments:
   const [selected, setSelected] = useState<TargetTicker>("VWRA");
   const [drafts, setDrafts] = useState<DraftCollection>(emptyAll);
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as Partial<DraftCollection>;
-        const next = emptyAll();
-        for (const ticker of ["VWRA", "FWRA", "BAP"] as const) {
-          for (const field of RESEARCH_FIELDS) {
-            const value = parsed?.[ticker]?.[field.key];
-            if (typeof value === "string") next[ticker][field.key] = value.slice(0, 2000);
+    const task = window.setTimeout(() => {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw) as Partial<DraftCollection>;
+          const next = emptyAll();
+          for (const ticker of ["VWRA", "FWRA", "BAP"] as const) {
+            for (const field of RESEARCH_FIELDS) {
+              const value = parsed?.[ticker]?.[field.key];
+              if (typeof value === "string") next[ticker][field.key] = value.slice(0, 2000);
+            }
           }
+          setDrafts(next);
         }
-        setDrafts(next);
-      }
-    } catch { /* no draft available */ }
-    setLoaded(true);
+      } catch { /* no draft available */ }
+      setLoaded(true);
+    }, 0);
+    return () => window.clearTimeout(task);
   }, []);
   useEffect(() => {
     if (!loaded) return;

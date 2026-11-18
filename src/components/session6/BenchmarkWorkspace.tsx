@@ -18,29 +18,33 @@ function downloadReport(report: string) {
 export function BenchmarkWorkspace({ instruments, asOf }: Readonly<{ instruments: ResearchInstrument[]; asOf: string }>) {
   const [draft, setDraft] = useState<BenchDraft>(emptyBenchDraft);
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const saved = JSON.parse(raw) as Partial<BenchDraft>;
-        const next = emptyBenchDraft();
-        for (const c of BENCH_CRITERIA) {
-          const w = Number(saved.weights?.[c.id]);
-          if (Number.isInteger(w) && w >= 0 && w <= 100) next.weights[c.id] = w;
-          for (const ticker of TICKERS) {
-            const entry = saved.ratings?.[c.id]?.[ticker];
-            if (entry && typeof entry.justification === "string") {
-              next.ratings[c.id][ticker] = {
-                score: Number.isInteger(entry.score) && entry.score! >= 1 && entry.score! <= 5 ? entry.score : null,
-                justification: entry.justification.slice(0, 1000),
-              };
+    const task = window.setTimeout(() => {
+      try {
+        const raw = window.localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const saved = JSON.parse(raw) as Partial<BenchDraft>;
+          const next = emptyBenchDraft();
+          for (const c of BENCH_CRITERIA) {
+            const w = Number(saved.weights?.[c.id]);
+            if (Number.isInteger(w) && w >= 0 && w <= 100) next.weights[c.id] = w;
+            for (const ticker of TICKERS) {
+              const entry = saved.ratings?.[c.id]?.[ticker];
+              if (entry && typeof entry.justification === "string") {
+                next.ratings[c.id][ticker] = {
+                  score: typeof entry.score === "number" && Number.isInteger(entry.score) && entry.score >= 1 && entry.score <= 5 ? entry.score : null,
+                  justification: entry.justification.slice(0, 1000),
+                };
+              }
             }
           }
+          setDraft(next);
         }
-        setDraft(next);
-      }
-    } catch { /* optional local draft */ }
-    setLoaded(true);
+      } catch { /* optional local draft */ }
+      setLoaded(true);
+    }, 0);
+    return () => window.clearTimeout(task);
   }, []);
   useEffect(() => {
     if (loaded) { try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(draft)); } catch { /* optional */ } }
