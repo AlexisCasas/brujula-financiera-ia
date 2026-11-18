@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     p_initial_amount: initial,
     p_periodic_amount: periodic,
     p_periodicity: typeof body.periodicity === "string" ? body.periodicity : "monthly",
-    p_currency: "PEN",
+    p_currency: body.currency === "USD" ? "USD" : "PEN",
     p_priority: Number(body.priority) || 1,
   });
   if (error) return NextResponse.json({ error: "No se pudo guardar el objetivo." }, { status: 400 });
