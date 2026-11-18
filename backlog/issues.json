@@ -606,5 +606,24 @@
     ],
     "depends": "BF-037",
     "issue_file": "backlog/issues/BF-038.md"
+  },
+  {
+    "id": "BF-039",
+    "epic": "E0",
+    "sprint": "S1",
+    "priority": "P0",
+    "points": 5,
+    "title": "Perfil del inversor: cuestionario versionado de tolerancia y capacidad de riesgo",
+    "goal": "Como inversor principiante quiero responder un cuestionario sencillo que evalúe por separado mi tolerancia al riesgo y mi capacidad financiera para asumirlo, para comprender mi perfil y sus límites antes de investigar inversiones.",
+    "acceptance": [
+      "El test presenta preguntas claras en español para separar capacidad financiera, tolerancia emocional, objetivo y experiencia. No solicita edad, ingreso exacto, saldo bancario ni números de cuenta.",
+      "El scoring es determinista, versionado y documentado. Capacidad y tolerancia se muestran separadas; el perfil global no supera la dimensión más restrictiva. Las respuestas inconsistentes o no reveladas no se fuerzan a una categoría.",
+      "Se muestra una explicación comprensible, factores que limitaron el resultado, fecha, versión y aviso de que es una autoevaluación educativa, no una prueba regulatoria de idoneidad ni una recomendación de inversión.",
+      "Cada envío guarda una fotografía inmutable; volver a responder crea otra versión y conserva la anterior. El historial se puede consultar y comparar.",
+      "RLS impide lectura de usuario ajeno y escritura directa. El guardado usa RPC que valida identidad y respuestas; pruebas negativas y rollback documentados.",
+      "Interfaz autenticada, responsive, accesible por teclado, con estados vacío/error/cargando y pruebas deterministas para bandas, límites, respuestas omitidas y contradicciones."
+    ],
+    "depends": "BF-007, BF-008",
+    "issue_file": "backlog/issues/BF-039.md"
   }
 ]

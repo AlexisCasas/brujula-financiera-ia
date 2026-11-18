@@ -5,7 +5,7 @@
 | Bloque | Objetivo observable / Sprint Goal sugerido | Historias propuestas | Gate de salida |
 |---|---|---|---|
 | S0 — Inicio | Alinear producto, criterios, fuentes y diseño | BF-001 a BF-005 | PO revisa documentos, riesgos y fuentes piloto; sin código productivo |
-| S1 — Base segura | Entrar a una app privada con catálogo modelado | BF-006 a BF-010 | Login/denegación no autenticado + RLS y CI verde |
+| S1 — Base segura y perfil inicial | Entrar a una app privada, consultar el catálogo y conocer el perfil personal de riesgo | BF-006 a BF-010, BF-039 | Login/denegación no autenticado + RLS, perfil privado versionado y CI verde |
 | S2 — Datos verificables | Consultar fichas con series y USD/PEN trazables | BF-011 a BF-016 | 5 ETF + fechas/fuentes + negativos por datos ausentes |
 | S3 — Investigación MCP | Investigar desde ChatGPT o Claude y aprobar cambios | BF-017 a BF-022 | Lectura, propuesta, revisión, auditoría y prueba cruzada |
 | S4 — Comparador | Comparar ETF sin mezclar métricas incompatibles | BF-023 a BF-027 | Matriz 2–5 ETF con periodos, evidencia y cautelas |

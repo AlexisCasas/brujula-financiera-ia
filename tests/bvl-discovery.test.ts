@@ -7,12 +7,12 @@ import {
 } from "../src/lib/bvl-discovery";
 
 describe("BF-040 discovery within BF-041a — reference-only BVL equities", () => {
-  it("keeps at least eight distinct companies with unique mnemonics and ISIN", () => {
-    expect(BVL_DISCOVERY_CANDIDATES).toHaveLength(8);
+  it("keeps nine distinct companies with unique mnemonics and ISIN", () => {
+    expect(BVL_DISCOVERY_CANDIDATES).toHaveLength(9);
     const mnemonics = BVL_DISCOVERY_CANDIDATES.map(x => x.mnemonic);
     const isins = BVL_DISCOVERY_CANDIDATES.map(x => x.isin);
-    expect(new Set(mnemonics).size).toBe(8);
-    expect(new Set(isins).size).toBe(8);
+    expect(new Set(mnemonics).size).toBe(9);
+    expect(new Set(isins).size).toBe(9);
     expect(isins.every(x => /^[A-Z]{2}[A-Z0-9]{9}\d$/.test(x))).toBe(true);
   });
 
@@ -28,6 +28,8 @@ describe("BF-040 discovery within BF-041a — reference-only BVL equities", () =
 
   it("identifies the USD listing separately from PEN listings", () => {
     expect(BVL_DISCOVERY_CANDIDATES.find(x => x.mnemonic === "INRETC1")?.currency).toBe("USD");
+    expect(BVL_DISCOVERY_CANDIDATES.find(x => x.mnemonic === "BAP")?.currency).toBe("USD");
+    expect(BVL_DISCOVERY_CANDIDATES.find(x => x.mnemonic === "BAP")?.isin).toBe("BMG2519Y1084");
     expect(BVL_DISCOVERY_CANDIDATES.find(x => x.mnemonic === "FERREYC1")?.currency).toBe("PEN");
   });
 
@@ -41,7 +43,8 @@ describe("BF-040 discovery within BF-041a — reference-only BVL equities", () =
     expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "BBVAC1")[0].issuerName).toContain("BBVA");
     expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "Perú").length).toBeGreaterThan(1);
     expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "VWRA")).toEqual([]);
-    expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "")).toHaveLength(8);
+    expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "")).toHaveLength(9);
+    expect(filterBvlCandidates(BVL_DISCOVERY_CANDIDATES, "credicorp")[0].mnemonic).toBe("BAP");
   });
 
   it("does not store live price, purchase quantity or brokerage details in discovery manifest", () => {

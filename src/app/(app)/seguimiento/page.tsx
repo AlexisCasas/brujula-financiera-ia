@@ -13,6 +13,7 @@ import { findNavItem } from "@/lib/navigation";
 import { changeWatchlistAction } from "./actions";
 import { WatchlistSubmit } from "@/components/watchlist/WatchlistSubmit";
 import { BvlDiscoveryList } from "@/components/watchlist/BvlDiscoveryList";
+import { getEquityCatalog } from "@/lib/equities/queries";
 
 const item = findNavItem("/seguimiento")!;
 export const metadata = { title: "Mi seguimiento · Brújula Financiera IA" };
@@ -79,16 +80,19 @@ export default async function WatchlistPage({
 }: Readonly<{ searchParams: Promise<{ q?: string; notice?: string }> }>) {
   const { q, notice } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 120) : "";
-  const [catalog, history] = await Promise.all([
-    getEtfCatalog(), getWatchlistHistory(),
+  const [catalog, history, equities] = await Promise.all([
+    getEtfCatalog(), getWatchlistHistory(), getEquityCatalog(),
   ]);
   const canEdit = catalog.status === "ready" && history.status === "ready";
   const rows = buildWatchlistView(catalog.profiles, history.items);
   const matching = searchWatchlistView(rows, query);
   const followed = matching.filter((row) => row.isFollowing);
   const available = matching.filter((row) => !row.isFollowing);
-  const totalFollowing = rows.filter((row) => row.isFollowing).length;
-  const profileById = new Map(catalog.profiles.map((p) => [p.listingId, p]));
+  const totalFollowing = history.items.filter((row) => row.status === "active").length;
+  const profileById = new Map([
+    ...catalog.profiles.map((p) => [p.listingId, { ticker: p.ticker, exchange: p.exchange }] as const),
+    ...equities.rows.map((p) => [p.listing_id, { ticker: p.ticker, exchange: p.exchange }] as const),
+  ]);
   const noticeText = watchlistNotice(notice);
 
   return (
@@ -97,7 +101,7 @@ export default async function WatchlistPage({
         <p className="eyebrow">{item.eyebrow}</p>
         <h1 id="screen-title">{item.heading}</h1>
         <p>
-          Guarda los ETF que quieres investigar, deja de seguirlos cuando quieras
+          Guarda ETF o acciones de la Bolsa de Lima que quieres investigar, deja de seguirlos cuando quieras
           y conserva las fechas de tus cambios. <strong>Seguir un activo no significa
           que lo hayas comprado ni que forme parte de tu cartera.</strong>
         </p>
@@ -121,8 +125,9 @@ export default async function WatchlistPage({
         </div>
         <div className="panel">
           <span>Activos en catálogo</span>
-          <strong>{catalog.status === "ready" ? catalog.profiles.length : "N/D"}</strong>
-          <small>ETF identificados con ISIN y bolsa</small>
+          <strong>{catalog.status === "ready" && equities.status === "ready"
+            ? catalog.profiles.length + equities.rows.length : "N/D"}</strong>
+          <small>ETF y acciones identificados con ISIN y bolsa</small>
         </div>
         <div className="panel">
           <span>Historial registrado</span>
@@ -138,15 +143,15 @@ export default async function WatchlistPage({
           <div className="etf-search-row">
             <input type="search" id="watchlist-query" name="q"
               defaultValue={query} maxLength={120}
-              placeholder="Ejemplo: VWRA, FWRA o Vanguard" />
+              placeholder="Ejemplo: BAP, Credicorp, VWRA o Alicorp" />
             <button className="primary-button" type="submit">Buscar</button>
             {query && <Link href="/seguimiento" className="etf-clear">Limpiar</Link>}
           </div>
         </form>
         <p className="etf-meta">
-          Solo están disponibles los ETF ya identificados en Supabase.
-          Más abajo encontrarás una selección adicional de la BVL para investigar. Su incorporación
-          al seguimiento requiere BF-040; no registramos valores arbitrarios sin verificar su identidad.
+          Solo puedes agregar listings verificados por identidad en Supabase.
+          Las acciones de Lima se presentan separadas de los ETF; no registramos
+          símbolos arbitrarios sin comprobar su emisor y mercado.
         </p>
       </section>
 
@@ -154,7 +159,7 @@ export default async function WatchlistPage({
         <>
           <section aria-labelledby="watchlist-following-title" className="watchlist-section">
             <div className="watchlist-heading">
-              <h2 id="watchlist-following-title">Mi lista de seguimiento</h2>
+              <h2 id="watchlist-following-title">ETF que sigo</h2>
               <span className="tag ok">{followed.length} activo(s)</span>
             </div>
             {followed.length === 0 ? (
@@ -191,7 +196,8 @@ export default async function WatchlistPage({
         </>
       )}
 
-      <BvlDiscoveryList query={query} />
+      <BvlDiscoveryList query={query} equities={equities.rows}
+        history={history.items} ready={equities.status === "ready" && history.status === "ready"} />
 
       <section className="panel watchlist-history" aria-labelledby="watchlist-history-title">
         <h2 id="watchlist-history-title">Historial de seguimiento</h2>
@@ -219,8 +225,8 @@ export default async function WatchlistPage({
       <div className="watchlist-footnote">
         <h2>Qué agregaremos en el siguiente incremento</h2>
         <p>
-          Alta de acciones de la BVL con identidad validada, noticias, resultados
-          empresariales y distribuciones por activo. La futura integración
+          Noticias, informes de resultados empresariales y distribuciones
+          para ETF y acciones BVL, con fuentes verificables por activo. La futura integración
           ChatGPT/Claude por MCP permitirá administrar esta misma lista mediante
           acciones explícitas. Ningún seguimiento representa una recomendación.
         </p>
