@@ -16,7 +16,7 @@ const GOALS: Record<string, string> = {
   growth: "Crecimiento a largo plazo",
   mixed: "Objetivos combinados",
 };
-const EXPERIENCE: Record<string, string> = {
+const BAND_GUIDANCE: Record<RiskBand,string> = {\n  low: "Suele ser más importante proteger liquidez y evitar asumir pérdidas que no podrías tolerar. No significa que una inversión concreta sea segura.",\n  medium: "Suele ser coherente estudiar diversificación, horizonte y capacidad de soportar caídas temporales. No convierte un ETF en una recomendación.",\n  high: "Puedes sentirte cómodo con fluctuaciones mayores, pero seguirás necesitando un horizonte y una capacidad financiera compatibles. Tolerar riesgo no obliga a tomarlo.",\n};\nconst EXPERIENCE: Record<string, string> = {
   none: "Sin experiencia previa",
   basic: "Básica",
   intermediate: "Intermedia",
@@ -104,7 +104,7 @@ export default async function InvestorProfilePage({
 
           <div className="panel profile-interpretation">
             <h3>¿Qué significa este resultado?</h3>
-            <p>{RESULT_EXPLANATIONS[selected.result_reason]}</p>
+            <p>{RESULT_EXPLANATIONS[selected.result_reason]}</p>{selected.overall_band && <><h4>¿Cómo leerlo?</h4><p>{BAND_GUIDANCE[selected.overall_band]}</p></>}
             {selected.overall_band && (
               <p>
                 El perfil global se limita a la dimensión más restrictiva.
