@@ -119,7 +119,7 @@ export function EtfCatalog({
           />
           <button className="primary-button" type="submit">Buscar</button>
           {query && <Link href="/explorar" className="etf-clear">Limpiar</Link>}
-        </div>
+        </div><div className="form-grid catalog-filters"><label>Distribución<select name="distribution" defaultValue={distributionFilter}><option value="">Todas</option><option value="accumulating">Acumulación</option><option value="distributing">Distribución</option></select></label><label>Moneda<select name="currency" defaultValue={currencyFilter}><option value="">Todas</option><option value="USD">USD</option><option value="PEN">PEN</option></select></label></div>
       </form>
       <div className="etf-results-heading">
         <p>{filtered.length} de {profiles.length} listings · Corte de datos: {formatDate(asOf)} (UTC)</p>
