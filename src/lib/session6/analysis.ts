@@ -81,7 +81,7 @@ export const SCENARIOS:readonly WeightScenario[]=[
  {id:"access",label:"Priorizar acceso al bróker",reason:"Aumenta acceso a 35 %.",weights:weights([15,15,15,10,35,10])},
 ];
 export type ScenarioResult={
- id:string;label:string;reason:string;
+ id:string;label:string;reason:string;weights:Record<CriterionId,number>;
  ready:boolean;
  VWRA:number|null;FWRA:number|null;
  higher:"VWRA"|"FWRA"|"Empate"|null;
@@ -92,8 +92,8 @@ export function evaluateScenarios(draft:BenchDraft):ScenarioResult[]{
   const next:BenchDraft={weights:scenario.id==="original"?{...draft.weights}:{...scenario.weights},ratings:draft.ratings};
   const output=evaluateBenchmark(next);
   return output.ready
-   ?{id:scenario.id,label:scenario.label,reason:scenario.reason,ready:true,VWRA:output.scores.VWRA,FWRA:output.scores.FWRA,higher:output.higher,difference:Math.round((output.scores.VWRA-output.scores.FWRA)*100)/100}
-   :{id:scenario.id,label:scenario.label,reason:scenario.reason,ready:false,VWRA:null,FWRA:null,higher:null,difference:null};
+   ?{id:scenario.id,label:scenario.label,reason:scenario.reason,weights:{...next.weights},ready:true,VWRA:output.scores.VWRA,FWRA:output.scores.FWRA,higher:output.higher,difference:Math.round((output.scores.VWRA-output.scores.FWRA)*100)/100}
+   :{id:scenario.id,label:scenario.label,reason:scenario.reason,weights:{...next.weights},ready:false,VWRA:null,FWRA:null,higher:null,difference:null};
  });
 }
 export function stableChoice(scenarios:readonly ScenarioResult[]):boolean{
