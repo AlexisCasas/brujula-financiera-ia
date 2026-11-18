@@ -157,7 +157,7 @@ export default async function InvestorProfilePage({
         <InvestorProfileQuestionnaire disabled={history.status === "error"}/>
       </details>
 
-      <div className="profile-next-step">
+      <div className="profile-next-step"><h2>Siguiente paso: define tu objetivo</h2><p>Tu perfil describe límites; tu objetivo define para qué quieres invertir. Ambos deben entenderse antes de comparar instrumentos.</p><Link href="/objetivo" className="primary-button">Definir mi objetivo</Link></div><div className="profile-next-step">
         <h2>¿Qué haremos con tu perfil?</h2>
         <p>
           En los siguientes incrementos servirá para contextualizar tus
