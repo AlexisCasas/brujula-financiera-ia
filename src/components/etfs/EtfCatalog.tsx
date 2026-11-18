@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { EtfProfile, Measurement } from "@/lib/etfs/catalog";
+import { historicalLabel, historicalValue, type HistoricalMetric } from "@/lib/historical";
 import {
   NOT_AVAILABLE, distributionLabel, filterProfiles,
   formatDate, metricText, validSourceUrl,
@@ -41,7 +42,7 @@ function MeasurementRow({ label, metric }: Readonly<{ label: string; metric: Mea
   );
 }
 
-function EtfCard({ profile }: Readonly<{ profile: EtfProfile }>) {
+function EtfCard({ profile, historical }: Readonly<{ profile: EtfProfile; historical: HistoricalMetric[] }>) {
   return (
     <article className="panel etf-card" aria-labelledby={`fund-${profile.listingId}`}>
       <div className="etf-card-head">
@@ -77,7 +78,7 @@ function EtfCard({ profile }: Readonly<{ profile: EtfProfile }>) {
           />
         ))}
       </dl>
-      <details className="etf-details">
+      <section className="historical-box" aria-label="Históricos verificables"><h3>Históricos verificables</h3>{historical.length===0?<p>No hay una serie histórica verificada disponible para este listing. No inventamos rendimiento ni riesgo.</p>:<div className="historical-grid">{historical.slice(0,6).map(row=><div key={row.metric_key+"-"+row.as_of_date+"-"+String(row.period_years ?? "all")}><span>{historicalLabel(row.metric_key)}{row.period_years?` · ${row.period_years} años`:""}</span><strong>{historicalValue(row)}</strong><small>{row.coverage_status} · corte {row.as_of_date}</small></div>)}</div>} </section><details className="etf-details">
         <summary>Ver trazabilidad de los campos ({profile.evidence.length})</summary>
         <p className="etf-meta">
           Cada estado se obtiene de la evidencia almacenada en Supabase; no implica una cotización en tiempo real.
@@ -104,9 +105,9 @@ function EtfCard({ profile }: Readonly<{ profile: EtfProfile }>) {
 }
 
 export function EtfCatalog({
-  profiles, query, asOf,
-}: Readonly<{ profiles: EtfProfile[]; query: string; asOf: string }>) {
-  const filtered = filterProfiles(profiles, query);
+  profiles, query, distributionFilter, currencyFilter, historical, asOf,
+}: Readonly<{ profiles: EtfProfile[]; query: string; distributionFilter: string; currencyFilter: string; historical: HistoricalMetric[]; asOf: string }>) {
+  const filtered = filterProfiles(profiles, query).filter((p) => !distributionFilter || p.distributionPolicy === distributionFilter).filter((p) => !currencyFilter || p.currency === currencyFilter);
   return (
     <section aria-label="Catálogo ETF">
       <form method="get" action="/explorar" className="etf-search panel" role="search">
@@ -118,15 +119,15 @@ export function EtfCatalog({
           />
           <button className="primary-button" type="submit">Buscar</button>
           {query && <Link href="/explorar" className="etf-clear">Limpiar</Link>}
-        </div>
+        </div><div className="form-grid catalog-filters"><label>Distribución<select name="distribution" defaultValue={distributionFilter}><option value="">Todas</option><option value="accumulating">Acumulación</option><option value="distributing">Distribución</option></select></label><label>Moneda<select name="currency" defaultValue={currencyFilter}><option value="">Todas</option><option value="USD">USD</option><option value="PEN">PEN</option></select></label></div>
       </form>
       <div className="etf-results-heading">
         <p>{filtered.length} de {profiles.length} listings · Corte de datos: {formatDate(asOf)} (UTC)</p>
-        <p className="etf-meta">No hay precios históricos ni conversión PEN en este incremento.</p>
+        <p className="etf-meta">Los filtros describen características documentadas; no son recomendaciones. No hay precios históricos ni conversión PEN en esta pantalla.</p>
       </div>
       {filtered.length === 0
         ? <div className="empty"><h2>No se encontraron ETF</h2><p>Modifica la búsqueda o consulta los cinco instrumentos del piloto.</p></div>
-        : <div className="etf-grid">{filtered.map((profile) => <EtfCard key={profile.listingId} profile={profile} />)}</div>}
+        : <div className="etf-grid">{filtered.map((profile) => <EtfCard key={profile.listingId} profile={profile} historical={historical.filter((row) => row.listing_id === profile.listingId)} />)}</div>}
     </section>
   );
 }

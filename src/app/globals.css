@@ -416,3 +416,36 @@ input:focus-visible,
 .profile-form-fields { display: grid; gap: 16px; min-width: 0; margin: 0; padding: 0; border: 0; }
 .profile-form-fields:disabled { opacity: 0.72; }
 
+
+/* BF-042..049 — beginner-first workspace */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.goal-form,.decision-form,.simulator-form,.scenario-save{display:grid;gap:14px;margin-bottom:16px}
+.goal-form fieldset,.decision-form fieldset,.simulator-form fieldset{border:0;padding:0;margin:0;display:grid;gap:12px}
+.goal-form legend,.decision-form legend,.simulator-form legend{font-size:17px;font-weight:800;margin-bottom:3px}
+.goal-form label,.decision-form label,.simulator-form label,.scenario-save label{display:grid;gap:6px;color:var(--fg);font-size:12px;font-weight:700}
+.goal-form input,.goal-form select,.goal-form textarea,.decision-form input,.decision-form select,.decision-form textarea,.simulator-form input,.simulator-form select,.scenario-save input{width:100%;min-height:44px;padding:10px 12px;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:9px;font:inherit}
+.goal-form textarea,.decision-form textarea{min-height:100px;resize:vertical}
+.goal-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.goal-history,.scenario-history,.decision-history{margin-top:16px}
+.goal-history ul,.scenario-history ul,.decision-history ol{list-style:none;padding:0;margin:0;display:grid}
+.goal-history li,.scenario-history li{display:grid;grid-template-columns:minmax(160px,1fr) minmax(160px,2fr) auto;gap:8px 16px;padding:12px 0;border-top:1px solid var(--line);font-size:12px}
+.goal-history li span,.goal-history li time,.scenario-history li span{color:var(--muted)}
+.academy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.lesson{min-width:0}
+.lesson summary{cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.lesson summary span{color:var(--accent);font-size:11px;font-weight:700}
+.lesson-block{border-left:2px solid var(--line);padding-left:12px;margin-top:12px}
+.lesson-block strong{font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--accent)}
+.lesson-block p{margin:4px 0 0;font-size:12px}
+.academy-source{margin-top:16px}
+.scenario-preview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.scenario-preview>div{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px}
+.scenario-preview span{color:var(--muted);font-size:11px}.scenario-preview strong{font-size:20px}
+.scenario-table{margin-top:16px}.scenario-save{margin-top:16px}
+.decision-history ol{display:grid;gap:0}.decision-history li{display:grid;grid-template-columns:1fr auto;gap:12px;border-top:1px solid var(--line);padding:13px 0}.decision-history li strong{font-size:11px;color:var(--accent);text-transform:uppercase}.decision-history li p{margin:4px 0 0;font-size:12px}.decision-history li>span{color:var(--muted);font-size:11px;white-space:nowrap}
+.profile-next-step{margin-top:18px}.profile-next-step h2{margin-bottom:7px}
+@media(max-width:800px){.form-grid,.academy-grid{grid-template-columns:1fr}.scenario-preview{grid-template-columns:repeat(2,minmax(0,1fr))}.goal-history li,.scenario-history li{grid-template-columns:1fr}.decision-history li{grid-template-columns:1fr}}
+@media(max-width:500px){.scenario-preview{grid-template-columns:1fr}}
+
+.historical-box{margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}.historical-box h3{font-size:13px;margin:0 0 8px}.historical-box p{font-size:12px;color:var(--muted);margin:0}.historical-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.historical-grid>div{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:9px;display:grid;gap:4px}.historical-grid span,.historical-grid small{font-size:10px;color:var(--muted)}.historical-grid strong{font-size:15px}.catalog-filters{margin-top:10px}.beginner-comparison-guide{margin-top:16px}.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.guide-grid>div{border:1px solid var(--line);border-radius:9px;padding:12px}.guide-grid strong{font-size:12px}.guide-grid p{font-size:12px;color:var(--muted);margin:5px 0 0}
+@media(max-width:800px){.historical-grid,.guide-grid{grid-template-columns:1fr 1fr}}@media(max-width:500px){.historical-grid,.guide-grid{grid-template-columns:1fr}}

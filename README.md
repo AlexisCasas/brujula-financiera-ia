@@ -1,6 +1,6 @@
 # Brújula Financiera IA
 
-**Estado:** aplicación Next.js desplegada en Vercel con Auth/RLS, catálogo de cinco ETF, comparador y comparaciones guardadas. BF-039 incorpora el perfil del inversor en revisión; su migración Supabase aún requiere autorización.
+**Estado:** aplicación Next.js desplegada en Vercel con Auth/RLS, perfil de inversor, seguimiento privado, catálogo ETF/BVL y comparador. El bloque BF-042–BF-049 añade la ruta prioritaria para principiantes antes de BF-017a (MCP).
 
 Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar alternativas, simular inversiones en USD/PEN y registrar decisiones con evidencia. ChatGPT y Claude realizan investigación desde sus chats y, tras configurar un MCP seguro, pueden consultar y proponer información para Supabase. La web Next.js/React en Vercel es el tablero y motor de cálculo; **no contiene un chat LLM integrado ni requiere OpenAI/Claude API en el MVP**.
 
@@ -17,10 +17,10 @@ Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar a
 
 | Documento | Propósito |
 |---|---|
-| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 39 historias con aceptación y dependencias |
+| [`docs/PRODUCT_BACKLOG.md`](docs/PRODUCT_BACKLOG.md) | 49 historias con aceptación y dependencias |
 | [`docs/SCRUM_FRAMEWORK.md`](docs/SCRUM_FRAMEWORK.md) | Product Goal, eventos, roles, cadencia y reglas |
 | [`docs/DEFINITION_OF_DONE.md`](docs/DEFINITION_OF_DONE.md) | Requisitos verificables para cerrar una historia |
-| [`docs/SPRINT_ROADMAP.md`](docs/SPRINT_ROADMAP.md) | Orden tentativo de sprints basado en objetivos |
+| [`docs/SPRINT_ROADMAP.md`](docs/SPRINT_ROADMAP.md) | Orden tentativo de sprints basado en objetivos |\n| [`docs/BF042_BF049_BEGINNER_PRIORITY_PLAN.md`](docs/BF042_BF049_BEGINNER_PRIORITY_PLAN.md) | Plan de producto y criterios del bloque principiante antes de MCP |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Arquitectura conceptual y riesgos técnicos |
 | [`docs/DECISIONS.md`](docs/DECISIONS.md) | Acuerdos cerrados y pendientes a validar |
 | [`AGENTS.md`](AGENTS.md) | Instrucciones para agentes de desarrollo |
@@ -28,7 +28,7 @@ Plataforma personal para conocer tu perfil de riesgo, investigar ETF, comparar a
 | [`backlog/PRODUCT_BACKLOG.csv`](backlog/PRODUCT_BACKLOG.csv) | Exportación tabular de historias |
 | [`backlog/issues/`](backlog/issues/) | 39 cuerpos de Issue listos para publicar |
 
-## Perfil del inversor (BF-039)
+## Ruta prioritaria para principiantes (BF-042 a BF-049)\n\nEl bloque conecta perfil → objetivo → aprendizaje → exploración → comparación → simulación → decisión → históricos. BF-017a (MCP) permanece después de este bloque. Los escenarios futuros son hipotéticos y los datos históricos solo se muestran con fuente, fecha y metodología.\n\n## Perfil del inversor (BF-039)
 
 - Cuestionario versionado que separa capacidad financiera y tolerancia emocional; el resultado global se limita por la dimensión más restrictiva.
 - Respuestas codificadas, historial inmutable y acceso privado. No se solicitan importes exactos ni se envían respuestas a asistentes externos.

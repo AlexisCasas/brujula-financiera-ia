@@ -12,6 +12,12 @@
 | S5 — Simulador | Probar capital, aportes y escenarios sin inventar retornos | BF-028 a BF-033 | Fixtures reproducibles y FX/risks explícitos |
 | S6 — Decisiones y release | Conservar tesis y lanzar versión segura | BF-034 a BF-038 | Decisiones, export, QA integral y smoke test |
 
+| S7 — Orientación inicial | Convertir perfil en contexto y definir el objetivo personal | BF-042 a BF-044 | Objetivo privado + explicación del perfil + academia contextual |
+| S8 — Comparar y simular | Explorar alternativas y probar escenarios sin recomendaciones automáticas | BF-045 a BF-047 | Explorador educativo + comparador explicable + simulador reproducible |
+| S9 — Decidir y medir | Registrar la primera decisión y habilitar históricos verificables | BF-048 a BF-049 | Bitácora de decisión + métricas históricas con fuentes/limitaciones |
+| S10 — Gate MCP | Exponer únicamente el contexto ya probado mediante un contrato mínimo | BF-017a | Se inicia solo después del QA completo de BF-042 a BF-049 |
+
+
 ## Dependencias y riesgo de secuencia
 
 - BF-005 es **gate de viabilidad**: no seleccionar fuente definitiva sin comprobar cobertura de listings y licencia de redistribución.
@@ -19,6 +25,10 @@
 - BF-013/BF-014 son **gates matemáticos** para benchmarking y backtests; si fallan, no sustituir series mediante inferencias de IA.
 - BF-017–BF-020 son **gates de acceso externo**; si el proveedor de chat requiere configuración adicional, usar stubs y seguir con frontend sin simular que el MCP está operativo.
 - BF-037/BF-038 son **gates de release**, no tareas opcionales.
+- BF-042/BF-043 son el **gate de contexto del usuario** antes de orientar comparaciones o simulaciones.
+- BF-047 es un **gate de expectativas**: ningún resultado futuro se presenta como pronóstico.
+- BF-049 es un **gate de datos**: una métrica histórica sin fuente, fecha o cobertura suficiente permanece no disponible.
+- BF-017a queda deliberadamente después de S9 para que el MCP consulte entidades y estados ya estabilizados.
 
 ## Propuesta inicial de tablero
 

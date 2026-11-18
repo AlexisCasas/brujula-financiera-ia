@@ -26,6 +26,22 @@ export const NAV_ITEMS: readonly NavItem[] = [
     description: "Comprende tu capacidad financiera y tu tolerancia al riesgo antes de analizar alternativas.",
   },
   {
+    href: "/objetivo",
+    label: "Mi objetivo",
+    icon: "◎",
+    eyebrow: "Tu objetivo personal",
+    heading: "¿Para qué estás invirtiendo?",
+    description: "Define objetivo, horizonte y aportes antes de convertir una alternativa en una decisión.",
+  },
+  {
+    href: "/academia",
+    label: "Academia",
+    icon: "✦",
+    eyebrow: "Aprende lo esencial",
+    heading: "Aprende mientras investigas.",
+    description: "Conceptos financieros breves para interpretar ETF, acciones, riesgo, costos y escenarios.",
+  },
+  {
     href: "/seguimiento",
     label: "Mi seguimiento",
     icon: "◎",

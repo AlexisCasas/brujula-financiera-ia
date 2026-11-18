@@ -1,16 +1,22 @@
 import { EtfCatalog } from "@/components/etfs/EtfCatalog";
 import { getEtfCatalog } from "@/lib/etfs/queries";
 import { findNavItem } from "@/lib/navigation";
+import type { HistoricalMetric } from "@/lib/historical";
 
 const item = findNavItem("/explorar")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
 
 export default async function ExplorePage({
   searchParams,
-}: Readonly<{ searchParams: Promise<{ q?: string }> }>) {
-  const { q } = await searchParams;
+}: Readonly<{ searchParams: Promise<{ q?: string; distribution?: string; currency?: string }> }>) {
+  const { q, distribution, currency } = await searchParams;
   const query = typeof q === "string" ? q.trim().slice(0, 120) : "";
+  const distributionFilter = distribution === "accumulating" || distribution === "distributing" ? distribution : "";
+  const currencyFilter = currency === "USD" || currency === "PEN" ? currency : "";
   const catalog = await getEtfCatalog();
+  const client = await (await import("@/lib/supabase/server")).createClient();
+  const { data: historicalRows } = await client.from("historical_metric_snapshot").select("listing_id,metric_key,period_years,value,unit,as_of_date,source_date,source_url,methodology,coverage_status,note").order("as_of_date",{ascending:false}).limit(100);
+  const historical = (historicalRows ?? []) as HistoricalMetric[];
 
   return (
     <section aria-labelledby="screen-title">
@@ -32,7 +38,7 @@ export default async function ExplorePage({
         </div>
       )}
       {catalog.status === "ready" && (
-        <EtfCatalog profiles={catalog.profiles} query={query} asOf={catalog.asOf} />
+        <EtfCatalog profiles={catalog.profiles} query={query} distributionFilter={distributionFilter} currencyFilter={currencyFilter} historical={historical} asOf={catalog.asOf} />
       )}
     </section>
   );

@@ -15,6 +15,7 @@ import {
   selectEtfsForComparison, MAX_COMPARISON_ETFS, MIN_COMPARISON_ETFS,
 } from "@/lib/etfs/comparison";
 import { findNavItem } from "@/lib/navigation";
+import { GOAL_LABELS, HORIZON_LABELS, type GoalSnapshot } from "@/lib/beginner";
 
 const item = findNavItem("/comparador")!;
 export const metadata = { title: `${item.label} · Brújula Financiera IA` };
@@ -101,7 +102,9 @@ export default async function ComparatorPage({
 }: Readonly<{ searchParams: Promise<{ listing?: string | string[]; notice?: string }> }>) {
   const { listing, notice } = await searchParams;
   const selectedIds = parseListingSelection(listing);
-  const [catalog, history] = await Promise.all([getEtfCatalog(), listSavedComparisons()]);
+  const client = await (await import("@/lib/supabase/server")).createClient();
+  const [catalog, history, goalResult] = await Promise.all([getEtfCatalog(), listSavedComparisons(), client.from("investment_goal_snapshot").select("id,goal_category,title,currency,horizon,created_at").order("created_at",{ascending:false}).limit(1)]);
+  const latestGoal = (goalResult.data?.[0] ?? null) as GoalSnapshot | null;
 
   return (
     <section aria-labelledby="screen-title">
@@ -124,6 +127,7 @@ export default async function ComparatorPage({
       {catalog.status === "empty" && (
         <div className="empty"><h2>Catálogo vacío</h2><p>No hay ETF disponibles en tu sesión.</p></div>
       )}
+      {latestGoal && <div className="panel context-card"><strong>Tu contexto actual</strong><span>{GOAL_LABELS[latestGoal.goal_category]} · {HORIZON_LABELS[latestGoal.horizon]} · {latestGoal.currency}</span><p>Lo mostramos para ayudarte a formular la comparación. No usamos el objetivo para elegir automáticamente un ETF.</p></div>}
       {catalog.status === "ready" && (() => {
         const selection = selectEtfsForComparison(catalog.profiles, selectedIds);
         return (

@@ -6,9 +6,8 @@ import {
   BAND_SHORT_LABELS, PROFILE_LABELS, RESULT_EXPLANATIONS,
   formatProfileDate, type RiskBand,
 } from "@/lib/investor-profile";
-import { findNavItem } from "@/lib/navigation";
 
-const item = findNavItem("/perfil")!;
+
 export const metadata = { title: "Mi perfil de inversionista · Brújula Financiera IA" };
 
 const GOALS: Record<string, string> = {
@@ -16,6 +15,11 @@ const GOALS: Record<string, string> = {
   income: "Obtener ingresos periódicos",
   growth: "Crecimiento a largo plazo",
   mixed: "Objetivos combinados",
+};
+const BAND_GUIDANCE: Record<RiskBand,string> = {
+  low: "Suele ser más importante proteger liquidez y evitar asumir pérdidas que no podrías tolerar. No significa que una inversión concreta sea segura.",
+  medium: "Suele ser coherente estudiar diversificación, horizonte y capacidad de soportar caídas temporales. No convierte un ETF en una recomendación.",
+  high: "Puedes sentirte cómodo con fluctuaciones mayores, pero seguirás necesitando un horizonte y una capacidad financiera compatibles. Tolerar riesgo no obliga a tomarlo.",
 };
 const EXPERIENCE: Record<string, string> = {
   none: "Sin experiencia previa",
@@ -105,7 +109,7 @@ export default async function InvestorProfilePage({
 
           <div className="panel profile-interpretation">
             <h3>¿Qué significa este resultado?</h3>
-            <p>{RESULT_EXPLANATIONS[selected.result_reason]}</p>
+            <p>{RESULT_EXPLANATIONS[selected.result_reason]}</p>{selected.overall_band && <><h4>¿Cómo leerlo?</h4><p>{BAND_GUIDANCE[selected.overall_band]}</p></>}
             {selected.overall_band && (
               <p>
                 El perfil global se limita a la dimensión más restrictiva.
@@ -157,7 +161,7 @@ export default async function InvestorProfilePage({
         <InvestorProfileQuestionnaire disabled={history.status === "error"}/>
       </details>
 
-      <div className="profile-next-step">
+      <div className="profile-next-step"><h2>Siguiente paso: define tu objetivo</h2><p>Tu perfil describe límites; tu objetivo define para qué quieres invertir. Ambos deben entenderse antes de comparar instrumentos.</p><Link href="/objetivo" className="primary-button">Definir mi objetivo</Link></div><div className="profile-next-step">
         <h2>¿Qué haremos con tu perfil?</h2>
         <p>
           En los siguientes incrementos servirá para contextualizar tus
