@@ -8,7 +8,7 @@ import {
 } from "@/lib/investor-profile";
 import { findNavItem } from "@/lib/navigation";
 
-const item = findNavItem("/perfil")!;
+
 export const metadata = { title: "Mi perfil de inversionista · Brújula Financiera IA" };
 
 const GOALS: Record<string, string> = {
