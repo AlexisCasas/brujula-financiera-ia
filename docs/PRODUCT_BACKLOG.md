@@ -29,7 +29,7 @@ Permitir a un inversor principiante conocer su perfil de riesgo, investigar ETF,
 | E6 | Decisiones, QA y lanzamiento | 5 | 26 |
 | E7 | Ruta de principiante: objetivo, aprendizaje, comparación, simulación e históricos | 8 | 44 |
 
-**Puntos totales preliminares:** 236 SP. La nueva E7 es una capa de experiencia y no reemplaza las historias técnicas previas. No representan horas ni duración comprometida.
+**Puntos totales preliminares:** 246 SP. BF-040 y BF-041a quedan registrados como incrementos ya implementados que son dependencias de la nueva ruta. La nueva E7 es una capa de experiencia y no reemplaza las historias técnicas previas. No representan horas ni duración comprometida.
 
 ## Inventario priorizado
 
@@ -74,6 +74,8 @@ Permitir a un inversor principiante conocer su perfil de riesgo, investigar ETF,
 | [BF-037](../backlog/issues/BF-037.md) | QA integral financiero y de seguridad | P0 | 8 | S6 | BF-008, BF-020, BF-024, BF-028, BF-031 |
 | [BF-038](../backlog/issues/BF-038.md) | Preparación de release, smoke test y recuperación | P0 | 5 | S6 | BF-037 |
 | [BF-039](../backlog/issues/BF-039.md) | Perfil del inversor: cuestionario versionado de tolerancia y capacidad de riesgo | P0 | 5 | S1 | BF-007, BF-008 |
+| [BF-040](../backlog/issues/BF-040.md) | Incorporar acciones individuales con identidad y fuentes verificadas | P0 | 5 | S2 | BF-010, BF-011, BF-041a |
+| [BF-041a](../backlog/issues/BF-041a.md) | Mi seguimiento: agregar, dejar de seguir y reanudar ETF con historial | P0 | 5 | S6 | BF-010, BF-011, BF-007, BF-008 |
 | [BF-042](../backlog/issues/BF-042.md) | Definir y guardar el objetivo de inversión, horizonte y capacidad de aporte | P0 | 5 | S7 | BF-039, BF-008 |
 | [BF-043](../backlog/issues/BF-043.md) | Explicar el perfil del inversor en lenguaje accionable y educativo | P0 | 3 | S7 | BF-039, BF-042 |
 | [BF-044](../backlog/issues/BF-044.md) | Academia financiera básica contextual para principiantes | P0 | 5 | S7 | BF-043 |
