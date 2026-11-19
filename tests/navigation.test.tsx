@@ -23,6 +23,7 @@ describe("navigation", () => {
       "Históricos",
       "Investigaciones",
       "Mis decisiones",
+      "Laboratorio",
     ]);
     const html = renderToStaticMarkup(<NavLinks />);
     for (const item of NAV_ITEMS) expect(html).toContain(`href="${item.href}"`);

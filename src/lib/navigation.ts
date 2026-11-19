@@ -11,6 +11,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
 {href:"/historicos",label:"Históricos",icon:"⌁",eyebrow:"Riesgo observado",heading:"Históricos y riesgo.",description:"Analiza rentabilidad, volatilidad y drawdown solo cuando exista una serie verificada."},
 {href:"/investigaciones",label:"Investigaciones",icon:"✧",eyebrow:"Centro de conocimiento",heading:"Investigaciones con IA",description:"ChatGPT y Claude estarán conectados mediante MCP; aquí revisarás hallazgos y propuestas, sin chat embebido."},
 {href:"/decisiones",label:"Mis decisiones",icon:"▤",eyebrow:"Bitácora personal",heading:"Mis decisiones",description:"Registra tu tesis, riesgos y alternativas. La decisión final siempre es tuya."},
+{href:"/laboratorio",label:"Laboratorio",icon:"⚗",eyebrow:"Datos didácticos",heading:"Laboratorio de datos sintéticos.",description:"Consulta un índice sintético en puntos para practicar lectura de series, sin precios ni rentabilidades reales."},
 ];
 export function isActivePath(pathname:string,href:string):boolean{return pathname===href||pathname.startsWith(`${href}/`);}
 export function findNavItem(pathname:string):NavItem|undefined{return NAV_ITEMS.find((item)=>isActivePath(pathname,item.href));}
